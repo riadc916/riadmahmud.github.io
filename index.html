@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riad Mahmud Chowdhury | Portfolio</title>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --accent: #2563eb;
+            --border: #e2e8f0;
+        }
+
+        body.dark-mode {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+            --border: #334155;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            transition: background 0.3s, color 0.3s;
+            position: relative;
+        }
+
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 860px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            z-index: 10;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            background: var(--card-bg);
+            padding: 28px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            margin-bottom: 25px;
+        }
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent);
+        }
+        .header-info h1 { font-size: 1.8rem; margin-bottom: 4px; }
+        .header-info p { color: var(--text-muted); font-size: 0.95rem; }
+        .links { margin-top: 10px; display: flex; gap: 12px; flex-wrap: wrap; }
+        .links a { color: var(--accent); text-decoration: none; font-weight: 500; font-size: 0.9rem; }
+        .links a:hover { text-decoration: underline; }
+
+        nav {
+            background: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            padding: 10px 15px;
+            margin-bottom: 25px;
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+        }
+        nav a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+        nav a:hover { background: var(--border); }
+
+        section {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 25px;
+        }
+        h2 { font-size: 1.3rem; margin-bottom: 12px; border-bottom: 2px solid var(--border); padding-bottom: 6px; }
+        .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+        .tag {
+            background: var(--border);
+            color: var(--text-main);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+
+        .visitor-counter {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: #2563eb;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 10;
+        }
+
+        @media (max-width: 600px) {
+            header { flex-direction: column; text-align: center; }
+            .links { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="bg-canvas"></canvas>
+
+    <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">🌙</button>
+
+    <div class="visitor-counter">
+        <span>👁️ Visitors:</span>
+        <span id="visit-count">1</span>
+    </div>
+
+    <div class="container">
+        <header>
+            <img src="profile.jpg" alt="Profile Photo" class="avatar" onerror="this.src='https://via.placeholder.com/120'">
+            <div class="header-info">
+                <h1>Riad Mahmud Chowdhury</h1>
+                <p>Undergraduate Student in Computer Science and Engineering</p>
+                <p>Nantong University, Jiangsu, China</p>
+                <div class="links">
+                    <span>riadc916 [at] gmail [dot] com</span>
+                    <a href="https://scholar.google.com" target="_blank">Google Scholar</a>
+                    <a href="https://www.linkedin.com/in/riad-mahmud-chowdhury-45875a424/" target="_blank">LinkedIn</a>
+                    <a href="https://github.com/riadc916" target="_blank">GitHub</a>
+                    <a href="cv.pdf" target="_blank">CV</a>
+                </div>
+            </div>
+        </header>
+
+        <nav>
+            <a href="#about">About</a>
+            <a href="#education">Education</a>
+            <a href="#publications">Publications</a>
+            <a href="#experience">Experience</a>
+            <a href="#skills">Skills</a>
+        </nav>
+
+        <section id="about">
+            <h2>About</h2>
+            <p>I am an undergraduate student in Computer Science and Engineering at Nantong University, China. My research interests include Machine Learning, Explainable AI (XAI), and Deep Learning applications.</p>
+
+            <h3 style="margin-top: 15px; font-size: 1.1rem;">Research Interests</h3>
+            <div class="tags">
+                <span class="tag">Explainable AI (XAI)</span>
+                <span class="tag">Machine Learning</span>
+                <span class="tag">Deep Learning</span>
+                <span class="tag">Computer Vision</span>
+                <span class="tag">Software Engineering</span>
+            </div>
+        </section>
+
+        <section id="education">
+            <h2>Education</h2>
+            <div style="margin-top: 10px;">
+                <h4 style="font-size: 1rem;">Bachelor of Engineering in Computer Science and Engineering</h4>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Nantong University, Jiangsu Province, China</p>
+            </div>
+        </section>
+
+        <section id="publications">
+            <h2>Publications</h2>
+            <div style="margin-top: 10px;">
+                <p style="color: var(--text-muted);">Publications and ongoing manuscripts will be updated here soon.</p>
+            </div>
+        </section>
+
+        <section id="experience">
+            <h2>Experience</h2>
+            <div style="margin-top: 10px;">
+                <h4 style="font-size: 1rem;">Undergraduate Researcher</h4>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Research T-01 Software Engineering Group</p>
+            </div>
+        </section>
+
+        <section id="skills">
+            <h2>Skills</h2>
+            <div class="tags" style="margin-top: 10px;">
+                <span class="tag">Python</span>
+                <span class="tag">R / RStudio</span>
+                <span class="tag">C# / Unity</span>
+                <span class="tag">Git & GitHub</span>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        const particles = [];
+        for (let i = 0; i < 45; i++) {
+            particles.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                vx: (Math.random() - 0.5) * 0.8,
+                vy: (Math.random() - 0.5) * 0
