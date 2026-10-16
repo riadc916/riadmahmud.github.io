@@ -92,7 +92,6 @@
             transform: scale(1.06);
         }
 
-        /* Tooltip styling like 'Switch language' */
         .circle-btn::after {
             content: attr(data-tooltip);
             position: absolute;
@@ -114,7 +113,6 @@
             opacity: 1;
         }
 
-        /* Pure SVG Globe Icon with White Grid */
         .globe-svg {
             width: 24px;
             height: 24px;
@@ -176,7 +174,6 @@
             overflow-y: auto;
             padding-right: 4px;
         }
-        /* Custom scrollbar */
         .lang-list::-webkit-scrollbar {
             width: 5px;
         }
@@ -373,20 +370,28 @@
             margin-top: 4px;
         }
 
-        /* Floating Status */
-        .data-counter {
+        /* EXACT FLOATING VISITOR BADGE */
+        .visitor-counter {
             position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.82rem;
-            font-family: monospace;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            z-index: 999;
+            bottom: 22px;
+            left: 22px;
+            background: #1d72f2;
+            color: #ffffff;
+            padding: 7px 16px;
+            border-radius: 25px;
+            font-size: 0.86rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(29, 114, 242, 0.4);
+            z-index: 9999;
+            letter-spacing: 0.2px;
+            user-select: none;
+        }
+        .visitor-counter .eye-icon {
+            font-size: 1rem;
+            line-height: 1;
         }
 
         /* Hide Google Translate top bar */
@@ -528,8 +533,10 @@
     <!-- Hidden Translate Hook -->
     <div id="google_translate_element" style="display:none;"></div>
 
-    <div class="data-counter">
-        <span style="color:var(--data-cyan)">●</span> Data Ingestion: Active
+    <!-- EXACT FLOATING VISITOR BADGE (Vaskar Chakma Style) -->
+    <div class="visitor-counter">
+        <span class="eye-icon">👁️</span>
+        <span>Visitors: <span id="busuanzi_value_site_pv">Loading...</span></span>
     </div>
 
     <div class="container">
@@ -672,7 +679,7 @@
                 'rgba(6, 182, 212, 0.6)'
             ];
 
-            // 1. Draw Mouse Outer Blue Ring (exact match with screenshot)
+            // Draw Mouse Outer Blue Ring
             if (mouse.x !== null && mouse.y !== null) {
                 ctx.beginPath();
                 ctx.arc(mouse.x, mouse.y, 9, 0, Math.PI * 2);
@@ -763,11 +770,25 @@
                 select.value = langCode;
                 select.dispatchEvent(new Event('change'));
             }
-            // Mark active item
             document.querySelectorAll('.lang-item').forEach(el => el.classList.remove('selected'));
             event.currentTarget.classList.add('selected');
             toggleLangModal();
         }
+
+        // Fallback visitor counter updater if API takes time
+        setTimeout(() => {
+            const pv = document.getElementById('busuanzi_value_site_pv');
+            if (pv && (pv.innerText === 'Loading...' || pv.innerText === '')) {
+                let localCount = localStorage.getItem('site_visit_count');
+                if (!localCount) {
+                    localCount = 1;
+                } else {
+                    localCount = parseInt(localCount) + 1;
+                }
+                localStorage.setItem('site_visit_count', localCount);
+                pv.innerText = localCount;
+            }
+        }, 1200);
     </script>
 
     <!-- Google Translate API -->
@@ -780,5 +801,8 @@
         }
     </script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <!-- Busuanzi Visitor Counter Library -->
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </body>
 </html>
