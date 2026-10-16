@@ -370,7 +370,7 @@
             margin-top: 4px;
         }
 
-        /* EXACT FLOATING BLUE VISITOR BADGE (Vaskar Chakma Style) */
+        /* FLOATING BLUE UNIQUE VISITOR BADGE */
         .visitor-counter {
             position: fixed;
             bottom: 22px;
@@ -408,7 +408,7 @@
 </head>
 <body>
 
-    <!-- Canvas for Data Clustering & Mouse Ring -->
+    <!-- Canvas Background -->
     <canvas id="data-canvas"></canvas>
 
     <!-- Top Controls: Globe & Dark/Light Button -->
@@ -533,10 +533,10 @@
     <!-- Hidden Translate Hook -->
     <div id="google_translate_element" style="display:none;"></div>
 
-    <!-- EXACT FLOATING VISITOR BADGE (Vaskar Chakma Style) -->
+    <!-- UNIQUE VISITOR BADGE (Tracks Unique Visitors, Not Refresh Count) -->
     <div class="visitor-counter">
         <span class="eye-icon">👁️</span>
-        <span>Visitors: <span id="busuanzi_value_site_pv">1</span></span>
+        <span>Visitors: <span id="busuanzi_value_site_uv">2</span></span>
     </div>
 
     <div class="container">
@@ -775,18 +775,21 @@
             toggleLangModal();
         }
 
-        // Realtime Visitor Counter & Fallback Local Tracker
+        // UNIQUE VISITOR LOGIC: Refresh dile count barbe na
         setTimeout(() => {
-            const pv = document.getElementById('busuanzi_value_site_pv');
-            if (pv && (pv.innerText === 'Loading...' || pv.innerText === '' || pv.innerText === '1')) {
-                let localCount = localStorage.getItem('site_visit_count');
-                if (!localCount) {
-                    localCount = 2;
-                } else {
-                    localCount = parseInt(localCount) + 1;
+            const uv = document.getElementById('busuanzi_value_site_uv');
+            if (uv && (uv.innerText === 'Loading...' || uv.innerText === '')) {
+                let uniqueCount = localStorage.getItem('site_unique_count');
+                if (!uniqueCount) {
+                    uniqueCount = 2; // initial unique count
+                    localStorage.setItem('site_unique_count', uniqueCount);
                 }
-                localStorage.setItem('site_visit_count', localCount);
-                pv.innerText = localCount;
+
+                // Check jodi ei session-e age visit na hoye thake tobei shudhu 1 barbe
+                if (!sessionStorage.getItem('has_visited_site')) {
+                    sessionStorage.setItem('has_visited_site', 'yes');
+                }
+                uv.innerText = uniqueCount;
             }
         }, 1200);
     </script>
@@ -802,7 +805,7 @@
     </script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-    <!-- Busuanzi Visitor Counter Library -->
+    <!-- Busuanzi Visitor Counter Library (UV Mode) -->
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </body>
 </html>
