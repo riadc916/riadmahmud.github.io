@@ -12,27 +12,31 @@
             --text-muted: #64748b;
             --accent: #2563eb;
             --border: #e2e8f0;
+            --nav-hover: #f1f5f9;
         }
 
         body.dark-mode {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --accent: #38bdf8;
-            --border: #334155;
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --text-main: #f0f6fc;
+            --text-muted: #8b949e;
+            --accent: #58a6ff;
+            --border: #30363d;
+            --nav-hover: #21262d;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-main);
             line-height: 1.6;
-            transition: background 0.3s, color 0.3s;
+            transition: background 0.3s ease, color 0.3s ease;
             position: relative;
+            min-height: 100vh;
         }
 
+        /* Canvas Interactive Background */
         #bg-canvas {
             position: fixed;
             top: 0;
@@ -44,52 +48,142 @@
         }
 
         .container {
-            max-width: 860px;
+            max-width: 880px;
             margin: 40px auto;
-            padding: 0 20px;
+            padding: 0 20px 80px 20px;
         }
 
-        .theme-toggle {
+        /* Top Right Control Buttons */
+        .controls {
             position: fixed;
             top: 20px;
-            right: 20px;
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 50%;
+            right: 25px;
+            display: flex;
+            gap: 12px;
+            z-index: 1000;
+        }
+
+        .circle-btn {
             width: 44px;
             height: 44px;
-            cursor: pointer;
-            font-size: 20px;
+            border-radius: 50%;
+            background: #2563eb;
+            color: #ffffff;
+            border: none;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            z-index: 10;
+            cursor: pointer;
+            font-size: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            transition: transform 0.2s, background 0.3s;
+        }
+        body.dark-mode .circle-btn {
+            background: #1e293b;
+            border: 1px solid #334155;
+            color: #f8fafc;
+        }
+        .circle-btn:hover {
+            transform: scale(1.08);
         }
 
+        /* Language Modal / Dropdown */
+        .lang-modal {
+            display: none;
+            position: fixed;
+            top: 75px;
+            right: 25px;
+            width: 290px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+            padding: 12px;
+        }
+        .lang-modal.active {
+            display: block;
+        }
+        .lang-search {
+            width: 100%;
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--bg-color);
+            color: var(--text-main);
+            outline: none;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+        .lang-list {
+            list-style: none;
+            max-height: 280px;
+            overflow-y: auto;
+        }
+        .lang-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+        .lang-item:hover {
+            background: var(--nav-hover);
+        }
+        .lang-item .native {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        /* Profile Header */
         header {
             display: flex;
             align-items: center;
             gap: 25px;
             background: var(--card-bg);
-            padding: 28px;
+            padding: 30px;
             border-radius: 16px;
             border: 1px solid var(--border);
             margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
         }
         .avatar {
-            width: 120px;
-            height: 120px;
+            width: 130px;
+            height: 130px;
             border-radius: 50%;
             object-fit: cover;
             border: 3px solid var(--accent);
+            flex-shrink: 0;
         }
-        .header-info h1 { font-size: 1.8rem; margin-bottom: 4px; }
-        .header-info p { color: var(--text-muted); font-size: 0.95rem; }
-        .links { margin-top: 10px; display: flex; gap: 12px; flex-wrap: wrap; }
-        .links a { color: var(--accent); text-decoration: none; font-weight: 500; font-size: 0.9rem; }
-        .links a:hover { text-decoration: underline; }
+        .header-info h1 {
+            font-size: 1.85rem;
+            margin-bottom: 4px;
+        }
+        .header-info p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+        .links {
+            margin-top: 12px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            font-size: 0.9rem;
+        }
+        .links a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .links a:hover {
+            text-decoration: underline;
+        }
 
+        /* Navigation */
         nav {
             background: var(--card-bg);
             border-radius: 12px;
@@ -107,26 +201,95 @@
             padding: 6px 12px;
             border-radius: 8px;
             font-size: 0.9rem;
+            transition: background 0.2s;
         }
-        nav a:hover { background: var(--border); }
+        nav a:hover {
+            background: var(--nav-hover);
+        }
 
+        /* Sections */
         section {
             background: var(--card-bg);
             border: 1px solid var(--border);
             border-radius: 16px;
             padding: 24px;
             margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
         }
-        h2 { font-size: 1.3rem; margin-bottom: 12px; border-bottom: 2px solid var(--border); padding-bottom: 6px; }
-        .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+        h2 {
+            font-size: 1.35rem;
+            margin-bottom: 14px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 8px;
+        }
+        .tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
         .tag {
-            background: var(--border);
+            background: var(--nav-hover);
             color: var(--text-main);
-            padding: 4px 10px;
+            padding: 4px 12px;
             border-radius: 20px;
             font-size: 0.85rem;
+            border: 1px solid var(--border);
         }
 
+        /* Publication Card (With Thumbnail) */
+        .pub-card {
+            display: flex;
+            gap: 16px;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .pub-card:last-child {
+            border-bottom: none;
+        }
+        .pub-thumb {
+            width: 130px;
+            height: 80px;
+            border-radius: 6px;
+            object-fit: cover;
+            border: 1px solid var(--border);
+            flex-shrink: 0;
+            background: #fff;
+        }
+        .pub-content {
+            flex-grow: 1;
+        }
+        .pub-title {
+            font-weight: 600;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.95rem;
+            display: inline-block;
+            margin-bottom: 3px;
+        }
+        .pub-authors {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+        }
+        .pub-venue {
+            font-style: italic;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin: 2px 0;
+        }
+        .pub-links {
+            margin-top: 5px;
+            display: flex;
+            gap: 10px;
+            font-size: 0.82rem;
+        }
+        .pub-links a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Floating Widgets */
         .visitor-counter {
             position: fixed;
             bottom: 20px;
@@ -140,33 +303,96 @@
             align-items: center;
             gap: 6px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            z-index: 10;
+            z-index: 1000;
+        }
+        .scroll-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #2563eb;
+            color: white;
+            border: none;
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        @media (max-width: 600px) {
+        /* Hide Google Translate original banner */
+        .goog-te-banner-frame.skiptranslate, #goog-gt-tt, .goog-te-balloon-frame {
+            display: none !important;
+        }
+        body { top: 0px !important; }
+
+        @media (max-width: 650px) {
             header { flex-direction: column; text-align: center; }
             .links { justify-content: center; }
+            .pub-card { flex-direction: column; }
+            .pub-thumb { width: 100%; height: 140px; }
         }
     </style>
 </head>
 <body>
 
+    <!-- Particle Canvas Background -->
     <canvas id="bg-canvas"></canvas>
 
-    <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">🌙</button>
-
-    <div class="visitor-counter">
-        <span>👁️ Visitors:</span>
-        <span id="visit-count">1</span>
+    <!-- Top Controls: Language & Theme -->
+    <div class="controls">
+        <button class="circle-btn" id="langBtn" onclick="toggleLangModal()" title="Change Language">🌐</button>
+        <button class="circle-btn" id="themeBtn" onclick="toggleTheme()" title="Switch Light/Dark Mode">🌙</button>
     </div>
 
+    <!-- Language Selector Dropdown -->
+    <div class="lang-modal" id="langModal">
+        <input type="text" class="lang-search" id="langSearch" placeholder="🔍 Search language..." onkeyup="filterLanguages()">
+        <ul class="lang-list" id="langList">
+            <li class="lang-item" onclick="changeLanguage('en')"><span>🇺🇸 English</span><span class="native">English</span></li>
+            <li class="lang-item" onclick="changeLanguage('zh-CN')"><span>🇨🇳 Chinese</span><span class="native">中文</span></li>
+            <li class="lang-item" onclick="changeLanguage('ko')"><span>🇰🇷 Korean</span><span class="native">한국어</span></li>
+            <li class="lang-item" onclick="changeLanguage('bn')"><span>🇧🇩 Bengali</span><span class="native">বাংলা</span></li>
+            <li class="lang-item" onclick="changeLanguage('hi')"><span>🇮🇳 Hindi</span><span class="native">हिन्दी</span></li>
+            <li class="lang-item" onclick="changeLanguage('ar')"><span>🇸🇦 Arabic</span><span class="native">العربية</span></li>
+            <li class="lang-item" onclick="changeLanguage('fr')"><span>🇫🇷 French</span><span class="native">Français</span></li>
+            <li class="lang-item" onclick="changeLanguage('de')"><span>🇩🇪 German</span><span class="native">Deutsch</span></li>
+            <li class="lang-item" onclick="changeLanguage('es')"><span>🇪🇸 Spanish</span><span class="native">Español</span></li>
+            <li class="lang-item" onclick="changeLanguage('ja')"><span>🇯🇵 Japanese</span><span class="native">日本語</span></li>
+            <li class="lang-item" onclick="changeLanguage('pt')"><span>🇧🇷 Portuguese</span><span class="native">Português</span></li>
+            <li class="lang-item" onclick="changeLanguage('ru')"><span>🇷🇺 Russian</span><span class="native">Русский</span></li>
+            <li class="lang-item" onclick="changeLanguage('tr')"><span>🇹🇷 Turkish</span><span class="native">Türkçe</span></li>
+            <li class="lang-item" onclick="changeLanguage('vi')"><span>🇻🇳 Vietnamese</span><span class="native">Tiếng Việt</span></li>
+            <li class="lang-item" onclick="changeLanguage('it')"><span>🇮🇹 Italian</span><span class="native">Italiano</span></li>
+        </ul>
+    </div>
+
+    <!-- Hidden Google Translate Element -->
+    <div id="google_translate_element" style="display:none;"></div>
+
+    <!-- Floating Visitor Badge -->
+    <div class="visitor-counter">
+        <span>👁️ Visitors:</span>
+        <span>1</span>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑</button>
+
     <div class="container">
+        <!-- Header -->
         <header>
-            <img src="profile.jpg" alt="Profile Photo" class="avatar" onerror="this.src='https://via.placeholder.com/120'">
+            <img src="profile.jpg" alt="Profile Photo" class="avatar" onerror="this.src='https://ui-avatars.com/api/?name=Riad+Mahmud&background=2563eb&color=fff&size=130'">
             <div class="header-info">
                 <h1>Riad Mahmud Chowdhury</h1>
                 <p>Undergraduate Student in Computer Science and Engineering</p>
-                <p>Nantong University, Jiangsu, China</p>
+                <p>School of Information Science and Technology</p>
+                <p>Nantong University, China</p>
+
                 <div class="links">
                     <span>riadc916 [at] gmail [dot] com</span>
                     <a href="https://scholar.google.com" target="_blank">Google Scholar</a>
@@ -177,173 +403,255 @@
             </div>
         </header>
 
+        <!-- Navbar -->
         <nav>
             <a href="#about">About</a>
             <a href="#education">Education</a>
             <a href="#publications">Publications</a>
+            <a href="#conferences">Conferences</a>
             <a href="#experience">Experience</a>
             <a href="#skills">Skills</a>
         </nav>
 
+        <!-- About -->
         <section id="about">
             <h2>About</h2>
-            <p>I am an undergraduate student in Computer Science and Engineering at Nantong University, China. My research interests include Machine Learning, Explainable AI (XAI), and Deep Learning applications.</p>
+            <p>I am an undergraduate student in Computer Science and Engineering at Nantong University, China. My research focuses on Machine Learning, Deep Learning, Computer Vision, and Explainable AI (XAI) models.</p>
 
-            <h3 style="margin-top: 15px; font-size: 1.1rem;">Research Interests</h3>
+            <h3 style="margin-top: 15px; font-size: 1.05rem;">Research Interests</h3>
             <div class="tags">
-                <span class="tag">Explainable AI (XAI)</span>
+                <span class="tag">Artificial Intelligence</span>
                 <span class="tag">Machine Learning</span>
                 <span class="tag">Deep Learning</span>
                 <span class="tag">Computer Vision</span>
-                <span class="tag">Software Engineering</span>
+                <span class="tag">Explainable AI (XAI)</span>
             </div>
         </section>
 
+        <!-- Education -->
         <section id="education">
             <h2>Education</h2>
-            <div style="margin-top: 10px;">
-                <h4 style="font-size: 1rem;">Bachelor of Engineering in Computer Science and Engineering</h4>
+            <div>
+                <h3 style="font-size: 1.05rem;">Bachelor of Engineering in Computer Science and Engineering</h3>
                 <p style="color: var(--text-muted); font-size: 0.9rem;">Nantong University, Jiangsu Province, China</p>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">2023 – Present</p>
             </div>
         </section>
 
+        <!-- Publications -->
         <section id="publications">
             <h2>Publications</h2>
-            <div style="margin-top: 10px;">
-                <p style="color: var(--text-muted);">Publications and ongoing manuscripts will be updated here soon.</p>
+            <div class="pub-card">
+                <img src="https://via.placeholder.com/130x80/2563eb/ffffff?text=Research+Paper" alt="thumbnail" class="pub-thumb">
+                <div class="pub-content">
+                    <a href="#" class="pub-title">Explainable Deep Learning Framework for Agricultural Disease Detection</a>
+                    <div class="pub-authors"><strong>Riad Mahmud Chowdhury</strong>, Co-Author One, and Advisor Name</div>
+                    <div class="pub-venue">Journal of Artificial Intelligence and Data Science, 2026</div>
+                    <div class="pub-links">
+                        <a href="#">[DOI]</a>
+                        <a href="#">[Paper]</a>
+                        <a href="#">[Cite]</a>
+                    </div>
+                </div>
             </div>
         </section>
 
+        <!-- Conferences -->
+        <section id="conferences">
+            <h2>Conference Articles</h2>
+            <div class="pub-card">
+                <img src="https://via.placeholder.com/130x80/0f172a/ffffff?text=Conference" alt="thumbnail" class="pub-thumb">
+                <div class="pub-content">
+                    <a href="#" class="pub-title">A Vision Transformer Approach for Automated Defect Prediction</a>
+                    <div class="pub-authors"><strong>Riad Mahmud Chowdhury</strong>, and Research Team</div>
+                    <div class="pub-venue">International Conference on Machine Learning and Software Systems</div>
+                    <div class="pub-links">
+                        <a href="#">[DOI]</a>
+                        <a href="#">[Paper]</a>
+                        <a href="#">[Slides]</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience -->
         <section id="experience">
             <h2>Experience</h2>
-            <div style="margin-top: 10px;">
-                <h4 style="font-size: 1rem;">Undergraduate Researcher</h4>
+            <div>
+                <h3 style="font-size: 1.05rem;">Undergraduate Student Researcher</h3>
                 <p style="color: var(--text-muted); font-size: 0.9rem;">Research T-01 Software Engineering Group</p>
             </div>
         </section>
 
+        <!-- Skills -->
         <section id="skills">
             <h2>Skills</h2>
-            <div class="tags" style="margin-top: 10px;">
+            <div class="tags">
                 <span class="tag">Python</span>
                 <span class="tag">R / RStudio</span>
                 <span class="tag">C# / Unity</span>
+                <span class="tag">Pandas & Tkinter</span>
                 <span class="tag">Git & GitHub</span>
             </div>
         </section>
     </div>
 
-  <script>
-    const canvas = document.getElementById('bg-canvas');
-    const ctx = canvas.getContext('2d');
-    let width = canvas.width = window.innerWidth;
-    let height = canvas.height = window.innerHeight;
+    <!-- Scripts: Particle Background, Theme Toggle & Language Translation -->
+    <script>
+        // 1. Particle Network Canvas & Mouse Interaction
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
 
-    const mouse = {
-        x: null,
-        y: null,
-        radius: 140
-    };
+        const mouse = { x: null, y: null, radius: 140 };
 
-    window.addEventListener('mousemove', (e) => {
-        mouse.x = e.clientX;
-        mouse.y = e.clientY;
-    });
-
-    window.addEventListener('mouseleave', () => {
-        mouse.x = null;
-        mouse.y = null;
-    });
-
-    const particles = [];
-    const particleCount = Math.floor((width * height) / 14000); // স্ক্রিনের সাইজ অনুযায়ী ডটের সংখ্যা
-
-    for (let i = 0; i < particleCount; i++) {
-        particles.push({
-            x: Math.random() * width,
-            y: Math.random() * height,
-            vx: (Math.random() - 0.5) * 0.7,
-            vy: (Math.random() - 0.5) * 0.7,
-            radius: 2.2
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
         });
-    }
 
-    function animate() {
-        ctx.clearRect(0, 0, width, height);
-        const isDark = document.body.classList.contains('dark-mode');
+        window.addEventListener('mouseleave', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
 
-        const dotColor = isDark ? 'rgba(255, 255, 255, 0.45)' : 'rgba(50, 50, 50, 0.35)';
-        const lineColor = isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.06)';
-        const mouseLineColor = isDark ? 'rgba(56, 189, 248, 0.4)' : 'rgba(37, 99, 235, 0.35)';
-        const mouseRingColor = isDark ? '#38bdf8' : '#2563eb';
+        const particles = [];
+        const particleCount = Math.floor((width * height) / 14000);
 
-
-        if (mouse.x !== null && mouse.y !== null) {
-            ctx.beginPath();
-            ctx.arc(mouse.x, mouse.y, 8, 0, Math.PI * 2);
-            ctx.strokeStyle = mouseRingColor;
-            ctx.lineWidth = 2;
-            ctx.stroke();
+        for (let i = 0; i < particleCount; i++) {
+            particles.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                vx: (Math.random() - 0.5) * 0.7,
+                vy: (Math.random() - 0.5) * 0.7,
+                radius: 2.2
+            });
         }
 
-        particles.forEach((p, index) => {
-            p.x += p.vx;
-            p.y += p.vy;
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            const isDark = document.body.classList.contains('dark-mode');
 
+            const dotColor = isDark ? 'rgba(255, 255, 255, 0.45)' : 'rgba(30, 41, 59, 0.35)';
+            const lineColor = isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.06)';
+            const mouseLineColor = isDark ? 'rgba(88, 166, 255, 0.4)' : 'rgba(37, 99, 235, 0.35)';
+            const mouseRingColor = isDark ? '#58a6ff' : '#2563eb';
 
-            if (p.x < 0 || p.x > width) p.vx *= -1;
-            if (p.y < 0 || p.y > height) p.vy *= -1;
-
-
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-            ctx.fillStyle = dotColor;
-            ctx.fill();
-
-
+            // Draw Blue Mouse Ring
             if (mouse.x !== null && mouse.y !== null) {
-                const dxMouse = p.x - mouse.x;
-                const dyMouse = p.y - mouse.y;
-                const distMouse = Math.hypot(dxMouse, dyMouse);
-
-                if (distMouse < mouse.radius) {
-                    ctx.beginPath();
-                    ctx.moveTo(p.x, p.y);
-                    ctx.lineTo(mouse.x, mouse.y);
-                    ctx.strokeStyle = mouseLineColor;
-                    ctx.lineWidth = 1;
-                    ctx.stroke();
-                }
+                ctx.beginPath();
+                ctx.arc(mouse.x, mouse.y, 8, 0, Math.PI * 2);
+                ctx.strokeStyle = mouseRingColor;
+                ctx.lineWidth = 2;
+                ctx.stroke();
             }
 
-            for (let j = index + 1; j < particles.length; j++) {
-                const p2 = particles[j];
-                const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+            particles.forEach((p, index) => {
+                p.x += p.vx;
+                p.y += p.vy;
 
-                if (dist < 110) {
-                    ctx.beginPath();
-                    ctx.moveTo(p.x, p.y);
-                    ctx.lineTo(p2.x, p2.y);
-                    ctx.strokeStyle = lineColor;
-                    ctx.lineWidth = 0.8;
-                    ctx.stroke();
+                if (p.x < 0 || p.x > width) p.vx *= -1;
+                if (p.y < 0 || p.y > height) p.vy *= -1;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = dotColor;
+                ctx.fill();
+
+                // Connect to mouse
+                if (mouse.x !== null && mouse.y !== null) {
+                    const distMouse = Math.hypot(p.x - mouse.x, p.y - mouse.y);
+                    if (distMouse < mouse.radius) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(mouse.x, mouse.y);
+                        ctx.strokeStyle = mouseLineColor;
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
+                    }
                 }
+
+                // Connect with neighbor points
+                for (let j = index + 1; j < particles.length; j++) {
+                    const p2 = particles[j];
+                    const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+                    if (dist < 110) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.strokeStyle = lineColor;
+                        ctx.lineWidth = 0.8;
+                        ctx.stroke();
+                    }
+                }
+            });
+
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        // 2. Light / Dark Theme Toggle
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const btn = document.getElementById('themeBtn');
+            const isDark = document.body.classList.contains('dark-mode');
+            btn.textContent = isDark ? '☀️' : '🌙';
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        }
+
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+            document.getElementById('themeBtn').textContent = '☀️';
+        }
+
+        // 3. Language Selector Modal & Filter
+        function toggleLangModal() {
+            const modal = document.getElementById('langModal');
+            modal.classList.toggle('active');
+        }
+
+        document.addEventListener('click', (e) => {
+            const modal = document.getElementById('langModal');
+            const btn = document.getElementById('langBtn');
+            if (!modal.contains(e.target) && !btn.contains(e.target)) {
+                modal.classList.remove('active');
             }
         });
 
-        requestAnimationFrame(animate);
-    }
-    animate();
+        function filterLanguages() {
+            const input = document.getElementById('langSearch').value.toLowerCase();
+            const items = document.querySelectorAll('.lang-item');
+            items.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                item.style.display = text.includes(input) ? 'flex' : 'none';
+            });
+        }
 
-    window.addEventListener('resize', () => {
-        width = canvas.width = window.innerWidth;
-        height = canvas.height = window.innerHeight;
-    });
+        function changeLanguage(langCode) {
+            const select = document.querySelector('.goog-te-combo');
+            if (select) {
+                select.value = langCode;
+                select.dispatchEvent(new Event('change'));
+            }
+            toggleLangModal();
+        }
+    </script>
 
-
-    function toggleTheme() {
-        document.body.classList.toggle('dark-mode');
-        const btn = document.getElementById('themeBtn');
-        btn.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
-    }
-</script>
+    <!-- Google Translate Script -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html>
