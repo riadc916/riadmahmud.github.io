@@ -3,6 +3,506 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riad Mahmud Chowdhury | Data Science & AI Portfolio</title>
+    <style>
+        :root {
+            --bg-color: #f1f5f9;
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --card-border: rgba(226, 232, 240, 0.9);
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --accent: #0284c7;
+            --data-cyan: #06b6d4;
+            --data-purple: #8b5cf6;
+            --badge-bg: #e2e8f0;
+        }
+
+        body.dark-mode {
+            --bg-color: #030712;
+            --card-bg: rgba(17, 24, 39, 0.75);
+            --card-border: rgba(31, 41, 55, 0.8);
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+            --accent: #38bdf8;
+            --data-cyan: #22d3ee;
+            --data-purple: #c084fc;
+            --badge-bg: rgba(31, 41, 55, 0.9);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "JetBrains Mono", monospace;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            transition: background 0.3s ease, color 0.3s ease;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Interactive Data Canvas */
+        #data-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px 80px 20px;
+        }
+
+        /* Fixed Controls */
+        .controls {
+            position: fixed;
+            top: 20px;
+            right: 25px;
+            display: flex;
+            gap: 12px;
+            z-index: 1000;
+        }
+
+        .circle-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .circle-btn:hover {
+            transform: scale(1.08);
+            border-color: var(--accent);
+        }
+
+        /* Glassmorphism Section Cards */
+        .glass-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 26px;
+            margin-bottom: 24px;
+            backdrop-filter: blur(14px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+            transition: border-color 0.3s;
+        }
+        .glass-card:hover {
+            border-color: rgba(56, 189, 248, 0.4);
+        }
+
+        /* Profile Header */
+        header.glass-card {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+        .avatar {
+            width: 125px;
+            height: 125px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent);
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.25);
+            flex-shrink: 0;
+        }
+        .header-info h1 {
+            font-size: 1.85rem;
+            letter-spacing: -0.5px;
+        }
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.8rem;
+            font-family: monospace;
+            background: rgba(6, 182, 212, 0.15);
+            color: var(--data-cyan);
+            padding: 3px 10px;
+            border-radius: 12px;
+            margin: 6px 0;
+            border: 1px solid rgba(6, 182, 212, 0.3);
+        }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--data-cyan);
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(1.2); }
+        }
+
+        .links {
+            margin-top: 12px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            font-size: 0.9rem;
+        }
+        .links a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .links a:hover { text-decoration: underline; }
+
+        /* Navigation Bar */
+        nav.glass-card {
+            padding: 10px 16px;
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+        }
+        nav a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 6px 12px;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+        nav a:hover {
+            background: var(--badge-bg);
+            color: var(--accent);
+        }
+
+        /* Section Titles */
+        h2 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 8px;
+        }
+        h2 span.code-icon {
+            font-family: monospace;
+            color: var(--data-cyan);
+            font-size: 1.1rem;
+        }
+
+        /* Data Science Metrics Box */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 14px;
+            margin-top: 15px;
+        }
+        .metric-card {
+            background: var(--badge-bg);
+            padding: 14px;
+            border-radius: 12px;
+            border: 1px solid var(--card-border);
+            text-align: center;
+        }
+        .metric-card .num {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--accent);
+            font-family: monospace;
+        }
+        .metric-card .label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Tags */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .tag {
+            background: var(--badge-bg);
+            color: var(--text-main);
+            font-family: monospace;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 0.82rem;
+            border: 1px solid var(--card-border);
+        }
+
+        /* Publication Card */
+        .pub-item {
+            padding: 14px 0;
+            border-bottom: 1px solid var(--card-border);
+        }
+        .pub-item:last-child { border-bottom: none; }
+        .pub-item a.title {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        .pub-item .meta {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* Bottom Floating Badges */
+        .data-counter {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            font-family: monospace;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 650px) {
+            header.glass-card { flex-direction: column; text-align: center; }
+            .links { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Data Streams & Clustering Background -->
+    <canvas id="data-canvas"></canvas>
+
+    <!-- Controls -->
+    <div class="controls">
+        <button class="circle-btn" id="themeBtn" onclick="toggleTheme()" title="Switch Light/Dark Mode">🌙</button>
+    </div>
+
+    <!-- Live Data Process Counter -->
+    <div class="data-counter">
+        <span style="color:var(--data-cyan)">●</span> Data Ingestion: Active
+    </div>
+
+    <div class="container">
+        <!-- Header Profile -->
+        <header class="glass-card">
+            <img src="profile.jpg" alt="Profile Photo" class="avatar" onerror="this.src='https://ui-avatars.com/api/?name=Riad+Mahmud&background=0284c7&color=fff&size=125'">
+            <div class="header-info">
+                <h1>Riad Mahmud Chowdhury</h1>
+                <div class="status-badge">
+                    <span class="status-dot"></span> Focus: Data Science & Explainable AI
+                </div>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">Undergraduate Student in Computer Science and Engineering</p>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Nantong University, Jiangsu, China</p>
+
+                <div class="links">
+                    <span>riadc916 [at] gmail [dot] com</span>
+                    <a href="https://scholar.google.com" target="_blank">Google Scholar</a>
+                    <a href="https://www.linkedin.com/in/riad-mahmud-chowdhury-45875a424/" target="_blank">LinkedIn</a>
+                    <a href="https://github.com/riadc916" target="_blank">GitHub</a>
+                    <a href="cv.pdf" target="_blank">CV</a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navbar -->
+        <nav class="glass-card">
+            <a href="#about">About</a>
+            <a href="#pipeline">Data Pipeline</a>
+            <a href="#education">Education</a>
+            <a href="#projects">Research & Projects</a>
+            <a href="#skills">Tech Stack</a>
+        </nav>
+
+        <!-- About Section -->
+        <section id="about" class="glass-card">
+            <h2><span class="code-icon">&lt;data&gt;</span> About & Vision</h2>
+            <p>I am deeply passionate about working with real-world data, extracting actionable insights, and building predictive machine learning models. My core interest lies at the intersection of <strong>Data Science</strong>, <strong>Machine Learning</strong>, and <strong>Explainable AI (XAI)</strong>—ensuring AI systems are interpretable and data-driven.</p>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="num">Python & R</div>
+                    <div class="label">Core Analytics Languages</div>
+                </div>
+                <div class="metric-card">
+                    <div class="num">EDA & ETL</div>
+                    <div class="label">Data Cleaning & Pipelines</div>
+                </div>
+                <div class="metric-card">
+                    <div class="num">XAI Models</div>
+                    <div class="label">Deep Learning & Interpretability</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education" class="glass-card">
+            <h2><span class="code-icon">&lt;edu&gt;</span> Education</h2>
+            <div>
+                <h3 style="font-size: 1.05rem;">Bachelor of Engineering in Computer Science and Engineering</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Nantong University, Jiangsu Province, China</p>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">2023 – Present</p>
+            </div>
+        </section>
+
+        <!-- Projects / Research -->
+        <section id="projects" class="glass-card">
+            <h2><span class="code-icon">&lt;models&gt;</span> Research & Data Projects</h2>
+            
+            <div class="pub-item">
+                <a href="#" class="title">Deep Learning & Explainable AI for Fruit Blemish & Ripening Detection</a>
+                <div class="meta">Methodology: Vision Transformers + CNNs with SHAP/Grad-CAM interpretability</div>
+                <div class="meta" style="margin-top: 4px;">Focus: Image Dataset preprocessing, feature extraction, and real-time accuracy optimization.</div>
+            </div>
+
+            <div class="pub-item">
+                <a href="#" class="title">Exploratory Data Analysis (EDA) on Structured Datasets</a>
+                <div class="meta">Tools: RStudio (dplyr, ggplot2), Python (Pandas, Seaborn)</div>
+                <div class="meta" style="margin-top: 4px;">Performed statistical modeling, distribution analysis, and anomaly detection.</div>
+            </div>
+        </section>
+
+        <!-- Skills & Tools -->
+        <section id="skills" class="glass-card">
+            <h2><span class="code-icon">&lt;stack&gt;</span> Data Science Stack</h2>
+            <div class="tags">
+                <span class="tag">Python (Pandas, NumPy, Scikit-learn)</span>
+                <span class="tag">R (dplyr, ggplot2, RStudio)</span>
+                <span class="tag">Machine Learning & XAI</span>
+                <span class="tag">Deep Learning (CNNs, ViTs)</span>
+                <span class="tag">Data Visualization</span>
+                <span class="tag">Git & GitHub</span>
+            </div>
+        </section>
+    </div>
+
+    <!-- Data Science Particles / Cluster Visualizer -->
+    <script>
+        const canvas = document.getElementById('data-canvas');
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        const mouse = { x: width / 2, y: height / 2, radius: 150 };
+
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+
+        // Generate Data Scatter Points (simulating Data Clusters)
+        const points = [];
+        const numPoints = Math.floor((width * height) / 10000);
+
+        for (let i = 0; i < numPoints; i++) {
+            points.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                vx: (Math.random() - 0.5) * 0.5,
+                vy: (Math.random() - 0.5) * 0.5,
+                val: (Math.random() * 100).toFixed(1), // data value
+                cluster: Math.floor(Math.random() * 3) // 3 clusters
+            });
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            const isDark = document.body.classList.contains('dark-mode');
+
+            // Cluster colors (Data cyan, purple, and blue)
+            const clusterColors = isDark ? [
+                'rgba(34, 211, 238, 0.7)',  // Cyan
+                'rgba(192, 132, 252, 0.7)', // Purple
+                'rgba(56, 189, 248, 0.7)'   // Sky Blue
+            ] : [
+                'rgba(2, 132, 199, 0.6)',
+                'rgba(139, 92, 246, 0.6)',
+                'rgba(6, 182, 212, 0.6)'
+            ];
+
+            // Render centroid around mouse (K-means centroid simulation)
+            ctx.beginPath();
+            ctx.arc(mouse.x, mouse.y, 6, 0, Math.PI * 2);
+            ctx.fillStyle = isDark ? '#22d3ee' : '#0284c7';
+            ctx.fill();
+
+            // Centroid radius boundary
+            ctx.beginPath();
+            ctx.arc(mouse.x, mouse.y, mouse.radius, 0, Math.PI * 2);
+            ctx.strokeStyle = isDark ? 'rgba(34, 211, 238, 0.08)' : 'rgba(2, 132, 199, 0.06)';
+            ctx.lineWidth = 1;
+            ctx.setLineDash([4, 4]);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            points.forEach((p, index) => {
+                p.x += p.vx;
+                p.y += p.vy;
+
+                if (p.x < 0 || p.x > width) p.vx *= -1;
+                if (p.y < 0 || p.y > height) p.vy *= -1;
+
+                // Draw Data Point (Square / Scatter Plot marker)
+                ctx.fillStyle = clusterColors[p.cluster];
+                ctx.fillRect(p.x - 1.5, p.y - 1.5, 3.5, 3.5);
+
+                // If within mouse centroid cluster, show data linkage
+                const dist = Math.hypot(p.x - mouse.x, p.y - mouse.y);
+                if (dist < mouse.radius) {
+                    ctx.beginPath();
+                    ctx.moveTo(p.x, p.y);
+                    ctx.lineTo(mouse.x, mouse.y);
+                    ctx.strokeStyle = isDark ? 'rgba(34, 211, 238, 0.25)' : 'rgba(2, 132, 199, 0.2)';
+                    ctx.lineWidth = 0.8;
+                    ctx.stroke();
+
+                    // Display float data values near point
+                    if (dist < 80) {
+                        ctx.font = '9px monospace';
+                        ctx.fillStyle = isDark ? 'rgba(249, 250, 251, 0.5)' : 'rgba(15, 23, 42, 0.5)';
+                        ctx.fillText(p.val, p.x + 5, p.y - 3);
+                    }
+                }
+            });
+
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        // Theme Toggle
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            document.getElementById('themeBtn').textContent = isDark ? '☀️' : '🌙';
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        }
+
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+            document.getElementById('themeBtn').textContent = '☀️';
+        }
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Riad Mahmud Chowdhury | Portfolio</title>
     <style>
         :root {
