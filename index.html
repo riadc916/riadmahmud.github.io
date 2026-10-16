@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Riad Mahmud Chowdhury | Data Science & AI Portfolio</title>
+    <title>Riad Mahmud Chowdhury | Data Science & AI</title>
     <style>
         :root {
             --bg-color: #f1f5f9;
-            --card-bg: rgba(255, 255, 255, 0.85);
+            --card-bg: rgba(255, 255, 255, 0.88);
             --card-border: rgba(226, 232, 240, 0.9);
             --text-main: #0f172a;
             --text-muted: #64748b;
@@ -15,11 +15,13 @@
             --data-cyan: #06b6d4;
             --data-purple: #8b5cf6;
             --badge-bg: #e2e8f0;
+            --popover-bg: #ffffff;
+            --item-hover: #f1f5f9;
         }
 
         body.dark-mode {
             --bg-color: #030712;
-            --card-bg: rgba(17, 24, 39, 0.75);
+            --card-bg: rgba(17, 24, 39, 0.8);
             --card-border: rgba(31, 41, 55, 0.8);
             --text-main: #f9fafb;
             --text-muted: #9ca3af;
@@ -27,11 +29,13 @@
             --data-cyan: #22d3ee;
             --data-purple: #c084fc;
             --badge-bg: rgba(31, 41, 55, 0.9);
+            --popover-bg: #111827;
+            --item-hover: #1f2937;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "JetBrains Mono", monospace;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-main);
             line-height: 1.6;
@@ -40,7 +44,7 @@
             position: relative;
         }
 
-        /* Canvas Background */
+        /* Canvas Particle Background */
         #data-canvas {
             position: fixed;
             top: 0;
@@ -57,101 +61,158 @@
             padding: 0 20px 80px 20px;
         }
 
-        /* Fixed Top Controls */
+        /* Top Fixed Controls */
         .controls {
             position: fixed;
-            top: 20px;
+            top: 22px;
             right: 25px;
             display: flex;
+            align-items: center;
             gap: 12px;
             z-index: 1000;
         }
 
+        /* Circular Button Base */
         .circle-btn {
+            position: relative;
             width: 44px;
             height: 44px;
             border-radius: 50%;
             background: #1d72f2;
-            color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: none;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            font-size: 1.25rem;
             box-shadow: 0 4px 14px rgba(29, 114, 242, 0.35);
             transition: transform 0.2s, box-shadow 0.2s;
-        }
-        body.dark-mode .circle-btn {
-            background: #1d72f2;
-            box-shadow: 0 4px 15px rgba(29, 114, 242, 0.45);
+            outline: none;
         }
         .circle-btn:hover {
-            transform: scale(1.08);
+            transform: scale(1.06);
         }
 
-        /* Globe Icon Custom Style */
-        .globe-icon {
-            font-size: 1.3rem;
-            display: inline-block;
-            line-height: 1;
+        /* Tooltip styling like 'Switch language' */
+        .circle-btn::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            top: 50%;
+            right: 54px;
+            transform: translateY(-50%);
+            background: rgba(30, 41, 59, 0.9);
+            color: #ffffff;
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            border-radius: 6px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        .circle-btn:hover::after {
+            opacity: 1;
         }
 
-        /* Searchable Language Modal / Popover */
+        /* Pure SVG Globe Icon with White Grid */
+        .globe-svg {
+            width: 24px;
+            height: 24px;
+            stroke: #ffffff;
+            fill: none;
+            stroke-width: 1.6;
+        }
+
+        /* Searchable Language Popover Modal */
         .lang-modal {
             display: none;
             position: fixed;
-            top: 75px;
+            top: 76px;
             right: 25px;
-            width: 290px;
-            background: var(--card-bg);
+            width: 280px;
+            background: var(--popover-bg);
             border: 1px solid var(--card-border);
-            border-radius: 16px;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+            border-radius: 18px;
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.18);
             z-index: 1001;
             padding: 14px;
-            backdrop-filter: blur(16px);
+            animation: fadeIn 0.15s ease-out;
         }
         .lang-modal.active {
             display: block;
         }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .lang-search-wrapper {
+            position: relative;
+            margin-bottom: 8px;
+        }
+        .lang-search-wrapper span {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
         .lang-search {
             width: 100%;
-            padding: 9px 12px;
-            border-radius: 10px;
+            padding: 8px 12px 8px 32px;
+            border-radius: 12px;
             border: 1px solid var(--card-border);
             background: var(--badge-bg);
             color: var(--text-main);
             outline: none;
-            font-size: 0.9rem;
-            margin-bottom: 10px;
+            font-size: 0.85rem;
             font-family: inherit;
         }
+
         .lang-list {
             list-style: none;
-            max-height: 280px;
+            max-height: 290px;
             overflow-y: auto;
+            padding-right: 4px;
         }
+        /* Custom scrollbar */
+        .lang-list::-webkit-scrollbar {
+            width: 5px;
+        }
+        .lang-list::-webkit-scrollbar-thumb {
+            background: rgba(148, 163, 184, 0.4);
+            border-radius: 10px;
+        }
+
         .lang-item {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
             padding: 8px 10px;
             border-radius: 8px;
             cursor: pointer;
             font-size: 0.88rem;
             transition: background 0.15s;
         }
-        .lang-item:hover {
-            background: var(--badge-bg);
-            color: var(--accent);
+        .lang-item:hover, .lang-item.selected {
+            background: var(--item-hover);
+        }
+        .lang-item .lang-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+        }
+        .lang-item .flag {
+            font-size: 1.1rem;
         }
         .lang-item .native {
             color: var(--text-muted);
             font-size: 0.8rem;
         }
 
-        /* Cards */
+        /* Glass Cards */
         .glass-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
@@ -160,13 +221,9 @@
             margin-bottom: 24px;
             backdrop-filter: blur(14px);
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
-            transition: border-color 0.3s;
-        }
-        .glass-card:hover {
-            border-color: rgba(56, 189, 248, 0.4);
         }
 
-        /* Header */
+        /* Profile Header */
         header.glass-card {
             display: flex;
             align-items: center;
@@ -244,7 +301,7 @@
             color: var(--accent);
         }
 
-        /* Section Typography */
+        /* Typography & Metrics */
         h2 {
             font-size: 1.3rem;
             margin-bottom: 15px;
@@ -259,8 +316,6 @@
             color: var(--data-cyan);
             font-size: 1.1rem;
         }
-
-        /* Metrics Grid */
         .metrics-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -285,7 +340,6 @@
             color: var(--text-muted);
         }
 
-        /* Tags */
         .tags {
             display: flex;
             flex-wrap: wrap;
@@ -335,7 +389,7 @@
             z-index: 999;
         }
 
-        /* Hide Google Translate Banner Frame */
+        /* Hide Google Translate top bar */
         .goog-te-banner-frame.skiptranslate, #goog-gt-tt, .goog-te-balloon-frame {
             display: none !important;
         }
@@ -349,43 +403,131 @@
 </head>
 <body>
 
-    <!-- Data Stream / Cluster Canvas -->
+    <!-- Canvas for Data Clustering & Mouse Ring -->
     <canvas id="data-canvas"></canvas>
 
-    <!-- Top Controls: Language & Theme -->
+    <!-- Top Controls: Globe & Dark/Light Button -->
     <div class="controls">
-        <button class="circle-btn" id="langBtn" onclick="toggleLangModal()" title="Change Language">
-            <span class="globe-icon">🌐</span>
+        <button class="circle-btn" id="langBtn" onclick="toggleLangModal()" data-tooltip="Switch language">
+            <svg class="globe-svg" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="9.5"></circle>
+                <path d="M2.5 12h19M12 2.5a15.3 15.3 0 0 1 4 9.5 15.3 15.3 0 0 1-4 9.5 15.3 15.3 0 0 1-4-9.5 15.3 15.3 0 0 1 4-9.5z"></path>
+            </svg>
         </button>
-        <button class="circle-btn" id="themeBtn" onclick="toggleTheme()" title="Switch Light/Dark Mode">🌙</button>
+        <button class="circle-btn" id="themeBtn" onclick="toggleTheme()" data-tooltip="Toggle theme" style="font-size: 1.2rem; color: #fff;">
+            🌙
+        </button>
     </div>
 
-    <!-- Searchable Language Modal -->
+    <!-- Searchable Language Selection Modal -->
     <div class="lang-modal" id="langModal">
-        <input type="text" class="lang-search" id="langSearch" placeholder="Search language..." onkeyup="filterLanguages()">
+        <div class="lang-search-wrapper">
+            <span>🔍</span>
+            <input type="text" class="lang-search" id="langSearch" placeholder="Search language..." onkeyup="filterLanguages()">
+        </div>
         <ul class="lang-list" id="langList">
-            <li class="lang-item" onclick="changeLanguage('en')"><span>🇺🇸 English</span><span class="native">English</span></li>
-            <li class="lang-item" onclick="changeLanguage('zh-CN')"><span>🇨🇳 Chinese</span><span class="native">中文</span></li>
-            <li class="lang-item" onclick="changeLanguage('ko')"><span>🇰🇷 Korean</span><span class="native">한국어</span></li>
-            <li class="lang-item" onclick="changeLanguage('bn')"><span>🇧🇩 Bengali</span><span class="native">বাংলা</span></li>
-            <li class="lang-item" onclick="changeLanguage('hi')"><span>🇮🇳 Hindi</span><span class="native">हिन्दी</span></li>
-            <li class="lang-item" onclick="changeLanguage('ar')"><span>🇸🇦 Arabic</span><span class="native">العربية</span></li>
-            <li class="lang-item" onclick="changeLanguage('fr')"><span>🇫🇷 French</span><span class="native">Français</span></li>
-            <li class="lang-item" onclick="changeLanguage('de')"><span>🇩🇪 German</span><span class="native">Deutsch</span></li>
-            <li class="lang-item" onclick="changeLanguage('es')"><span>🇪🇸 Spanish</span><span class="native">Español</span></li>
-            <li class="lang-item" onclick="changeLanguage('ja')"><span>🇯🇵 Japanese</span><span class="native">日本語</span></li>
-            <li class="lang-item" onclick="changeLanguage('pt')"><span>🇧🇷 Portuguese</span><span class="native">Português</span></li>
-            <li class="lang-item" onclick="changeLanguage('ru')"><span>🇷🇺 Russian</span><span class="native">Русский</span></li>
-            <li class="lang-item" onclick="changeLanguage('tr')"><span>🇹🇷 Turkish</span><span class="native">Türkçe</span></li>
-            <li class="lang-item" onclick="changeLanguage('vi')"><span>🇻🇳 Vietnamese</span><span class="native">Tiếng Việt</span></li>
-            <li class="lang-item" onclick="changeLanguage('it')"><span>🇮🇹 Italian</span><span class="native">Italiano</span></li>
+            <li class="lang-item selected" onclick="changeLanguage('en')">
+                <div class="lang-left"><span class="flag">🇺🇸</span><span class="name">English</span></div>
+                <span class="native">English</span>
+            </li>
+            <li class="lang-item" onclick="changeLanguage('zh-CN')">
+                <div class="lang-left"><span class="flag">🇨🇳</span><span class="name">Chinese</span></div>
+                <span class="native">中文</span>
+            </li>
+            <li class="lang-item" onclick="changeLanguage('ko')">
+                <div class="lang-left"><span class="flag">🇰🇷</span><span class="name">Korean</span></div>
+                <span class="native">한국어</span>
+            </li>
+            <li class="lang-item" onclick="changeLanguage('bn')">
+                <div class="lang-left"><span class="flag">🇧🇩</span><span class="name">Bengali</span></div>
+                <span class="native">বাংলা</span>
+            </li>
+            <li class="lang-item" onclick="changeLanguage('hi')">
+                <div class="lang-left"><span class="flag">🇮🇳</span><span class="name">Hindi</span></div>
+                <span class="native">हिन्दी</span>
+            </li>
+            <li class="lang-item" onclick="changeLanguage('ar')">
+                <div class="lang-left"><span class="flag">🇸🇦</span><span class="name">Arabic</span></div>
+                <span class="native">العربية</span>
+            </li>
+            <li class="lang-item" onclick="changeLanguage('fr')">
+                <div class="lang-left"><span class="flag">🇫🇷</span><span class="name">French</span></div>
+                <span class="native">Français</span>
+            </li>
+            <li class="lang-item" onclick="changeLanguage('de')">
+                <div class="lang-left"><span class="flag">🇩🇪</span><span class="name">German</span></div>
+                <span class="native">Deutsch</span>
+            </li>
+            <li class="lang-item" onclick="changeLanguage('es')">
+                <div class="lang-left"><span class="flag">🇪🇸</span><span class="name">Spanish</span></div>
+                <span class="native">Español</span>
+            </li>
+            <li class="lang-item" onclick="changeLanguage('ja')">
+                <div class="lang-left"><span class="flag">🇯🇵</span><span class="name">Japanese</span></div>
+                <span class="native">日本語</span>
+            </li>
+            <li class="lang-item" onclick="changeLanguage('pt')">
+                <div class="lang-left"><span class="flag">🇧🇷</span><span class="name">Portuguese</span></div>
+                <span class="native">Português</span>
+            </li>
+            <li class="lang-item" onclick="changeLanguage('ru')">
+                <div class="lang-left"><span class="flag">🇷🇺</span><span class="name">Russian</span></div>
+                <span class="native">Русский</span>
+            </li>
+            <li class="lang-item" onclick="changeLanguage('tr')">
+                <div class="lang-left"><span class="flag">🇹🇷</span><span class="name">Turkish</span></div>
+                <span class="native">Türkçe</span>
+            </li>
+            <li class="lang-item" onclick="changeLanguage('vi')">
+                <div class="lang-left"><span class="flag">🇻🇳</span><span class="name">Vietnamese</span></div>
+                <span class="native">Tiếng Việt</span>
+            </li>
+            <li class="lang-item" onclick="changeLanguage('id')">
+                <div class="lang-left"><span class="flag">🇮🇩</span><span class="name">Indonesian</span></div>
+                <span class="native">Bahasa Indonesia</span>
+            </li>
+            <li class="lang-item" onclick="changeLanguage('ms')">
+                <div class="lang-left"><span class="flag">🇲🇾</span><span class="name">Malay</span></div>
+                <span class="native">Bahasa Melayu</span>
+            </li>
+            <li class="lang-item" onclick="changeLanguage('th')">
+                <div class="lang-left"><span class="flag">🇹🇭</span><span class="name">Thai</span></div>
+                <span class="native">ภาษาไทย</span>
+            </li>
+            <li class="lang-item" onclick="changeLanguage('it')">
+                <div class="lang-left"><span class="flag">🇮🇹</span><span class="name">Italian</span></div>
+                <span class="native">Italiano</span>
+            </li>
+            <li class="lang-item" onclick="changeLanguage('nl')">
+                <div class="lang-left"><span class="flag">🇳🇱</span><span class="name">Dutch</span></div>
+                <span class="native">Nederlands</span>
+            </li>
+            <li class="lang-item" onclick="changeLanguage('pl')">
+                <div class="lang-left"><span class="flag">🇵🇱</span><span class="name">Polish</span></div>
+                <span class="native">Polski</span>
+            </li>
+            <li class="lang-item" onclick="changeLanguage('uk')">
+                <div class="lang-left"><span class="flag">🇺🇦</span><span class="name">Ukrainian</span></div>
+                <span class="native">Українська</span>
+            </li>
+            <li class="lang-item" onclick="changeLanguage('fa')">
+                <div class="lang-left"><span class="flag">🇮🇷</span><span class="name">Persian</span></div>
+                <span class="native">فارسی</span>
+            </li>
+            <li class="lang-item" onclick="changeLanguage('ur')">
+                <div class="lang-left"><span class="flag">🇵🇰</span><span class="name">Urdu</span></div>
+                <span class="native">اردو</span>
+            </li>
+            <li class="lang-item" onclick="changeLanguage('sw')">
+                <div class="lang-left"><span class="flag">🇰🇪</span><span class="name">Swahili</span></div>
+                <span class="native">Kiswahili</span>
+            </li>
         </ul>
     </div>
 
-    <!-- Google Translate Helper -->
+    <!-- Hidden Translate Hook -->
     <div id="google_translate_element" style="display:none;"></div>
 
-    <!-- Live Data Process Counter -->
     <div class="data-counter">
         <span style="color:var(--data-cyan)">●</span> Data Ingestion: Active
     </div>
@@ -483,19 +625,23 @@
         </section>
     </div>
 
-    <!-- Scripts -->
+    <!-- Scripts: Canvas Mouse Blue Ring & Language Modal -->
     <script>
-        // 1. Data Scatter Cluster Animation
         const canvas = document.getElementById('data-canvas');
         const ctx = canvas.getContext('2d');
         let width = canvas.width = window.innerWidth;
         let height = canvas.height = window.innerHeight;
 
-        const mouse = { x: width / 2, y: height / 2, radius: 150 };
+        const mouse = { x: null, y: null, radius: 150 };
 
         window.addEventListener('mousemove', (e) => {
             mouse.x = e.clientX;
             mouse.y = e.clientY;
+        });
+
+        window.addEventListener('mouseleave', () => {
+            mouse.x = null;
+            mouse.y = null;
         });
 
         const points = [];
@@ -526,18 +672,14 @@
                 'rgba(6, 182, 212, 0.6)'
             ];
 
-            ctx.beginPath();
-            ctx.arc(mouse.x, mouse.y, 6, 0, Math.PI * 2);
-            ctx.fillStyle = isDark ? '#22d3ee' : '#0284c7';
-            ctx.fill();
-
-            ctx.beginPath();
-            ctx.arc(mouse.x, mouse.y, mouse.radius, 0, Math.PI * 2);
-            ctx.strokeStyle = isDark ? 'rgba(34, 211, 238, 0.08)' : 'rgba(2, 132, 199, 0.06)';
-            ctx.lineWidth = 1;
-            ctx.setLineDash([4, 4]);
-            ctx.stroke();
-            ctx.setLineDash([]);
+            // 1. Draw Mouse Outer Blue Ring (exact match with screenshot)
+            if (mouse.x !== null && mouse.y !== null) {
+                ctx.beginPath();
+                ctx.arc(mouse.x, mouse.y, 9, 0, Math.PI * 2);
+                ctx.strokeStyle = isDark ? '#38bdf8' : '#1d72f2';
+                ctx.lineWidth = 2.4;
+                ctx.stroke();
+            }
 
             points.forEach((p) => {
                 p.x += p.vx;
@@ -549,19 +691,21 @@
                 ctx.fillStyle = clusterColors[p.cluster];
                 ctx.fillRect(p.x - 1.5, p.y - 1.5, 3.5, 3.5);
 
-                const dist = Math.hypot(p.x - mouse.x, p.y - mouse.y);
-                if (dist < mouse.radius) {
-                    ctx.beginPath();
-                    ctx.moveTo(p.x, p.y);
-                    ctx.lineTo(mouse.x, mouse.y);
-                    ctx.strokeStyle = isDark ? 'rgba(34, 211, 238, 0.25)' : 'rgba(2, 132, 199, 0.2)';
-                    ctx.lineWidth = 0.8;
-                    ctx.stroke();
+                if (mouse.x !== null && mouse.y !== null) {
+                    const dist = Math.hypot(p.x - mouse.x, p.y - mouse.y);
+                    if (dist < mouse.radius) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(mouse.x, mouse.y);
+                        ctx.strokeStyle = isDark ? 'rgba(56, 189, 248, 0.28)' : 'rgba(29, 114, 242, 0.22)';
+                        ctx.lineWidth = 0.8;
+                        ctx.stroke();
 
-                    if (dist < 80) {
-                        ctx.font = '9px monospace';
-                        ctx.fillStyle = isDark ? 'rgba(249, 250, 251, 0.5)' : 'rgba(15, 23, 42, 0.5)';
-                        ctx.fillText(p.val, p.x + 5, p.y - 3);
+                        if (dist < 80) {
+                            ctx.font = '9px monospace';
+                            ctx.fillStyle = isDark ? 'rgba(249, 250, 251, 0.5)' : 'rgba(15, 23, 42, 0.5)';
+                            ctx.fillText(p.val, p.x + 5, p.y - 3);
+                        }
                     }
                 }
             });
@@ -575,7 +719,7 @@
             height = canvas.height = window.innerHeight;
         });
 
-        // 2. Light / Dark Theme Toggle
+        // Theme Switch
         function toggleTheme() {
             document.body.classList.toggle('dark-mode');
             const isDark = document.body.classList.contains('dark-mode');
@@ -588,7 +732,7 @@
             document.getElementById('themeBtn').textContent = '☀️';
         }
 
-        // 3. Language Selector Modal & Search Filter
+        // Language Modal Toggle & Click outside to close
         function toggleLangModal() {
             const modal = document.getElementById('langModal');
             modal.classList.toggle('active');
@@ -597,11 +741,12 @@
         document.addEventListener('click', (e) => {
             const modal = document.getElementById('langModal');
             const btn = document.getElementById('langBtn');
-            if (!modal.contains(e.target) && !btn.contains(e.target)) {
+            if (modal.classList.contains('active') && !modal.contains(e.target) && !btn.contains(e.target)) {
                 modal.classList.remove('active');
             }
         });
 
+        // Search Filter for languages
         function filterLanguages() {
             const input = document.getElementById('langSearch').value.toLowerCase();
             const items = document.querySelectorAll('.lang-item');
@@ -611,17 +756,21 @@
             });
         }
 
+        // Trigger Google Translate
         function changeLanguage(langCode) {
             const select = document.querySelector('.goog-te-combo');
             if (select) {
                 select.value = langCode;
                 select.dispatchEvent(new Event('change'));
             }
+            // Mark active item
+            document.querySelectorAll('.lang-item').forEach(el => el.classList.remove('selected'));
+            event.currentTarget.classList.add('selected');
             toggleLangModal();
         }
     </script>
 
-    <!-- Google Translate Script -->
+    <!-- Google Translate API -->
     <script type="text/javascript">
         function googleTranslateElementInit() {
             new google.translate.TranslateElement({
