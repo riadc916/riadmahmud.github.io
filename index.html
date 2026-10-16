@@ -40,7 +40,7 @@
             position: relative;
         }
 
-        /* Interactive Data Canvas */
+        /* Canvas Background */
         #data-canvas {
             position: fixed;
             top: 0;
@@ -57,7 +57,7 @@
             padding: 0 20px 80px 20px;
         }
 
-        /* Fixed Controls */
+        /* Fixed Top Controls */
         .controls {
             position: fixed;
             top: 20px;
@@ -71,24 +71,87 @@
             width: 44px;
             height: 44px;
             border-radius: 50%;
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            color: var(--text-main);
+            background: #1d72f2;
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            font-size: 1.2rem;
-            backdrop-filter: blur(12px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s, border-color 0.2s;
+            font-size: 1.25rem;
+            box-shadow: 0 4px 14px rgba(29, 114, 242, 0.35);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        body.dark-mode .circle-btn {
+            background: #1d72f2;
+            box-shadow: 0 4px 15px rgba(29, 114, 242, 0.45);
         }
         .circle-btn:hover {
             transform: scale(1.08);
-            border-color: var(--accent);
         }
 
-        /* Glassmorphism Section Cards */
+        /* Globe Icon Custom Style */
+        .globe-icon {
+            font-size: 1.3rem;
+            display: inline-block;
+            line-height: 1;
+        }
+
+        /* Searchable Language Modal / Popover */
+        .lang-modal {
+            display: none;
+            position: fixed;
+            top: 75px;
+            right: 25px;
+            width: 290px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+            z-index: 1001;
+            padding: 14px;
+            backdrop-filter: blur(16px);
+        }
+        .lang-modal.active {
+            display: block;
+        }
+        .lang-search {
+            width: 100%;
+            padding: 9px 12px;
+            border-radius: 10px;
+            border: 1px solid var(--card-border);
+            background: var(--badge-bg);
+            color: var(--text-main);
+            outline: none;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            font-family: inherit;
+        }
+        .lang-list {
+            list-style: none;
+            max-height: 280px;
+            overflow-y: auto;
+        }
+        .lang-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.88rem;
+            transition: background 0.15s;
+        }
+        .lang-item:hover {
+            background: var(--badge-bg);
+            color: var(--accent);
+        }
+        .lang-item .native {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        /* Cards */
         .glass-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
@@ -103,7 +166,7 @@
             border-color: rgba(56, 189, 248, 0.4);
         }
 
-        /* Profile Header */
+        /* Header */
         header.glass-card {
             display: flex;
             align-items: center;
@@ -161,7 +224,7 @@
         }
         .links a:hover { text-decoration: underline; }
 
-        /* Navigation Bar */
+        /* Navigation */
         nav.glass-card {
             padding: 10px 16px;
             display: flex;
@@ -181,7 +244,7 @@
             color: var(--accent);
         }
 
-        /* Section Titles */
+        /* Section Typography */
         h2 {
             font-size: 1.3rem;
             margin-bottom: 15px;
@@ -197,7 +260,7 @@
             font-size: 1.1rem;
         }
 
-        /* Data Science Metrics Box */
+        /* Metrics Grid */
         .metrics-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -212,7 +275,7 @@
             text-align: center;
         }
         .metric-card .num {
-            font-size: 1.4rem;
+            font-size: 1.35rem;
             font-weight: bold;
             color: var(--accent);
             font-family: monospace;
@@ -239,7 +302,6 @@
             border: 1px solid var(--card-border);
         }
 
-        /* Publication Card */
         .pub-item {
             padding: 14px 0;
             border-bottom: 1px solid var(--card-border);
@@ -257,7 +319,7 @@
             margin-top: 4px;
         }
 
-        /* Bottom Floating Badges */
+        /* Floating Status */
         .data-counter {
             position: fixed;
             bottom: 20px;
@@ -270,7 +332,14 @@
             font-family: monospace;
             backdrop-filter: blur(10px);
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            z-index: 999;
         }
+
+        /* Hide Google Translate Banner Frame */
+        .goog-te-banner-frame.skiptranslate, #goog-gt-tt, .goog-te-balloon-frame {
+            display: none !important;
+        }
+        body { top: 0px !important; }
 
         @media (max-width: 650px) {
             header.glass-card { flex-direction: column; text-align: center; }
@@ -280,13 +349,41 @@
 </head>
 <body>
 
-    <!-- Data Streams & Clustering Background -->
+    <!-- Data Stream / Cluster Canvas -->
     <canvas id="data-canvas"></canvas>
 
-    <!-- Controls -->
+    <!-- Top Controls: Language & Theme -->
     <div class="controls">
+        <button class="circle-btn" id="langBtn" onclick="toggleLangModal()" title="Change Language">
+            <span class="globe-icon">🌐</span>
+        </button>
         <button class="circle-btn" id="themeBtn" onclick="toggleTheme()" title="Switch Light/Dark Mode">🌙</button>
     </div>
+
+    <!-- Searchable Language Modal -->
+    <div class="lang-modal" id="langModal">
+        <input type="text" class="lang-search" id="langSearch" placeholder="Search language..." onkeyup="filterLanguages()">
+        <ul class="lang-list" id="langList">
+            <li class="lang-item" onclick="changeLanguage('en')"><span>🇺🇸 English</span><span class="native">English</span></li>
+            <li class="lang-item" onclick="changeLanguage('zh-CN')"><span>🇨🇳 Chinese</span><span class="native">中文</span></li>
+            <li class="lang-item" onclick="changeLanguage('ko')"><span>🇰🇷 Korean</span><span class="native">한국어</span></li>
+            <li class="lang-item" onclick="changeLanguage('bn')"><span>🇧🇩 Bengali</span><span class="native">বাংলা</span></li>
+            <li class="lang-item" onclick="changeLanguage('hi')"><span>🇮🇳 Hindi</span><span class="native">हिन्दी</span></li>
+            <li class="lang-item" onclick="changeLanguage('ar')"><span>🇸🇦 Arabic</span><span class="native">العربية</span></li>
+            <li class="lang-item" onclick="changeLanguage('fr')"><span>🇫🇷 French</span><span class="native">Français</span></li>
+            <li class="lang-item" onclick="changeLanguage('de')"><span>🇩🇪 German</span><span class="native">Deutsch</span></li>
+            <li class="lang-item" onclick="changeLanguage('es')"><span>🇪🇸 Spanish</span><span class="native">Español</span></li>
+            <li class="lang-item" onclick="changeLanguage('ja')"><span>🇯🇵 Japanese</span><span class="native">日本語</span></li>
+            <li class="lang-item" onclick="changeLanguage('pt')"><span>🇧🇷 Portuguese</span><span class="native">Português</span></li>
+            <li class="lang-item" onclick="changeLanguage('ru')"><span>🇷🇺 Russian</span><span class="native">Русский</span></li>
+            <li class="lang-item" onclick="changeLanguage('tr')"><span>🇹🇷 Turkish</span><span class="native">Türkçe</span></li>
+            <li class="lang-item" onclick="changeLanguage('vi')"><span>🇻🇳 Vietnamese</span><span class="native">Tiếng Việt</span></li>
+            <li class="lang-item" onclick="changeLanguage('it')"><span>🇮🇹 Italian</span><span class="native">Italiano</span></li>
+        </ul>
+    </div>
+
+    <!-- Google Translate Helper -->
+    <div id="google_translate_element" style="display:none;"></div>
 
     <!-- Live Data Process Counter -->
     <div class="data-counter">
@@ -294,7 +391,7 @@
     </div>
 
     <div class="container">
-        <!-- Header Profile -->
+        <!-- Profile Header -->
         <header class="glass-card">
             <img src="profile.jpg" alt="Profile Photo" class="avatar" onerror="this.src='https://ui-avatars.com/api/?name=Riad+Mahmud&background=0284c7&color=fff&size=125'">
             <div class="header-info">
@@ -324,7 +421,7 @@
             <a href="#skills">Tech Stack</a>
         </nav>
 
-        <!-- About Section -->
+        <!-- About -->
         <section id="about" class="glass-card">
             <h2><span class="code-icon">&lt;data&gt;</span> About & Vision</h2>
             <p>I am deeply passionate about working with real-world data, extracting actionable insights, and building predictive machine learning models. My core interest lies at the intersection of <strong>Data Science</strong>, <strong>Machine Learning</strong>, and <strong>Explainable AI (XAI)</strong>—ensuring AI systems are interpretable and data-driven.</p>
@@ -345,7 +442,7 @@
             </div>
         </section>
 
-        <!-- Education Section -->
+        <!-- Education -->
         <section id="education" class="glass-card">
             <h2><span class="code-icon">&lt;edu&gt;</span> Education</h2>
             <div>
@@ -355,7 +452,7 @@
             </div>
         </section>
 
-        <!-- Projects / Research -->
+        <!-- Projects -->
         <section id="projects" class="glass-card">
             <h2><span class="code-icon">&lt;models&gt;</span> Research & Data Projects</h2>
             
@@ -372,7 +469,7 @@
             </div>
         </section>
 
-        <!-- Skills & Tools -->
+        <!-- Skills -->
         <section id="skills" class="glass-card">
             <h2><span class="code-icon">&lt;stack&gt;</span> Data Science Stack</h2>
             <div class="tags">
@@ -386,8 +483,9 @@
         </section>
     </div>
 
-    <!-- Data Science Particles / Cluster Visualizer -->
+    <!-- Scripts -->
     <script>
+        // 1. Data Scatter Cluster Animation
         const canvas = document.getElementById('data-canvas');
         const ctx = canvas.getContext('2d');
         let width = canvas.width = window.innerWidth;
@@ -400,7 +498,6 @@
             mouse.y = e.clientY;
         });
 
-        // Generate Data Scatter Points (simulating Data Clusters)
         const points = [];
         const numPoints = Math.floor((width * height) / 10000);
 
@@ -410,8 +507,8 @@
                 y: Math.random() * height,
                 vx: (Math.random() - 0.5) * 0.5,
                 vy: (Math.random() - 0.5) * 0.5,
-                val: (Math.random() * 100).toFixed(1), // data value
-                cluster: Math.floor(Math.random() * 3) // 3 clusters
+                val: (Math.random() * 100).toFixed(1),
+                cluster: Math.floor(Math.random() * 3)
             });
         }
 
@@ -419,24 +516,21 @@
             ctx.clearRect(0, 0, width, height);
             const isDark = document.body.classList.contains('dark-mode');
 
-            // Cluster colors (Data cyan, purple, and blue)
             const clusterColors = isDark ? [
-                'rgba(34, 211, 238, 0.7)',  // Cyan
-                'rgba(192, 132, 252, 0.7)', // Purple
-                'rgba(56, 189, 248, 0.7)'   // Sky Blue
+                'rgba(34, 211, 238, 0.7)',
+                'rgba(192, 132, 252, 0.7)',
+                'rgba(56, 189, 248, 0.7)'
             ] : [
                 'rgba(2, 132, 199, 0.6)',
                 'rgba(139, 92, 246, 0.6)',
                 'rgba(6, 182, 212, 0.6)'
             ];
 
-            // Render centroid around mouse (K-means centroid simulation)
             ctx.beginPath();
             ctx.arc(mouse.x, mouse.y, 6, 0, Math.PI * 2);
             ctx.fillStyle = isDark ? '#22d3ee' : '#0284c7';
             ctx.fill();
 
-            // Centroid radius boundary
             ctx.beginPath();
             ctx.arc(mouse.x, mouse.y, mouse.radius, 0, Math.PI * 2);
             ctx.strokeStyle = isDark ? 'rgba(34, 211, 238, 0.08)' : 'rgba(2, 132, 199, 0.06)';
@@ -445,18 +539,16 @@
             ctx.stroke();
             ctx.setLineDash([]);
 
-            points.forEach((p, index) => {
+            points.forEach((p) => {
                 p.x += p.vx;
                 p.y += p.vy;
 
                 if (p.x < 0 || p.x > width) p.vx *= -1;
                 if (p.y < 0 || p.y > height) p.vy *= -1;
 
-                // Draw Data Point (Square / Scatter Plot marker)
                 ctx.fillStyle = clusterColors[p.cluster];
                 ctx.fillRect(p.x - 1.5, p.y - 1.5, 3.5, 3.5);
 
-                // If within mouse centroid cluster, show data linkage
                 const dist = Math.hypot(p.x - mouse.x, p.y - mouse.y);
                 if (dist < mouse.radius) {
                     ctx.beginPath();
@@ -466,7 +558,6 @@
                     ctx.lineWidth = 0.8;
                     ctx.stroke();
 
-                    // Display float data values near point
                     if (dist < 80) {
                         ctx.font = '9px monospace';
                         ctx.fillStyle = isDark ? 'rgba(249, 250, 251, 0.5)' : 'rgba(15, 23, 42, 0.5)';
@@ -484,7 +575,7 @@
             height = canvas.height = window.innerHeight;
         });
 
-        // Theme Toggle
+        // 2. Light / Dark Theme Toggle
         function toggleTheme() {
             document.body.classList.toggle('dark-mode');
             const isDark = document.body.classList.contains('dark-mode');
@@ -496,6 +587,49 @@
             document.body.classList.add('dark-mode');
             document.getElementById('themeBtn').textContent = '☀️';
         }
+
+        // 3. Language Selector Modal & Search Filter
+        function toggleLangModal() {
+            const modal = document.getElementById('langModal');
+            modal.classList.toggle('active');
+        }
+
+        document.addEventListener('click', (e) => {
+            const modal = document.getElementById('langModal');
+            const btn = document.getElementById('langBtn');
+            if (!modal.contains(e.target) && !btn.contains(e.target)) {
+                modal.classList.remove('active');
+            }
+        });
+
+        function filterLanguages() {
+            const input = document.getElementById('langSearch').value.toLowerCase();
+            const items = document.querySelectorAll('.lang-item');
+            items.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                item.style.display = text.includes(input) ? 'flex' : 'none';
+            });
+        }
+
+        function changeLanguage(langCode) {
+            const select = document.querySelector('.goog-te-combo');
+            if (select) {
+                select.value = langCode;
+                select.dispatchEvent(new Event('change'));
+            }
+            toggleLangModal();
+        }
     </script>
+
+    <!-- Google Translate Script -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
