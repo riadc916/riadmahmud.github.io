@@ -370,7 +370,7 @@
             margin-top: 4px;
         }
 
-        /* EXACT FLOATING VISITOR BADGE */
+        /* EXACT FLOATING BLUE VISITOR BADGE (Vaskar Chakma Style) */
         .visitor-counter {
             position: fixed;
             bottom: 22px;
@@ -536,7 +536,7 @@
     <!-- EXACT FLOATING VISITOR BADGE (Vaskar Chakma Style) -->
     <div class="visitor-counter">
         <span class="eye-icon">👁️</span>
-        <span>Visitors: <span id="busuanzi_value_site_pv">Loading...</span></span>
+        <span>Visitors: <span id="busuanzi_value_site_pv">1</span></span>
     </div>
 
     <div class="container">
@@ -748,7 +748,7 @@
         document.addEventListener('click', (e) => {
             const modal = document.getElementById('langModal');
             const btn = document.getElementById('langBtn');
-            if (modal.classList.contains('active') && !modal.contains(e.target) && !btn.contains(e.target)) {
+            if (!modal.contains(e.target) && !btn.contains(e.target)) {
                 modal.classList.remove('active');
             }
         });
@@ -775,13 +775,13 @@
             toggleLangModal();
         }
 
-        // Fallback visitor counter updater if API takes time
+        // Realtime Visitor Counter & Fallback Local Tracker
         setTimeout(() => {
             const pv = document.getElementById('busuanzi_value_site_pv');
-            if (pv && (pv.innerText === 'Loading...' || pv.innerText === '')) {
+            if (pv && (pv.innerText === 'Loading...' || pv.innerText === '' || pv.innerText === '1')) {
                 let localCount = localStorage.getItem('site_visit_count');
                 if (!localCount) {
-                    localCount = 1;
+                    localCount = 2;
                 } else {
                     localCount = parseInt(localCount) + 1;
                 }
