@@ -44,7 +44,6 @@
             position: relative;
         }
 
-        /* Subtle Light Particle Mesh Canvas */
         #bg-canvas {
             position: fixed;
             top: 0;
@@ -280,7 +279,7 @@
             border: 1px solid var(--card-border);
         }
 
-        /* Generic Section Headers */
+        /* Content Sections */
         section.content-section { margin-bottom: 40px; }
         section.content-section h2 {
             font-size: 1.45rem;
@@ -296,7 +295,7 @@
             margin: 18px 0 10px 0;
         }
 
-        /* Vaskar Split Row with Date on Right */
+        /* Split Row with Date on Right */
         .edu-item, .exp-item {
             display: flex;
             justify-content: space-between;
@@ -334,45 +333,40 @@
             color: var(--text-main);
         }
 
-        /* Publication Card */
-        .pub-box {
-            padding: 12px 0;
+        /* Clean Conference Box (Plain text title, non-italic venue) */
+        .conf-box {
+            padding: 10px 0;
             border-bottom: 1px solid var(--card-border);
         }
-        .pub-box:last-child { border-bottom: none; }
-        .pub-title {
-            font-size: 1rem;
+        .conf-title {
+            font-size: 1.02rem;
             font-weight: 600;
-            color: var(--accent);
-            text-decoration: none;
+            color: var(--text-main);
+            margin-bottom: 4px;
             line-height: 1.45;
-            display: inline-block;
-            margin-bottom: 3px;
         }
-        .pub-authors { font-size: 0.9rem; color: var(--text-muted); }
-        .pub-venue { font-size: 0.88rem; color: var(--text-muted); font-style: italic; margin-top: 2px; }
-        .pub-actions {
-            margin-top: 6px;
-            display: flex;
-            gap: 10px;
-            font-size: 0.85rem;
-            align-items: center;
+        .conf-authors { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 3px; }
+        .conf-venue {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-style: normal; /* Non-italic */
+            margin-bottom: 6px;
         }
-        .pub-actions a { color: var(--accent); text-decoration: none; font-weight: 600; }
-        .pub-actions a:hover { text-decoration: underline; }
-        .accepted-badge {
-            background: rgba(34, 197, 94, 0.15);
-            color: #16a34a;
-            border: 1px solid rgba(34, 197, 94, 0.3);
-            padding: 2px 8px;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 0.78rem;
+        .conf-status {
+            font-size: 0.9rem;
+            color: var(--text-main);
+            font-weight: 500;
         }
 
         /* Skills Lists */
         .skill-group { margin-bottom: 16px; font-size: 0.94rem; line-height: 1.65; }
         .skill-group strong { color: var(--text-main); }
+        .project-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .project-link:hover { text-decoration: underline; }
 
         /* Footer */
         footer.vaskar-footer {
@@ -396,6 +390,7 @@
             .edu-item, .exp-item { flex-direction: column; gap: 4px; }
             .edu-period, .exp-period { margin-bottom: 8px; }
             .bio-text { text-align: left; }
+            nav.vaskar-nav { gap: 15px; }
         }
     </style>
 </head>
@@ -409,7 +404,7 @@
         <button class="circle-btn" id="langBtn" onclick="toggleLangModal()" data-tooltip="Switch language">
             <svg class="globe-svg" viewBox="0 0 24 24">
                 <circle cx="12" cy="12" r="9.5"></circle>
-                <path d="M2.5 12h19M12 2.5a15.3 15.3 0 0 1 4 9.5 15.3 15.3 0 0 1-4 9.5 15.3 15.3 0 0 1-4-9.5 15.3 15.3 0 0 1 4-9.5z"></path>
+                <path d="M2.5 12h19M12 2.5a15.3 15.3 0 0 1 4 9.5 15.3 15.3 0 0 1-4 9.5 15.3 15.3 0 0 1-4-9.5z"></path>
             </svg>
         </button>
         <button class="circle-btn" id="themeBtn" onclick="toggleTheme()" data-tooltip="Toggle theme" style="font-size: 1.2rem; color: #fff;">
@@ -550,14 +545,13 @@
         <section id="about" class="about-card">
             <h2>About</h2>
             <p class="bio-text">
-                Riad Mahmud Chowdhury is currently pursuing a Bachelor of Science degree in Computer Science and Technology at the School of Artificial Intelligence and Computer Science, Nantong University, Jiangsu Province, People’s Republic of China, maintaining a top-tier CGPA of 4.00/4.00. His primary research and technical interests encompass Data Science, Machine Learning (ML), and Cybersecurity across the end-to-end data lifecycle—ranging from data preprocessing and exploratory data analysis (EDA) to practical model deployment and secure systems. He is committed to applying analytics and machine learning methodologies toward robust cybersecurity research, while actively exploring scalable, efficient, and data-driven solutions.
+                Riad Mahmud Chowdhury is currently pursuing a Bachelor of Science degree in Computer Science and Technology at the School of Artificial Intelligence and Computer Science, Nantong University, Jiangsu Province, People’s Republic of China, maintaining a top-tier CGPA of 4.00/4.00[cite: 44, 45]. His primary research and technical interests encompass Data Science, Machine Learning (ML), and Cybersecurity across the end-to-end data lifecycle—ranging from data preprocessing and exploratory data analysis (EDA) to practical model deployment and secure systems[cite: 44]. He is committed to applying analytics and machine learning methodologies toward robust cybersecurity research, while actively exploring scalable, efficient, and data-driven solutions[cite: 44].
             </p>
         </section>
 
         <!-- Navigation Bar -->
         <nav class="vaskar-nav">
             <a href="#education">Education</a>
-            <a href="#publications">Publications</a>
             <a href="#conferences">Conferences</a>
             <a href="#experience">Experience</a>
             <a href="#skills">Skills</a>
@@ -609,26 +603,15 @@
             </div>
         </section>
 
-        <!-- Publications Section -->
-        <section id="publications" class="content-section">
-            <h2>Publications</h2>
-            <h3 class="sub-heading">Journal Articles</h3>
-            <p style="color: var(--text-muted); font-size: 0.92rem; font-style: italic;">Journal manuscripts will be updated here upon completion of peer review.</p>
-        </section>
-
-        <!-- Conferences Section -->
+        <!-- Conferences Section (Clean format as requested) -->
         <section id="conferences" class="content-section">
             <h2>Conferences</h2>
             <h3 class="sub-heading">Conference Articles</h3>
-            <div class="pub-box">
-                <a href="#" class="pub-title">Provable Moving-Target Defense for Cyber-Physical Networks: From the Security-Performance Frontier to No-Regret Defense</a>
-                <div class="pub-authors">Md Mostofa Nurannabi Shakil, <strong>Riad Mahmud Chowdhury</strong>, Tanvir Hossain, Md. Alamgir Hossain, Md. Samiul Islam, and Md. Shafiqul Islam</div>
-                <div class="pub-venue">Proceedings of the IEEE International Conference on Computer Science and Data Engineering (IEEE CSDE 2026)</div>
-                <div class="pub-actions">
-                    <span class="accepted-badge">Accepted</span>
-                    <a href="Riad_Mahmud_Chowdhury_CV.pdf" target="_blank">[Paper]</a>
-                    <a href="https://github.com/riadc916" target="_blank">[Code]</a>
-                </div>
+            <div class="conf-box">
+                <div class="conf-title">Provable Moving-Target Defense for Cyber-Physical Networks: From the Security-Performance Frontier to No-Regret Defense</div>
+                <div class="conf-authors">Md Mostofa Nurannabi Shakil, <strong>Riad Mahmud Chowdhury</strong>, Tanvir Hossain, Md. Alamgir Hossain, Md. Samiul Islam, and Md. Shafiqul Islam</div>
+                <div class="conf-venue">Proceedings of the IEEE International Conference on Computer Science and Data Engineering (IEEE CSDE 2026)</div>
+                <div class="conf-status">Accepted</div>
             </div>
         </section>
 
@@ -685,21 +668,21 @@
 
             <h3 class="sub-heading">Academic Projects</h3>
             <div class="skill-group">
-                • [Full-Stack C#] <strong>Online Banking Web System</strong>: Secure OOP banking architecture with database connectivity. <a href="https://github.com/riadc916" target="_blank" style="color:var(--accent); text-decoration:none;">[CODE]</a><br>
-                • [Python & Pandas] <strong>Lego Multi-decade Structural Analytics</strong>: Pipeline analyzing part complexity and color evolution. <a href="https://github.com/riadc916" target="_blank" style="color:var(--accent); text-decoration:none;">[CODE]</a><br>
-                • [Time-Series EDA] <strong>StackOverflow Language Trends</strong>: Developer discussion tracking and adoption trends pipeline. <a href="https://github.com/riadc916" target="_blank" style="color:var(--accent); text-decoration:none;">[CODE]</a><br>
-                • [R & Tidyverse] <strong>Superstore Sales & Profitability Analysis</strong>: Corporate metrics, regional logistics, and margins. <a href="https://github.com/riadc916" target="_blank" style="color:var(--accent); text-decoration:none;">[CODE]</a>
+                • [Full-Stack C#] <strong>Online Banking Web System</strong>: Secure OOP banking architecture with database connectivity. <a href="https://github.com/riadc916/Banking-Web-C-" target="_blank" class="project-link">[CODE]</a><br>
+                • [Python & Pandas] <strong>Lego Multi-decade Structural Analytics</strong>: Pipeline analyzing part complexity and color evolution. <a href="https://github.com/riadc916/lego-data-analysis" target="_blank" class="project-link">[CODE]</a><br>
+                • [Time-Series EDA] <strong>StackOverflow Language Trends</strong>: Developer discussion tracking and adoption trends pipeline. <a href="https://github.com/riadc916/StackOverflow-Language-Trends" target="_blank" class="project-link">[CODE]</a><br>
+                • [R & Tidyverse] <strong>Superstore Sales & Profitability Analysis</strong>: Corporate metrics, regional logistics, and margins. <a href="https://github.com/riadc916/Superstore-Sales-Profitability-Analysis" target="_blank" class="project-link">[CODE]</a>
             </div>
 
             <h3 class="sub-heading">Honors & Certifications</h3>
             <div class="skill-group">
                 • <strong>Perfect Academic Standing (CGPA 4.00 / 4.00)</strong>: Ranked in top tier throughout completed semesters at Nantong University (2023 – Present).<br>
-                • <strong>Google Data Analytics Professional Certificate</strong>: Verified Credential, Coursera (2026).<br>
-                • <strong>100 Days of Code: Complete Python Pro Bootcamp</strong>: Verified Credential, Udemy (2026).
+                • <strong>Google Data Analytics Professional Certificate</strong>: <a href="https://drive.google.com/file/d/1Vyme1hMn7CQcoAzEPoLJ019iY9xFUYf1/view?usp=sharing" target="_blank" class="project-link">Verified Credential</a>, Coursera (2026).<br>
+                • <strong>100 Days of Code: Complete Python Pro Bootcamp</strong>: <a href="https://drive.google.com/file/d/1wRJ5_jGLFr1riTN6MAID97L4EHJwQuJE/view?usp=sharing" target="_blank" class="project-link">Verified Credential</a>, Udemy (2026).
             </div>
         </section>
 
-        <!-- Footer (Dynamic Date & Hotkeys) -->
+        <!-- Footer -->
         <footer class="vaskar-footer">
             <div>Press the backtick key ( ` ) to open hidden terminal & Press ( s ) to toggle torchlight.</div>
             <div>Copyright • © 2026 [Riad Mahmud Chowdhury]. All rights reserved.</div>
@@ -707,9 +690,8 @@
         </footer>
     </div>
 
-    <!-- Scripts: Subtle Particle Background, Theme, Translation & Dynamic Date -->
+    <!-- Scripts: Non-Intrusive Mesh Background, Theme, Translation & Dynamic Date -->
     <script>
-        // 1. Subtle, Non-Intrusive Mesh Background Canvas
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let width = canvas.width = window.innerWidth;
@@ -745,7 +727,6 @@
             ctx.clearRect(0, 0, width, height);
             const isDark = document.body.classList.contains('dark-mode');
 
-            // Subtle & Light Opacity so text is never obstructed
             const dotColor = isDark ? 'rgba(255, 255, 255, 0.32)' : 'rgba(30, 41, 59, 0.22)';
             const lineColor = isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.04)';
             const mouseLineColor = isDark ? 'rgba(56, 189, 248, 0.35)' : 'rgba(29, 114, 242, 0.25)';
@@ -810,7 +791,7 @@
             height = canvas.height = window.innerHeight;
         });
 
-        // 2. Theme Toggle
+        // Theme Toggle
         function toggleTheme() {
             document.body.classList.toggle('dark-mode');
             const isDark = document.body.classList.contains('dark-mode');
@@ -823,7 +804,7 @@
             document.getElementById('themeBtn').textContent = '☀️';
         }
 
-        // 3. Language Modal Controls
+        // Language Modal Controls
         function toggleLangModal() {
             const modal = document.getElementById('langModal');
             modal.classList.toggle('active');
@@ -857,7 +838,7 @@
             toggleLangModal();
         }
 
-        // 4. Automatic Real-Time Dynamic Date in Footer
+        // Dynamic Date Updater
         function updateDynamicDate() {
             const dateEl = document.getElementById('dynamic-date');
             if (dateEl) {
