@@ -184,8 +184,8 @@
         .lang-item .flag { font-size: 1.1rem; }
         .lang-item .native { color: var(--text-muted); font-size: 0.8rem; }
 
-        /* Vaskar Clean Header */
-        header.vaskar-header {
+        /* Clean Header */
+        header.profile-header {
             display: flex;
             align-items: center;
             gap: 36px;
@@ -244,8 +244,8 @@
             text-align: justify;
         }
 
-        /* Navigation Bar */
-        nav.vaskar-nav {
+        /* Sub Navigation */
+        nav.sub-nav {
             display: flex;
             gap: 24px;
             padding: 10px 0 20px 0;
@@ -253,14 +253,14 @@
             margin-bottom: 24px;
             overflow-x: auto;
         }
-        nav.vaskar-nav a {
+        nav.sub-nav a {
             color: var(--text-main);
             text-decoration: none;
             font-size: 0.95rem;
             font-weight: 500;
             transition: color 0.2s;
         }
-        nav.vaskar-nav a:hover { color: var(--accent); }
+        nav.sub-nav a:hover { color: var(--accent); }
 
         /* Research Interests Badges */
         .interests-section { margin-bottom: 35px; }
@@ -333,7 +333,7 @@
             color: var(--text-main);
         }
 
-        /* Clean Conference Box (Plain text title, non-italic venue) */
+        /* Conference Box */
         .conf-box {
             padding: 10px 0;
             border-bottom: 1px solid var(--card-border);
@@ -349,7 +349,7 @@
         .conf-venue {
             font-size: 0.9rem;
             color: var(--text-muted);
-            font-style: normal; /* Non-italic */
+            font-style: normal;
             margin-bottom: 6px;
         }
         .conf-status {
@@ -369,7 +369,7 @@
         .project-link:hover { text-decoration: underline; }
 
         /* Footer */
-        footer.vaskar-footer {
+        footer.site-footer {
             margin-top: 60px;
             padding-top: 25px;
             border-top: 1px solid var(--card-border);
@@ -385,12 +385,12 @@
         body { top: 0px !important; }
 
         @media (max-width: 650px) {
-            header.vaskar-header { flex-direction: column; text-align: center; gap: 20px; }
+            header.profile-header { flex-direction: column; text-align: center; gap: 20px; }
             .links { justify-content: center; }
             .edu-item, .exp-item { flex-direction: column; gap: 4px; }
             .edu-period, .exp-period { margin-bottom: 8px; }
             .bio-text { text-align: left; }
-            nav.vaskar-nav { gap: 15px; }
+            nav.sub-nav { gap: 15px; }
         }
     </style>
 </head>
@@ -404,7 +404,7 @@
         <button class="circle-btn" id="langBtn" onclick="toggleLangModal()" data-tooltip="Switch language">
             <svg class="globe-svg" viewBox="0 0 24 24">
                 <circle cx="12" cy="12" r="9.5"></circle>
-                <path d="M2.5 12h19M12 2.5a15.3 15.3 0 0 1 4 9.5 15.3 15.3 0 0 1-4 9.5 15.3 15.3 0 0 1-4-9.5z"></path>
+                <path d="M2.5 12h19M12 2.5a15.3 15.3 0 0 1 4 9.5 15.3 15.3 0 0 1-4 9.5 15.3 15.3 0 0 1-4-9.5 15.3 15.3 0 0 1 4-9.5z"></path>
             </svg>
         </button>
         <button class="circle-btn" id="themeBtn" onclick="toggleTheme()" data-tooltip="Toggle theme" style="font-size: 1.2rem; color: #fff;">
@@ -521,8 +521,8 @@
     <div id="google_translate_element" style="display:none;"></div>
 
     <div class="container">
-        <!-- Vaskar Clean Header -->
-        <header class="vaskar-header">
+        <!-- Clean Header -->
+        <header class="profile-header">
             <img src="profile.jpg" alt="Profile Photo" class="avatar" onerror="this.src='https://ui-avatars.com/api/?name=Riad+Mahmud&background=0284c7&color=fff&size=155'">
             <div class="header-info">
                 <h1>Riad Mahmud Chowdhury</h1>
@@ -545,12 +545,12 @@
         <section id="about" class="about-card">
             <h2>About</h2>
             <p class="bio-text">
-                Riad Mahmud Chowdhury is currently pursuing a Bachelor of Science degree in Computer Science and Technology at the School of Artificial Intelligence and Computer Science, Nantong University, Jiangsu Province, People’s Republic of China, maintaining a top-tier CGPA of 4.00/4.00[cite: 44, 45]. His primary research and technical interests encompass Data Science, Machine Learning (ML), and Cybersecurity across the end-to-end data lifecycle—ranging from data preprocessing and exploratory data analysis (EDA) to practical model deployment and secure systems[cite: 44]. He is committed to applying analytics and machine learning methodologies toward robust cybersecurity research, while actively exploring scalable, efficient, and data-driven solutions[cite: 44].
+                Riad Mahmud Chowdhury is currently pursuing a Bachelor of Science degree in Computer Science and Technology at the School of Artificial Intelligence and Computer Science, Nantong University, Jiangsu Province, People’s Republic of China, maintaining a top-tier CGPA of 4.00/4.00. His primary research and technical interests encompass Data Science, Machine Learning (ML), and Cybersecurity across the end-to-end data lifecycle—ranging from data preprocessing and exploratory data analysis (EDA) to practical model deployment and secure systems. He is committed to applying analytics and machine learning methodologies toward robust cybersecurity research, while actively exploring scalable, efficient, and data-driven solutions.
             </p>
         </section>
 
         <!-- Navigation Bar -->
-        <nav class="vaskar-nav">
+        <nav class="sub-nav">
             <a href="#education">Education</a>
             <a href="#conferences">Conferences</a>
             <a href="#experience">Experience</a>
@@ -603,7 +603,7 @@
             </div>
         </section>
 
-        <!-- Conferences Section (Clean format as requested) -->
+        <!-- Conferences Section -->
         <section id="conferences" class="content-section">
             <h2>Conferences</h2>
             <h3 class="sub-heading">Conference Articles</h3>
@@ -683,13 +683,13 @@
         </section>
 
         <!-- Footer -->
-        <footer class="vaskar-footer">
+        <footer class="site-footer">
             <div>Copyright • © 2026 [Riad Mahmud Chowdhury]. All rights reserved.</div>
             <div>Have an amazing day: <span id="dynamic-date">October 18, 2026</span></div>
         </footer>
     </div>
 
-    <!-- Scripts: Non-Intrusive Mesh Background, Theme, Translation & Dynamic Date -->
+    <!-- Scripts: Mesh Background, Theme, Translation & Dynamic Date -->
     <script>
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
