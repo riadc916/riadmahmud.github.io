@@ -332,7 +332,7 @@
 </head>
 <body>
 
-    <!-- Connected Background Canvas -->
+    <!-- Connected Mesh Particle Canvas -->
     <canvas id="bg-canvas"></canvas>
 
     <!-- Controls -->
@@ -548,7 +548,7 @@
         </section>
     </div>
 
-    <!-- True Connected Constellation Mesh Canvas Script -->
+    <!-- Connected Mesh Particle Canvas + Floating Data Numbers -->
     <script>
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
@@ -568,7 +568,7 @@
         });
 
         const particles = [];
-        const particleCount = Math.floor((width * height) / 13000);
+        const particleCount = Math.floor((width * height) / 12500);
 
         for (let i = 0; i < particleCount; i++) {
             particles.push({
@@ -576,6 +576,7 @@
                 y: Math.random() * height,
                 vx: (Math.random() - 0.5) * 0.7,
                 vy: (Math.random() - 0.5) * 0.7,
+                val: (Math.random() * 90 + 10).toFixed(1), // Data number per point
                 radius: 2.2
             });
         }
@@ -584,7 +585,6 @@
             ctx.clearRect(0, 0, width, height);
             const isDark = document.body.classList.contains('dark-mode');
 
-            // Connected dot & line colors (Vaskar Chakma style)
             const dotColor = isDark ? 'rgba(255, 255, 255, 0.5)' : 'rgba(40, 40, 40, 0.4)';
             const lineColor = isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.09)';
             const mouseLineColor = isDark ? 'rgba(56, 189, 248, 0.45)' : 'rgba(29, 114, 242, 0.35)';
@@ -612,7 +612,7 @@
                 ctx.fillStyle = dotColor;
                 ctx.fill();
 
-                // Mouse interaction connection
+                // Mouse interaction connection + Floating numbers
                 if (mouse.x !== null && mouse.y !== null) {
                     const distMouse = Math.hypot(p.x - mouse.x, p.y - mouse.y);
                     if (distMouse < mouse.radius) {
@@ -622,6 +622,11 @@
                         ctx.strokeStyle = mouseLineColor;
                         ctx.lineWidth = 1;
                         ctx.stroke();
+
+                        // Render floating data value beside point
+                        ctx.font = '9px monospace';
+                        ctx.fillStyle = isDark ? 'rgba(255, 255, 255, 0.65)' : 'rgba(30, 41, 59, 0.65)';
+                        ctx.fillText(p.val, p.x + 6, p.y - 3);
                     }
                 }
 
