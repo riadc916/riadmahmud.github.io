@@ -338,30 +338,6 @@
             margin-top: 4px;
         }
 
-        /* EXACT FLOATING VISITOR BADGE */
-        .visitor-counter {
-            position: fixed;
-            bottom: 22px;
-            left: 22px;
-            background: #1d72f2;
-            color: #ffffff;
-            padding: 7px 16px;
-            border-radius: 25px;
-            font-size: 0.86rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 4px 15px rgba(29, 114, 242, 0.4);
-            z-index: 9999;
-            letter-spacing: 0.2px;
-            user-select: none;
-        }
-        .visitor-counter .eye-icon {
-            font-size: 1.05rem;
-            line-height: 1;
-        }
-
         .goog-te-banner-frame.skiptranslate, #goog-gt-tt, .goog-te-balloon-frame {
             display: none !important;
         }
@@ -499,12 +475,6 @@
 
     <!-- Hidden Translate Hook -->
     <div id="google_translate_element" style="display:none;"></div>
-
-    <!-- TRUE REAL-TIME ONLINE VISITORS (Instant +1 on join, -1 on tab close) -->
-    <div class="visitor-counter">
-        <span class="eye-icon">👁️</span>
-        <span>Visitors: <span id="live_visitor_count">1</span></span>
-    </div>
 
     <div class="container">
         <!-- Profile Header -->
@@ -739,48 +709,6 @@
             event.currentTarget.classList.add('selected');
             toggleLangModal();
         }
-    </script>
-
-    <!-- 4. REAL-TIME SERVERLESS WEBRTC CONCURRENT USERS ENGINE -->
-    <script type="module">
-        import { joinRoom } from 'https://cdn.jsdelivr.net/npm/trystero@0.26.0/dist/trystero-torrent.min.js';
-
-        const counterEl = document.getElementById('live_visitor_count');
-        const room = joinRoom({ appId: 'riadc916_portfolio_presence_global' }, 'main_visitors');
-
-        function updateLiveCount() {
-            try {
-                const peers = Object.keys(room.getPeers()).length;
-                // Total concurrent visitors = other connected active peers + this current browser (1)
-                const totalActive = peers + 1;
-                if (counterEl) {
-                    counterEl.innerText = totalActive;
-                }
-            } catch (err) {
-                if (counterEl) counterEl.innerText = '1';
-            }
-        }
-
-        // When a new visitor/tab joins anywhere in the world
-        room.onPeerJoin(() => {
-            updateLiveCount();
-        });
-
-        // When a visitor/tab closes or leaves
-        room.onPeerLeave(() => {
-            updateLiveCount();
-        });
-
-        // Safe cleanup on tab close
-        window.addEventListener('beforeunload', () => {
-            room.leave();
-        });
-        window.addEventListener('pagehide', () => {
-            room.leave();
-        });
-
-        // Initial check
-        updateLiveCount();
     </script>
 
     <!-- Google Translate API -->
