@@ -8,7 +8,7 @@
         :root {
             --bg-color: #ffffff;
             --card-bg: #ffffff;
-            --card-border: #e2e8f0;
+            --card-border: #e5e7eb;
             --text-main: #1f2937;
             --text-muted: #6b7280;
             --accent: #2563eb;
@@ -16,11 +16,12 @@
             --badge-text: #374151;
             --popover-bg: #ffffff;
             --item-hover: #f3f4f6;
+            --date-color: #4b5563;
         }
 
         body.dark-mode {
             --bg-color: #000000;
-            --card-bg: #0f141c;
+            --card-bg: #0c1017;
             --card-border: #1e293b;
             --text-main: #f9fafb;
             --text-muted: #9ca3af;
@@ -29,6 +30,7 @@
             --badge-text: #e2e8f0;
             --popover-bg: #0f141c;
             --item-hover: #1e293b;
+            --date-color: #94a3b8;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -42,6 +44,7 @@
             position: relative;
         }
 
+        /* Subtle Light Particle Mesh Canvas */
         #bg-canvas {
             position: fixed;
             top: 0;
@@ -58,7 +61,7 @@
             padding: 0 20px 80px 20px;
         }
 
-        /* Top Fixed Controls */
+        /* Controls */
         .controls {
             position: fixed;
             top: 22px;
@@ -182,7 +185,7 @@
         .lang-item .flag { font-size: 1.1rem; }
         .lang-item .native { color: var(--text-muted); font-size: 0.8rem; }
 
-        /* Pure Header (No Card) */
+        /* Vaskar Clean Header */
         header.vaskar-header {
             display: flex;
             align-items: center;
@@ -221,7 +224,7 @@
         .links a { color: var(--accent); text-decoration: none; font-weight: 500; }
         .links a:hover { text-decoration: underline; }
 
-        /* Vaskar Chakma About Card */
+        /* About Card */
         .about-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
@@ -242,10 +245,10 @@
             text-align: justify;
         }
 
-        /* Vaskar Chakma Style Clean Horizontal Sub-Nav */
+        /* Navigation Bar */
         nav.vaskar-nav {
             display: flex;
-            gap: 22px;
+            gap: 24px;
             padding: 10px 0 20px 0;
             border-bottom: 1px solid var(--card-border);
             margin-bottom: 24px;
@@ -258,24 +261,16 @@
             font-weight: 500;
             transition: color 0.2s;
         }
-        nav.vaskar-nav a:hover {
-            color: var(--accent);
-        }
+        nav.vaskar-nav a:hover { color: var(--accent); }
 
         /* Research Interests Badges */
-        .interests-section {
-            margin-bottom: 35px;
-        }
+        .interests-section { margin-bottom: 35px; }
         .interests-section h3 {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             font-weight: 700;
             margin-bottom: 12px;
         }
-        .tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
+        .tags { display: flex; flex-wrap: wrap; gap: 10px; }
         .tag {
             background: var(--badge-bg);
             color: var(--badge-text);
@@ -285,51 +280,110 @@
             border: 1px solid var(--card-border);
         }
 
-        /* Content Sections */
-        section.content-section {
-            margin-bottom: 35px;
-        }
+        /* Generic Section Headers */
+        section.content-section { margin-bottom: 40px; }
         section.content-section h2 {
             font-size: 1.45rem;
             font-weight: 700;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
             border-bottom: 1px solid var(--card-border);
             padding-bottom: 8px;
         }
-
-        /* Item Row */
-        .item-row {
-            padding: 14px 0;
-            border-bottom: 1px solid var(--card-border);
-        }
-        .item-row:last-child { border-bottom: none; }
-        .item-title {
-            font-size: 1.05rem;
+        section.content-section h3.sub-heading {
+            font-size: 1.15rem;
             font-weight: 600;
+            color: var(--text-main);
+            margin: 18px 0 10px 0;
+        }
+
+        /* Vaskar Split Row with Date on Right */
+        .edu-item, .exp-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 25px;
+            gap: 20px;
+        }
+        .edu-details, .exp-details { flex: 1; }
+        .edu-title, .exp-title {
+            font-size: 1.05rem;
+            font-weight: 700;
             color: var(--text-main);
             margin-bottom: 3px;
         }
-        .item-subtitle {
-            font-size: 0.93rem;
+        .edu-institution, .exp-institution {
+            font-size: 0.95rem;
             color: var(--text-muted);
             margin-bottom: 4px;
         }
-        .item-meta {
+        .edu-period, .exp-period {
+            font-size: 0.9rem;
+            color: var(--date-color);
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .course-list {
+            margin-top: 8px;
             font-size: 0.88rem;
+            line-height: 1.6;
             color: var(--text-muted);
         }
-        .item-links {
-            margin-top: 6px;
-            display: flex;
-            gap: 12px;
-            font-size: 0.9rem;
+        .course-list u {
+            font-weight: 600;
+            color: var(--text-main);
         }
-        .item-links a {
+
+        /* Publication Card */
+        .pub-box {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--card-border);
+        }
+        .pub-box:last-child { border-bottom: none; }
+        .pub-title {
+            font-size: 1rem;
+            font-weight: 600;
             color: var(--accent);
             text-decoration: none;
-            font-weight: 500;
+            line-height: 1.45;
+            display: inline-block;
+            margin-bottom: 3px;
         }
-        .item-links a:hover { text-decoration: underline; }
+        .pub-authors { font-size: 0.9rem; color: var(--text-muted); }
+        .pub-venue { font-size: 0.88rem; color: var(--text-muted); font-style: italic; margin-top: 2px; }
+        .pub-actions {
+            margin-top: 6px;
+            display: flex;
+            gap: 10px;
+            font-size: 0.85rem;
+            align-items: center;
+        }
+        .pub-actions a { color: var(--accent); text-decoration: none; font-weight: 600; }
+        .pub-actions a:hover { text-decoration: underline; }
+        .accepted-badge {
+            background: rgba(34, 197, 94, 0.15);
+            color: #16a34a;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.78rem;
+        }
+
+        /* Skills Lists */
+        .skill-group { margin-bottom: 16px; font-size: 0.94rem; line-height: 1.65; }
+        .skill-group strong { color: var(--text-main); }
+
+        /* Footer */
+        footer.vaskar-footer {
+            margin-top: 60px;
+            padding-top: 25px;
+            border-top: 1px solid var(--card-border);
+            text-align: center;
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
 
         .goog-te-banner-frame.skiptranslate, #goog-gt-tt, .goog-te-balloon-frame {
             display: none !important;
@@ -339,8 +393,9 @@
         @media (max-width: 650px) {
             header.vaskar-header { flex-direction: column; text-align: center; gap: 20px; }
             .links { justify-content: center; }
+            .edu-item, .exp-item { flex-direction: column; gap: 4px; }
+            .edu-period, .exp-period { margin-bottom: 8px; }
             .bio-text { text-align: left; }
-            nav.vaskar-nav { gap: 15px; }
         }
     </style>
 </head>
@@ -455,7 +510,7 @@
             </li>
             <li class="lang-item" onclick="changeLanguage('fa')">
                 <div class="lang-left"><span class="flag">🇮🇷</span><span class="name">Persian</span></div>
-                <span class="native">فারসি</span>
+                <span class="native">فارسی</span>
             </li>
             <li class="lang-item" onclick="changeLanguage('ur')">
                 <div class="lang-left"><span class="flag">🇵🇰</span><span class="name">Urdu</span></div>
@@ -471,7 +526,7 @@
     <div id="google_translate_element" style="display:none;"></div>
 
     <div class="container">
-        <!-- Vaskar Chakma Style Header -->
+        <!-- Vaskar Clean Header -->
         <header class="vaskar-header">
             <img src="profile.jpg" alt="Profile Photo" class="avatar" onerror="this.src='https://ui-avatars.com/api/?name=Riad+Mahmud&background=0284c7&color=fff&size=155'">
             <div class="header-info">
@@ -491,7 +546,7 @@
             </div>
         </header>
 
-        <!-- About Section (In Card) -->
+        <!-- About Section -->
         <section id="about" class="about-card">
             <h2>About</h2>
             <p class="bio-text">
@@ -499,7 +554,7 @@
             </p>
         </section>
 
-        <!-- Vaskar Style Sub Navigation Line -->
+        <!-- Navigation Bar -->
         <nav class="vaskar-nav">
             <a href="#education">Education</a>
             <a href="#publications">Publications</a>
@@ -508,7 +563,7 @@
             <a href="#skills">Skills</a>
         </nav>
 
-        <!-- Research Interests Badges -->
+        <!-- Research Interests -->
         <div class="interests-section">
             <h3>Research Interests</h3>
             <div class="tags">
@@ -523,42 +578,56 @@
         <!-- Education Section -->
         <section id="education" class="content-section">
             <h2>Education</h2>
-            <div class="item-row">
-                <div class="item-title">Bachelor of Science in Computer Science and Technology</div>
-                <div class="item-subtitle">School of Artificial Intelligence and Computer Science, Nantong University, Jiangsu, China</div>
-                <div class="item-meta">GPA: 4.00 / 4.00 (Completed 6th Semester / 144 Credits) | 2023.09.10 – Present (Exp. 2027)</div>
+
+            <!-- University Degree -->
+            <div class="edu-item">
+                <div class="edu-details">
+                    <div class="edu-title">Bachelor of Science in Computer Science and Technology</div>
+                    <div class="edu-institution">School of Artificial Intelligence and Computer Science, Nantong University, Jiangsu, China</div>
+                    <div class="edu-institution" style="font-size: 0.92rem;">GPA: 4.00 / 4.00 (Completed 6th Semester / 144 Credits)</div>
+                    <div style="font-weight: 700; margin-top: 8px; font-size: 0.92rem;">[Compulsory Major Courses]</div>
+                    <div class="course-list">
+                        <div><u>Fall 2023</u> : Fundamentals of Programming, Higher Mathematics A (I), Introduction to Computer Science, Chinese Traditional Culture Experience (I), Comprehensive Overview of China (I)</div>
+                        <div><u>Spring 2024</u> : Higher Mathematics A (II), Discrete Mathematics, Data Structures, College Physics B (I), College Physics Experiment (I), Linear Algebra A</div>
+                        <div><u>Fall 2024</u> : Assembler Language Programming, Python Programming, Database Principles and Applications, College Physics B (II), College Physics Experiment (II), Data Structures Curriculum Design</div>
+                        <div><u>Spring 2025</u> : Computer Digital Logic Design, Operating Systems, Principles of Computer Organization, Embedded Systems and Interface Technology, Curriculum Design of Operating Systems, Curriculum Design of Principles of Computer Organization</div>
+                        <div><u>Fall 2025</u> : Computer Networks, Algorithm Design and Analysis, Embedded Systems and Interface Technology Curriculum Design, Computer Networks Curriculum Design, Probability Theory and Mathematical Statistics</div>
+                        <div><u>Spring 2026</u> : C# Programming Fundamentals, Software Engineering, Internet of Things (IoT) Technology, UI Design Fundamentals, Embedded Systems Comprehensive Practice, Compilation Principles</div>
+                    </div>
+                </div>
+                <div class="edu-period">2023.09.10 ~ [Present]</div>
             </div>
-            <div class="item-row">
-                <div class="item-title">Higher Secondary Certificate (HSC) in Science</div>
-                <div class="item-subtitle">Chattogram Bandar College, Chattogram, Bangladesh</div>
-                <div class="item-meta">GPA: 4.87 / 5.00 | 2018 – 2020</div>
+
+            <!-- College Degree -->
+            <div class="edu-item">
+                <div class="edu-details">
+                    <div class="edu-title">Higher Secondary Certificate (HSC) in Science</div>
+                    <div class="edu-institution">Chattogram Bandar College, Chattogram, Bangladesh</div>
+                    <div class="edu-institution" style="font-size: 0.92rem;">GPA: 4.87 / 5.00</div>
+                </div>
+                <div class="edu-period">2018.07.01 ~ 2020.06.30</div>
             </div>
         </section>
 
         <!-- Publications Section -->
         <section id="publications" class="content-section">
             <h2>Publications</h2>
-            <div class="item-row">
-                <div class="item-title">Multidecade Structural Dataset Insights & Relational Modeling</div>
-                <div class="item-subtitle">Riad Mahmud Chowdhury</div>
-                <div class="item-meta">End-to-end analytical pipeline on relational schema, long-term trends, and complexity modeling.</div>
-                <div class="item-links">
-                    <a href="https://github.com/riadc916" target="_blank">[Code]</a>
-                    <a href="Riad_Mahmud_Chowdhury_CV.pdf" target="_blank">[Paper]</a>
-                </div>
-            </div>
+            <h3 class="sub-heading">Journal Articles</h3>
+            <p style="color: var(--text-muted); font-size: 0.92rem; font-style: italic;">Journal manuscripts will be updated here upon completion of peer review.</p>
         </section>
 
         <!-- Conferences Section -->
         <section id="conferences" class="content-section">
             <h2>Conferences</h2>
-            <div class="item-row">
-                <div class="item-title">Time-Series Analytics for Developer Tooling & Language Adoption</div>
-                <div class="item-subtitle">Riad Mahmud Chowdhury</div>
-                <div class="item-meta">Analysis of developer discussion frequencies and community adoption metrics.</div>
-                <div class="item-links">
-                    <a href="https://github.com/riadc916" target="_blank">[Project]</a>
-                    <a href="https://github.com/riadc916" target="_blank">[Slides]</a>
+            <h3 class="sub-heading">Conference Articles</h3>
+            <div class="pub-box">
+                <a href="#" class="pub-title">Provable Moving-Target Defense for Cyber-Physical Networks: From the Security-Performance Frontier to No-Regret Defense</a>
+                <div class="pub-authors">Md Mostofa Nurannabi Shakil, <strong>Riad Mahmud Chowdhury</strong>, Tanvir Hossain, Md. Alamgir Hossain, Md. Samiul Islam, and Md. Shafiqul Islam</div>
+                <div class="pub-venue">Proceedings of the IEEE International Conference on Computer Science and Data Engineering (IEEE CSDE 2026)</div>
+                <div class="pub-actions">
+                    <span class="accepted-badge">Accepted</span>
+                    <a href="Riad_Mahmud_Chowdhury_CV.pdf" target="_blank">[Paper]</a>
+                    <a href="https://github.com/riadc916" target="_blank">[Code]</a>
                 </div>
             </div>
         </section>
@@ -566,32 +635,81 @@
         <!-- Experience Section -->
         <section id="experience" class="content-section">
             <h2>Experience</h2>
-            <div class="item-row">
-                <div class="item-title">Research & Data Analytics Contributor</div>
-                <div class="item-subtitle">Experimental Analysis & Framework Evaluation</div>
-                <div class="item-meta">Conducted statistical outcomes validation, experimental pipeline preparation, and collaborative data analysis.</div>
+            <h3 class="sub-heading">Academic & Research</h3>
+            
+            <div class="exp-item">
+                <div class="exp-details">
+                    <div class="exp-title">Research Contributor (Data Analysis)</div>
+                    <div class="exp-institution">IEEE International Conference on Computer Science and Data Engineering (IEEE CSDE 2026)</div>
+                    <div class="course-list" style="margin-top: 5px;">
+                        • Assisted extensively in experimental analysis and evaluation of moving-target defense frameworks.<br>
+                        • Contributed to research manuscript preparation, formatting, and mathematical validation.<br>
+                        • Collaborated across institutions to evaluate data outcomes, baseline models, and security performance.
+                    </div>
+                </div>
+                <div class="exp-period">2025.10 ~ [Present]</div>
+            </div>
+
+            <div class="exp-item">
+                <div class="exp-details">
+                    <div class="exp-title">Academic Peer Mentorship</div>
+                    <div class="exp-institution">School of Artificial Intelligence and Computer Science, Nantong University</div>
+                    <div class="course-list" style="margin-top: 5px;">
+                        • Guided peer student groups in scientific Python environments, structured notebook practices, and EDA pipelines.<br>
+                        • Assisted students in understanding algorithmic workflows and data visualization setups.
+                    </div>
+                </div>
+                <div class="exp-period">2024.03 ~ [Present]</div>
             </div>
         </section>
 
-        <!-- Skills Section -->
+        <!-- Skills & Honors Section -->
         <section id="skills" class="content-section">
-            <h2>Skills</h2>
-            <div class="tags" style="margin-top: 10px;">
-                <span class="tag">Python</span>
-                <span class="tag">R</span>
-                <span class="tag">C#</span>
-                <span class="tag">JavaScript</span>
-                <span class="tag">SQL</span>
-                <span class="tag">Pandas & NumPy</span>
-                <span class="tag">Scikit-learn</span>
-                <span class="tag">Tidyverse & ggplot2</span>
-                <span class="tag">Git & GitHub</span>
+            <h2>Skills & Honors</h2>
+
+            <h3 class="sub-heading">Technical Skills</h3>
+            <div class="skill-group">
+                <strong>Programming:</strong> Python, R, JavaScript, C#, Java, SQL, HTML/CSS
+            </div>
+            <div class="skill-group">
+                <strong>Data Science & AI/ML:</strong> Machine Learning, Data Preprocessing, Exploratory Data Analysis (EDA), Data Visualization, Pandas, NumPy, Scikit-learn, Matplotlib, Tidyverse, ggplot2
+            </div>
+            <div class="skill-group">
+                <strong>Tools & Platforms:</strong> Visual Studio Code, Google Colab, Jupyter Notebook, Git, GitHub, LaTeX, RStudio, Zotero, Microsoft Office
+            </div>
+
+            <h3 class="sub-heading">Languages</h3>
+            <div class="skill-group">
+                <strong>Bengali:</strong> Native | <strong>English:</strong> Advanced / Fluent | <strong>Chinese (Mandarin):</strong> Intermediate (<span class="tag" style="padding: 2px 8px; font-size: 0.8rem;">HSK 4: 220/300</span>)
+            </div>
+
+            <h3 class="sub-heading">Academic Projects</h3>
+            <div class="skill-group">
+                • [Full-Stack C#] <strong>Online Banking Web System</strong>: Secure OOP banking architecture with database connectivity. <a href="https://github.com/riadc916" target="_blank" style="color:var(--accent); text-decoration:none;">[CODE]</a><br>
+                • [Python & Pandas] <strong>Lego Multi-decade Structural Analytics</strong>: Pipeline analyzing part complexity and color evolution. <a href="https://github.com/riadc916" target="_blank" style="color:var(--accent); text-decoration:none;">[CODE]</a><br>
+                • [Time-Series EDA] <strong>StackOverflow Language Trends</strong>: Developer discussion tracking and adoption trends pipeline. <a href="https://github.com/riadc916" target="_blank" style="color:var(--accent); text-decoration:none;">[CODE]</a><br>
+                • [R & Tidyverse] <strong>Superstore Sales & Profitability Analysis</strong>: Corporate metrics, regional logistics, and margins. <a href="https://github.com/riadc916" target="_blank" style="color:var(--accent); text-decoration:none;">[CODE]</a>
+            </div>
+
+            <h3 class="sub-heading">Honors & Certifications</h3>
+            <div class="skill-group">
+                • <strong>Perfect Academic Standing (CGPA 4.00 / 4.00)</strong>: Ranked in top tier throughout completed semesters at Nantong University (2023 – Present).<br>
+                • <strong>Google Data Analytics Professional Certificate</strong>: Verified Credential, Coursera (2026).<br>
+                • <strong>100 Days of Code: Complete Python Pro Bootcamp</strong>: Verified Credential, Udemy (2026).
             </div>
         </section>
+
+        <!-- Footer (Dynamic Date & Hotkeys) -->
+        <footer class="vaskar-footer">
+            <div>Press the backtick key ( ` ) to open hidden terminal & Press ( s ) to toggle torchlight.</div>
+            <div>Copyright • © 2026 [Riad Mahmud Chowdhury]. All rights reserved.</div>
+            <div>Have an amazing day: <span id="dynamic-date">October 18, 2026</span></div>
+        </footer>
     </div>
 
-    <!-- Connected Mesh Particle Canvas + Floating Data Numbers -->
+    <!-- Scripts: Subtle Particle Background, Theme, Translation & Dynamic Date -->
     <script>
+        // 1. Subtle, Non-Intrusive Mesh Background Canvas
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let width = canvas.width = window.innerWidth;
@@ -610,16 +728,16 @@
         });
 
         const particles = [];
-        const particleCount = Math.floor((width * height) / 12500);
+        const particleCount = Math.floor((width * height) / 14000);
 
         for (let i = 0; i < particleCount; i++) {
             particles.push({
                 x: Math.random() * width,
                 y: Math.random() * height,
-                vx: (Math.random() - 0.5) * 0.7,
-                vy: (Math.random() - 0.5) * 0.7,
+                vx: (Math.random() - 0.5) * 0.6,
+                vy: (Math.random() - 0.5) * 0.6,
                 val: (Math.random() * 90 + 10).toFixed(1),
-                radius: 2.2
+                radius: 2.0
             });
         }
 
@@ -627,16 +745,17 @@
             ctx.clearRect(0, 0, width, height);
             const isDark = document.body.classList.contains('dark-mode');
 
-            const dotColor = isDark ? 'rgba(255, 255, 255, 0.5)' : 'rgba(40, 40, 40, 0.4)';
-            const lineColor = isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.09)';
-            const mouseLineColor = isDark ? 'rgba(56, 189, 248, 0.45)' : 'rgba(29, 114, 242, 0.35)';
+            // Subtle & Light Opacity so text is never obstructed
+            const dotColor = isDark ? 'rgba(255, 255, 255, 0.32)' : 'rgba(30, 41, 59, 0.22)';
+            const lineColor = isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.04)';
+            const mouseLineColor = isDark ? 'rgba(56, 189, 248, 0.35)' : 'rgba(29, 114, 242, 0.25)';
             const mouseRingColor = isDark ? '#38bdf8' : '#1d72f2';
 
             if (mouse.x !== null && mouse.y !== null) {
                 ctx.beginPath();
                 ctx.arc(mouse.x, mouse.y, 9, 0, Math.PI * 2);
                 ctx.strokeStyle = mouseRingColor;
-                ctx.lineWidth = 2.2;
+                ctx.lineWidth = 2.0;
                 ctx.stroke();
             }
 
@@ -659,11 +778,11 @@
                         ctx.moveTo(p.x, p.y);
                         ctx.lineTo(mouse.x, mouse.y);
                         ctx.strokeStyle = mouseLineColor;
-                        ctx.lineWidth = 1;
+                        ctx.lineWidth = 0.9;
                         ctx.stroke();
 
                         ctx.font = '9px monospace';
-                        ctx.fillStyle = isDark ? 'rgba(255, 255, 255, 0.65)' : 'rgba(30, 41, 59, 0.65)';
+                        ctx.fillStyle = isDark ? 'rgba(255, 255, 255, 0.45)' : 'rgba(30, 41, 59, 0.45)';
                         ctx.fillText(p.val, p.x + 6, p.y - 3);
                     }
                 }
@@ -671,12 +790,12 @@
                 for (let j = index + 1; j < particles.length; j++) {
                     const p2 = particles[j];
                     const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
-                    if (dist < 120) {
+                    if (dist < 110) {
                         ctx.beginPath();
                         ctx.moveTo(p.x, p.y);
                         ctx.lineTo(p2.x, p2.y);
                         ctx.strokeStyle = lineColor;
-                        ctx.lineWidth = 0.85;
+                        ctx.lineWidth = 0.65;
                         ctx.stroke();
                     }
                 }
@@ -691,6 +810,7 @@
             height = canvas.height = window.innerHeight;
         });
 
+        // 2. Theme Toggle
         function toggleTheme() {
             document.body.classList.toggle('dark-mode');
             const isDark = document.body.classList.contains('dark-mode');
@@ -703,6 +823,7 @@
             document.getElementById('themeBtn').textContent = '☀️';
         }
 
+        // 3. Language Modal Controls
         function toggleLangModal() {
             const modal = document.getElementById('langModal');
             modal.classList.toggle('active');
@@ -735,6 +856,17 @@
             event.currentTarget.classList.add('selected');
             toggleLangModal();
         }
+
+        // 4. Automatic Real-Time Dynamic Date in Footer
+        function updateDynamicDate() {
+            const dateEl = document.getElementById('dynamic-date');
+            if (dateEl) {
+                const today = new Date();
+                const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                dateEl.textContent = today.toLocaleDateString('en-US', options);
+            }
+        }
+        updateDynamicDate();
     </script>
 
     <!-- Google Translate API -->
