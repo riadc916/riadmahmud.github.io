@@ -7,26 +7,28 @@
     <style>
         :root {
             --bg-color: #ffffff;
-            --card-bg: rgba(255, 255, 255, 0.9);
-            --card-border: #e5e7eb;
-            --text-main: #111827;
-            --text-muted: #4b5563;
+            --card-bg: #ffffff;
+            --card-border: #e2e8f0;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
             --accent: #2563eb;
-            --badge-bg: #f3f4f6;
+            --badge-bg: #f1f5f9;
+            --badge-text: #374151;
             --popover-bg: #ffffff;
             --item-hover: #f3f4f6;
         }
 
         body.dark-mode {
             --bg-color: #000000;
-            --card-bg: rgba(18, 18, 18, 0.85);
-            --card-border: #262626;
+            --card-bg: #0f141c;
+            --card-border: #1e293b;
             --text-main: #f9fafb;
             --text-muted: #9ca3af;
             --accent: #38bdf8;
-            --badge-bg: #171717;
-            --popover-bg: #0f0f0f;
-            --item-hover: #1f1f1f;
+            --badge-bg: #1e293b;
+            --badge-text: #e2e8f0;
+            --popover-bg: #0f141c;
+            --item-hover: #1e293b;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -40,7 +42,6 @@
             position: relative;
         }
 
-        /* Connected Constellation Network Canvas */
         #bg-canvas {
             position: fixed;
             top: 0;
@@ -52,12 +53,12 @@
         }
 
         .container {
-            max-width: 880px;
+            max-width: 860px;
             margin: 40px auto;
             padding: 0 20px 80px 20px;
         }
 
-        /* Controls */
+        /* Top Fixed Controls */
         .controls {
             position: fixed;
             top: 22px;
@@ -80,12 +81,10 @@
             justify-content: center;
             cursor: pointer;
             box-shadow: 0 4px 14px rgba(29, 114, 242, 0.35);
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: transform 0.2s;
             outline: none;
         }
-        .circle-btn:hover {
-            transform: scale(1.06);
-        }
+        .circle-btn:hover { transform: scale(1.06); }
 
         .circle-btn::after {
             content: attr(data-tooltip);
@@ -102,11 +101,9 @@
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.2s;
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: sans-serif;
         }
-        .circle-btn:hover::after {
-            opacity: 1;
-        }
+        .circle-btn:hover::after { opacity: 1; }
 
         .globe-svg {
             width: 24px;
@@ -131,18 +128,13 @@
             padding: 14px;
             animation: fadeIn 0.15s ease-out;
         }
-        .lang-modal.active {
-            display: block;
-        }
+        .lang-modal.active { display: block; }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-8px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .lang-search-wrapper {
-            position: relative;
-            margin-bottom: 8px;
-        }
+        .lang-search-wrapper { position: relative; margin-bottom: 8px; }
         .lang-search-wrapper span {
             position: absolute;
             left: 12px;
@@ -186,25 +178,17 @@
             transition: background 0.15s;
         }
         .lang-item:hover, .lang-item.selected { background: var(--item-hover); }
-        .lang-item .lang-left {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 500;
-        }
+        .lang-item .lang-left { display: flex; align-items: center; gap: 10px; font-weight: 500; }
         .lang-item .flag { font-size: 1.1rem; }
         .lang-item .native { color: var(--text-muted); font-size: 0.8rem; }
 
-        /* Vaskar Chakma Style Pure Header */
+        /* Pure Header (No Card) */
         header.vaskar-header {
             display: flex;
             align-items: center;
             gap: 36px;
             background: transparent;
-            border: none;
-            box-shadow: none;
-            padding: 10px 0 35px 0;
-            margin-bottom: 10px;
+            padding: 10px 0 30px 0;
         }
         .avatar {
             width: 155px;
@@ -223,7 +207,7 @@
         .header-info .meta-line {
             color: var(--text-muted);
             font-size: 1rem;
-            line-height: 1.5;
+            line-height: 1.45;
         }
         .links {
             margin-top: 14px;
@@ -233,90 +217,119 @@
             font-size: 0.95rem;
             align-items: center;
         }
-        .links span.email {
-            color: var(--text-muted);
-        }
-        .links a {
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 500;
-        }
-        .links a:hover {
-            text-decoration: underline;
-        }
+        .links span.email { color: var(--text-muted); }
+        .links a { color: var(--accent); text-decoration: none; font-weight: 500; }
+        .links a:hover { text-decoration: underline; }
 
-        /* Navigation */
-        nav.glass-nav {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 10px 16px;
-            display: flex;
-            gap: 15px;
-            overflow-x: auto;
-            margin-bottom: 30px;
-        }
-        nav a {
-            color: var(--text-main);
-            text-decoration: none;
-            font-size: 0.92rem;
-            padding: 6px 12px;
-            border-radius: 8px;
-            transition: background 0.2s;
-        }
-        nav a:hover { background: var(--badge-bg); color: var(--accent); }
-
-        /* Card Section */
-        .glass-card {
+        /* Vaskar Chakma About Card */
+        .about-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: 16px;
             padding: 28px;
-            margin-bottom: 24px;
-            backdrop-filter: blur(12px);
+            margin-bottom: 25px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
         }
-
-        h2 {
-            font-size: 1.35rem;
+        .about-card h2 {
+            font-size: 1.45rem;
+            font-weight: 700;
             margin-bottom: 14px;
+        }
+        .bio-text {
+            font-size: 0.97rem;
+            color: var(--text-main);
+            line-height: 1.75;
+            text-align: justify;
+        }
+
+        /* Vaskar Chakma Style Clean Horizontal Sub-Nav */
+        nav.vaskar-nav {
+            display: flex;
+            gap: 22px;
+            padding: 10px 0 20px 0;
+            border-bottom: 1px solid var(--card-border);
+            margin-bottom: 24px;
+            overflow-x: auto;
+        }
+        nav.vaskar-nav a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        nav.vaskar-nav a:hover {
+            color: var(--accent);
+        }
+
+        /* Research Interests Badges */
+        .interests-section {
+            margin-bottom: 35px;
+        }
+        .interests-section h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .tag {
+            background: var(--badge-bg);
+            color: var(--badge-text);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid var(--card-border);
+        }
+
+        /* Content Sections */
+        section.content-section {
+            margin-bottom: 35px;
+        }
+        section.content-section h2 {
+            font-size: 1.45rem;
+            font-weight: 700;
+            margin-bottom: 16px;
             border-bottom: 1px solid var(--card-border);
             padding-bottom: 8px;
         }
 
-        .bio-text {
-            font-size: 0.98rem;
-            color: var(--text-main);
-            line-height: 1.8;
-            text-align: justify;
-        }
-
-        .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
-        .tag {
-            background: var(--badge-bg);
-            color: var(--text-main);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            border: 1px solid var(--card-border);
-        }
-
-        .pub-item {
+        /* Item Row */
+        .item-row {
             padding: 14px 0;
             border-bottom: 1px solid var(--card-border);
         }
-        .pub-item:last-child { border-bottom: none; }
-        .pub-item a.title {
-            color: var(--accent);
-            text-decoration: none;
+        .item-row:last-child { border-bottom: none; }
+        .item-title {
+            font-size: 1.05rem;
             font-weight: 600;
-            font-size: 1rem;
+            color: var(--text-main);
+            margin-bottom: 3px;
         }
-        .pub-item .meta {
+        .item-subtitle {
+            font-size: 0.93rem;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+        .item-meta {
             font-size: 0.88rem;
             color: var(--text-muted);
-            margin-top: 4px;
         }
+        .item-links {
+            margin-top: 6px;
+            display: flex;
+            gap: 12px;
+            font-size: 0.9rem;
+        }
+        .item-links a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .item-links a:hover { text-decoration: underline; }
 
         .goog-te-banner-frame.skiptranslate, #goog-gt-tt, .goog-te-balloon-frame {
             display: none !important;
@@ -327,6 +340,7 @@
             header.vaskar-header { flex-direction: column; text-align: center; gap: 20px; }
             .links { justify-content: center; }
             .bio-text { text-align: left; }
+            nav.vaskar-nav { gap: 15px; }
         }
     </style>
 </head>
@@ -441,7 +455,7 @@
             </li>
             <li class="lang-item" onclick="changeLanguage('fa')">
                 <div class="lang-left"><span class="flag">🇮🇷</span><span class="name">Persian</span></div>
-                <span class="native">فارسی</span>
+                <span class="native">فারসি</span>
             </li>
             <li class="lang-item" onclick="changeLanguage('ur')">
                 <div class="lang-left"><span class="flag">🇵🇰</span><span class="name">Urdu</span></div>
@@ -457,7 +471,7 @@
     <div id="google_translate_element" style="display:none;"></div>
 
     <div class="container">
-        <!-- Vaskar Chakma Style Pure Header -->
+        <!-- Vaskar Chakma Style Header -->
         <header class="vaskar-header">
             <img src="profile.jpg" alt="Profile Photo" class="avatar" onerror="this.src='https://ui-avatars.com/api/?name=Riad+Mahmud&background=0284c7&color=fff&size=155'">
             <div class="header-info">
@@ -477,22 +491,26 @@
             </div>
         </header>
 
-        <!-- Navbar -->
-        <nav class="glass-nav">
-            <a href="#about">About</a>
+        <!-- About Section (In Card) -->
+        <section id="about" class="about-card">
+            <h2>About</h2>
+            <p class="bio-text">
+                Riad Mahmud Chowdhury is currently pursuing a Bachelor of Science degree in Computer Science and Technology at the School of Artificial Intelligence and Computer Science, Nantong University, Jiangsu Province, People’s Republic of China, maintaining a top-tier CGPA of 4.00/4.00. His primary research and technical interests encompass Data Science, Machine Learning (ML), and Cybersecurity across the end-to-end data lifecycle—ranging from data preprocessing and exploratory data analysis (EDA) to practical model deployment and secure systems. He is committed to applying analytics and machine learning methodologies toward robust cybersecurity research, while actively exploring scalable, efficient, and data-driven solutions.
+            </p>
+        </section>
+
+        <!-- Vaskar Style Sub Navigation Line -->
+        <nav class="vaskar-nav">
             <a href="#education">Education</a>
-            <a href="#projects">Projects</a>
+            <a href="#publications">Publications</a>
+            <a href="#conferences">Conferences</a>
+            <a href="#experience">Experience</a>
             <a href="#skills">Skills</a>
         </nav>
 
-        <!-- About Section (Vaskar Chakma Academic Flow) -->
-        <section id="about" class="glass-card">
-            <h2>About</h2>
-            <p class="bio-text">
-                Riad Mahmud Chowdhury is currently pursuing a Bachelor of Science degree in Computer Science and Technology at the School of Artificial Intelligence and Computer Science, Nantong University, Jiangsu Province, People’s Republic of China. His primary research and technical interests encompass Data Science, Machine Learning (ML), and Cybersecurity across the end-to-end data lifecycle—ranging from data preprocessing and exploratory data analysis (EDA) to practical model deployment and secure systems. He is committed to applying analytics and machine learning methodologies toward robust cybersecurity research, while actively exploring scalable, efficient, and data-driven solutions.
-            </p>
-
-            <h3 style="margin-top: 20px; font-size: 1.05rem;">Research Interests</h3>
+        <!-- Research Interests Badges -->
+        <div class="interests-section">
+            <h3>Research Interests</h3>
             <div class="tags">
                 <span class="tag">Machine Learning (ML)</span>
                 <span class="tag">Data Science</span>
@@ -500,50 +518,74 @@
                 <span class="tag">Exploratory Data Analysis (EDA)</span>
                 <span class="tag">Data Preprocessing & Pipelines</span>
             </div>
-        </section>
+        </div>
 
         <!-- Education Section -->
-        <section id="education" class="glass-card">
+        <section id="education" class="content-section">
             <h2>Education</h2>
-            <div>
-                <h3 style="font-size: 1.05rem;">Bachelor of Science in Computer Science and Technology</h3>
-                <p style="color: var(--text-muted); font-size: 0.92rem;">School of Artificial Intelligence and Computer Science, Nantong University, China[cite: 44]</p>
-                <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 3px;">2023.09.10 – Present (Exp. 2027) | CGPA: 4.00 / 4.00[cite: 44, 45]</p>
+            <div class="item-row">
+                <div class="item-title">Bachelor of Science in Computer Science and Technology</div>
+                <div class="item-subtitle">School of Artificial Intelligence and Computer Science, Nantong University, Jiangsu, China</div>
+                <div class="item-meta">GPA: 4.00 / 4.00 (Completed 6th Semester / 144 Credits) | 2023.09.10 – Present (Exp. 2027)</div>
+            </div>
+            <div class="item-row">
+                <div class="item-title">Higher Secondary Certificate (HSC) in Science</div>
+                <div class="item-subtitle">Chattogram Bandar College, Chattogram, Bangladesh</div>
+                <div class="item-meta">GPA: 4.87 / 5.00 | 2018 – 2020</div>
             </div>
         </section>
 
-        <!-- Projects Section -->
-        <section id="projects" class="glass-card">
-            <h2>Projects & Software Development</h2>
-            
-            <div class="pub-item">
-                <a href="https://github.com/riadc916" target="_blank" class="title">Online Banking Web System [Banking-Web-C#]</a>[cite: 45]
-                <div class="meta">Architected a secure full-stack web application implementing robust OOP transaction logic, customer account management, and database connectivity in C#[cite: 45].</div>
+        <!-- Publications Section -->
+        <section id="publications" class="content-section">
+            <h2>Publications</h2>
+            <div class="item-row">
+                <div class="item-title">Multidecade Structural Dataset Insights & Relational Modeling</div>
+                <div class="item-subtitle">Riad Mahmud Chowdhury</div>
+                <div class="item-meta">End-to-end analytical pipeline on relational schema, long-term trends, and complexity modeling.</div>
+                <div class="item-links">
+                    <a href="https://github.com/riadc916" target="_blank">[Code]</a>
+                    <a href="Riad_Mahmud_Chowdhury_CV.pdf" target="_blank">[Paper]</a>
+                </div>
             </div>
+        </section>
 
-            <div class="pub-item">
-                <a href="https://github.com/riadc916" target="_blank" class="title">Developer Adoption Analytics [StackOverflow-Language-Trends]</a>[cite: 45]
-                <div class="meta">Created a time-series exploratory pipeline utilizing Python, Pandas, and Matplotlib to analyze multi-year programming language popularity and tool adoption[cite: 45].</div>
+        <!-- Conferences Section -->
+        <section id="conferences" class="content-section">
+            <h2>Conferences</h2>
+            <div class="item-row">
+                <div class="item-title">Time-Series Analytics for Developer Tooling & Language Adoption</div>
+                <div class="item-subtitle">Riad Mahmud Chowdhury</div>
+                <div class="item-meta">Analysis of developer discussion frequencies and community adoption metrics.</div>
+                <div class="item-links">
+                    <a href="https://github.com/riadc916" target="_blank">[Project]</a>
+                    <a href="https://github.com/riadc916" target="_blank">[Slides]</a>
+                </div>
             </div>
+        </section>
 
-            <div class="pub-item">
-                <a href="https://github.com/riadc916" target="_blank" class="title">Enterprise Retail Analytics [Superstore-Sales-Profitability-Analysis]</a>[cite: 45]
-                <div class="meta">Designed an analytics framework in R (Tidyverse & ggplot2) to cleanse corporate sales records, evaluate discount sensitivity, and visualize product line margins[cite: 45].</div>
+        <!-- Experience Section -->
+        <section id="experience" class="content-section">
+            <h2>Experience</h2>
+            <div class="item-row">
+                <div class="item-title">Research & Data Analytics Contributor</div>
+                <div class="item-subtitle">Experimental Analysis & Framework Evaluation</div>
+                <div class="item-meta">Conducted statistical outcomes validation, experimental pipeline preparation, and collaborative data analysis.</div>
             </div>
         </section>
 
         <!-- Skills Section -->
-        <section id="skills" class="glass-card">
-            <h2>Skills Summary</h2>
-            <div class="tags">
-                <span class="tag">Python</span>[cite: 44]
-                <span class="tag">R</span>[cite: 44]
-                <span class="tag">C#</span>[cite: 44]
-                <span class="tag">SQL</span>[cite: 44]
-                <span class="tag">Pandas & NumPy</span>[cite: 44]
-                <span class="tag">Scikit-learn</span>[cite: 44]
-                <span class="tag">Tidyverse & ggplot2</span>[cite: 44]
-                <span class="tag">Git & GitHub</span>[cite: 44]
+        <section id="skills" class="content-section">
+            <h2>Skills</h2>
+            <div class="tags" style="margin-top: 10px;">
+                <span class="tag">Python</span>
+                <span class="tag">R</span>
+                <span class="tag">C#</span>
+                <span class="tag">JavaScript</span>
+                <span class="tag">SQL</span>
+                <span class="tag">Pandas & NumPy</span>
+                <span class="tag">Scikit-learn</span>
+                <span class="tag">Tidyverse & ggplot2</span>
+                <span class="tag">Git & GitHub</span>
             </div>
         </section>
     </div>
@@ -576,7 +618,7 @@
                 y: Math.random() * height,
                 vx: (Math.random() - 0.5) * 0.7,
                 vy: (Math.random() - 0.5) * 0.7,
-                val: (Math.random() * 90 + 10).toFixed(1), // Data number per point
+                val: (Math.random() * 90 + 10).toFixed(1),
                 radius: 2.2
             });
         }
@@ -590,7 +632,6 @@
             const mouseLineColor = isDark ? 'rgba(56, 189, 248, 0.45)' : 'rgba(29, 114, 242, 0.35)';
             const mouseRingColor = isDark ? '#38bdf8' : '#1d72f2';
 
-            // Draw Blue Mouse Ring
             if (mouse.x !== null && mouse.y !== null) {
                 ctx.beginPath();
                 ctx.arc(mouse.x, mouse.y, 9, 0, Math.PI * 2);
@@ -606,13 +647,11 @@
                 if (p.x < 0 || p.x > width) p.vx *= -1;
                 if (p.y < 0 || p.y > height) p.vy *= -1;
 
-                // Draw Dots
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
                 ctx.fillStyle = dotColor;
                 ctx.fill();
 
-                // Mouse interaction connection + Floating numbers
                 if (mouse.x !== null && mouse.y !== null) {
                     const distMouse = Math.hypot(p.x - mouse.x, p.y - mouse.y);
                     if (distMouse < mouse.radius) {
@@ -623,14 +662,12 @@
                         ctx.lineWidth = 1;
                         ctx.stroke();
 
-                        // Render floating data value beside point
                         ctx.font = '9px monospace';
                         ctx.fillStyle = isDark ? 'rgba(255, 255, 255, 0.65)' : 'rgba(30, 41, 59, 0.65)';
                         ctx.fillText(p.val, p.x + 6, p.y - 3);
                     }
                 }
 
-                // Inter-node network connections (Full Connected Mesh)
                 for (let j = index + 1; j < particles.length; j++) {
                     const p2 = particles[j];
                     const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
@@ -654,7 +691,6 @@
             height = canvas.height = window.innerHeight;
         });
 
-        // Theme Toggle (Pure White / Black)
         function toggleTheme() {
             document.body.classList.toggle('dark-mode');
             const isDark = document.body.classList.contains('dark-mode');
@@ -667,7 +703,6 @@
             document.getElementById('themeBtn').textContent = '☀️';
         }
 
-        // Language Modal Controls
         function toggleLangModal() {
             const modal = document.getElementById('langModal');
             modal.classList.toggle('active');
