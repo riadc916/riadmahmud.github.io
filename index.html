@@ -3,34 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Riad Mahmud Chowdhury | Data Science & AI</title>
+    <title>Riad Mahmud Chowdhury | Portfolio</title>
     <style>
         :root {
-            --bg-color: #f1f5f9;
-            --card-bg: rgba(255, 255, 255, 0.88);
-            --card-border: rgba(226, 232, 240, 0.9);
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --accent: #0284c7;
-            --data-cyan: #06b6d4;
-            --data-purple: #8b5cf6;
-            --badge-bg: #e2e8f0;
+            --bg-color: #ffffff;             /* Pure White */
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --card-border: #e5e7eb;
+            --text-main: #111827;
+            --text-muted: #4b5563;
+            --accent: #2563eb;
+            --data-cyan: #0284c7;
+            --data-purple: #7c3aed;
+            --badge-bg: #f3f4f6;
             --popover-bg: #ffffff;
-            --item-hover: #f1f5f9;
+            --item-hover: #f3f4f6;
         }
 
         body.dark-mode {
-            --bg-color: #030712;
-            --card-bg: rgba(17, 24, 39, 0.8);
-            --card-border: rgba(31, 41, 55, 0.8);
+            --bg-color: #000000;             /* Pure Black */
+            --card-bg: rgba(15, 15, 15, 0.85);
+            --card-border: #222222;
             --text-main: #f9fafb;
             --text-muted: #9ca3af;
             --accent: #38bdf8;
-            --data-cyan: #22d3ee;
+            --data-cyan: #38bdf8;
             --data-purple: #c084fc;
-            --badge-bg: rgba(31, 41, 55, 0.9);
-            --popover-bg: #111827;
-            --item-hover: #1f2937;
+            --badge-bg: #141414;
+            --popover-bg: #0f0f0f;
+            --item-hover: #1c1c1c;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -56,7 +56,7 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: 880px;
             margin: 40px auto;
             padding: 0 20px 80px 20px;
         }
@@ -130,7 +130,7 @@
             background: var(--popover-bg);
             border: 1px solid var(--card-border);
             border-radius: 18px;
-            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.18);
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.25);
             z-index: 1001;
             padding: 14px;
             animation: fadeIn 0.15s ease-out;
@@ -199,86 +199,89 @@
         .lang-item .flag { font-size: 1.1rem; }
         .lang-item .native { color: var(--text-muted); font-size: 0.8rem; }
 
-        /* Glass Cards */
-        .glass-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 16px;
-            padding: 26px;
-            margin-bottom: 24px;
-            backdrop-filter: blur(14px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
-        }
-
-        /* Profile Header */
-        header.glass-card {
+        /* Vaskar Chakma Style Header (NO CARD CONTAINER) */
+        header.vaskar-header {
             display: flex;
             align-items: center;
-            gap: 28px;
+            gap: 36px;
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            padding: 10px 0 35px 0;
+            margin-bottom: 15px;
         }
         .avatar {
-            width: 125px;
-            height: 125px;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid var(--accent);
-            box-shadow: 0 0 15px rgba(56, 189, 248, 0.25);
+            border: 1px solid var(--card-border);
             flex-shrink: 0;
         }
-        .header-info h1 { font-size: 1.85rem; letter-spacing: -0.5px; }
-        .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.8rem;
-            font-family: monospace;
-            background: rgba(6, 182, 212, 0.15);
-            color: var(--data-cyan);
-            padding: 3px 10px;
-            border-radius: 12px;
-            margin: 6px 0;
-            border: 1px solid rgba(6, 182, 212, 0.3);
+        .header-info h1 {
+            font-size: 2.1rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
         }
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--data-cyan);
-            animation: pulse 1.5s infinite;
+        .header-info .meta-line {
+            color: var(--text-muted);
+            font-size: 1rem;
+            line-height: 1.45;
+            margin-bottom: 2px;
         }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.4; transform: scale(1.2); }
-        }
-
         .links {
-            margin-top: 12px;
+            margin-top: 14px;
             display: flex;
-            gap: 12px;
+            gap: 14px;
             flex-wrap: wrap;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
+            align-items: center;
         }
-        .links a { color: var(--accent); text-decoration: none; font-weight: 500; }
-        .links a:hover { text-decoration: underline; }
+        .links span.email {
+            color: var(--text-muted);
+        }
+        .links a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .links a:hover {
+            text-decoration: underline;
+        }
 
         /* Navigation */
-        nav.glass-card {
+        nav.glass-nav {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
             padding: 10px 16px;
             display: flex;
             gap: 15px;
             overflow-x: auto;
+            margin-bottom: 30px;
         }
         nav a {
             color: var(--text-main);
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.92rem;
             padding: 6px 12px;
             border-radius: 8px;
             transition: background 0.2s;
         }
         nav a:hover { background: var(--badge-bg); color: var(--accent); }
 
-        /* Typography & Metrics */
+        /* Content Sections */
+        .glass-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 26px;
+            margin-bottom: 24px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+        }
+
         h2 {
             font-size: 1.3rem;
             margin-bottom: 15px;
@@ -289,6 +292,7 @@
             padding-bottom: 8px;
         }
         h2 span.code-icon { font-family: monospace; color: var(--data-cyan); font-size: 1.1rem; }
+
         .metrics-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -344,7 +348,7 @@
         body { top: 0px !important; }
 
         @media (max-width: 650px) {
-            header.glass-card { flex-direction: column; text-align: center; }
+            header.vaskar-header { flex-direction: column; text-align: center; gap: 20px; }
             .links { justify-content: center; }
         }
     </style>
@@ -477,21 +481,20 @@
     <div id="google_translate_element" style="display:none;"></div>
 
     <div class="container">
-        <!-- Profile Header -->
-        <header class="glass-card">
-            <img src="profile.jpg" alt="Profile Photo" class="avatar" onerror="this.src='https://ui-avatars.com/api/?name=Riad+Mahmud&background=0284c7&color=fff&size=125'">
+        <!-- Vaskar Chakma Style Header (CARD REMOVED) -->
+        <header class="vaskar-header">
+            <img src="profile.jpg" alt="Profile Photo" class="avatar" onerror="this.src='https://ui-avatars.com/api/?name=Riad+Mahmud&background=0284c7&color=fff&size=150'">
             <div class="header-info">
                 <h1>Riad Mahmud Chowdhury</h1>
-                <div class="status-badge">
-                    <span class="status-dot"></span> Focus: Data Science & Explainable AI
-                </div>
-                <p style="color: var(--text-muted); font-size: 0.95rem;">Undergraduate Student in Computer Science and Engineering</p>
-                <p style="color: var(--text-muted); font-size: 0.9rem;">Nantong University, Jiangsu, China</p>
+                <div class="meta-line">BSc in Engineering</div>
+                <div class="meta-line">Department of Computer Science and Technology</div>
+                <div class="meta-line">College of AI and CS</div>
+                <div class="meta-line">Nantong University</div>
 
                 <div class="links">
-                    <span>riadc916 [at] gmail [dot] com</span>
+                    <span class="email">riadc916 [at] gmail [dot] com</span>
                     <a href="https://scholar.google.com" target="_blank">Google Scholar</a>
-                    <a href="https://www.linkedin.com/in/riad-mahmud-chowdhury-45875a424/" target="_blank">LinkedIn</a>
+                    <a href="https://orcid.org/0009-0000-8946-4458" target="_blank">ORCiD</a>
                     <a href="https://github.com/riadc916" target="_blank">GitHub</a>
                     <a href="cv.pdf" target="_blank">CV</a>
                 </div>
@@ -499,7 +502,7 @@
         </header>
 
         <!-- Navbar -->
-        <nav class="glass-card">
+        <nav class="glass-nav">
             <a href="#about">About</a>
             <a href="#pipeline">Data Pipeline</a>
             <a href="#education">Education</a>
@@ -532,8 +535,8 @@
         <section id="education" class="glass-card">
             <h2><span class="code-icon">&lt;edu&gt;</span> Education</h2>
             <div>
-                <h3 style="font-size: 1.05rem;">Bachelor of Engineering in Computer Science and Engineering</h3>
-                <p style="color: var(--text-muted); font-size: 0.9rem;">Nantong University, Jiangsu Province, China</p>
+                <h3 style="font-size: 1.05rem;">BSc in Computer Science and Technology</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">College of AI and CS, Nantong University, Jiangsu, China</p>
                 <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">2023 – Present</p>
             </div>
         </section>
@@ -608,12 +611,12 @@
             const isDark = document.body.classList.contains('dark-mode');
 
             const clusterColors = isDark ? [
-                'rgba(34, 211, 238, 0.7)',
+                'rgba(56, 189, 248, 0.7)',
                 'rgba(192, 132, 252, 0.7)',
-                'rgba(56, 189, 248, 0.7)'
+                'rgba(34, 211, 238, 0.7)'
             ] : [
                 'rgba(2, 132, 199, 0.6)',
-                'rgba(139, 92, 246, 0.6)',
+                'rgba(124, 58, 237, 0.6)',
                 'rgba(6, 182, 212, 0.6)'
             ];
 
@@ -647,7 +650,7 @@
 
                         if (dist < 80) {
                             ctx.font = '9px monospace';
-                            ctx.fillStyle = isDark ? 'rgba(249, 250, 251, 0.5)' : 'rgba(15, 23, 42, 0.5)';
+                            ctx.fillStyle = isDark ? 'rgba(249, 250, 251, 0.5)' : 'rgba(17, 24, 39, 0.5)';
                             ctx.fillText(p.val, p.x + 5, p.y - 3);
                         }
                     }
@@ -663,7 +666,7 @@
             height = canvas.height = window.innerHeight;
         });
 
-        // 2. Theme Toggle
+        // 2. Pure White / Jet Black Theme Toggle
         function toggleTheme() {
             document.body.classList.toggle('dark-mode');
             const isDark = document.body.classList.contains('dark-mode');
