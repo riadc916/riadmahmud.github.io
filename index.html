@@ -72,7 +72,6 @@
             z-index: 1000;
         }
 
-        /* Circular Button Base */
         .circle-btn {
             position: relative;
             width: 44px;
@@ -174,9 +173,7 @@
             overflow-y: auto;
             padding-right: 4px;
         }
-        .lang-list::-webkit-scrollbar {
-            width: 5px;
-        }
+        .lang-list::-webkit-scrollbar { width: 5px; }
         .lang-list::-webkit-scrollbar-thumb {
             background: rgba(148, 163, 184, 0.4);
             border-radius: 10px;
@@ -192,22 +189,15 @@
             font-size: 0.88rem;
             transition: background 0.15s;
         }
-        .lang-item:hover, .lang-item.selected {
-            background: var(--item-hover);
-        }
+        .lang-item:hover, .lang-item.selected { background: var(--item-hover); }
         .lang-item .lang-left {
             display: flex;
             align-items: center;
             gap: 10px;
             font-weight: 500;
         }
-        .lang-item .flag {
-            font-size: 1.1rem;
-        }
-        .lang-item .native {
-            color: var(--text-muted);
-            font-size: 0.8rem;
-        }
+        .lang-item .flag { font-size: 1.1rem; }
+        .lang-item .native { color: var(--text-muted); font-size: 0.8rem; }
 
         /* Glass Cards */
         .glass-card {
@@ -235,10 +225,7 @@
             box-shadow: 0 0 15px rgba(56, 189, 248, 0.25);
             flex-shrink: 0;
         }
-        .header-info h1 {
-            font-size: 1.85rem;
-            letter-spacing: -0.5px;
-        }
+        .header-info h1 { font-size: 1.85rem; letter-spacing: -0.5px; }
         .status-badge {
             display: inline-flex;
             align-items: center;
@@ -271,11 +258,7 @@
             flex-wrap: wrap;
             font-size: 0.9rem;
         }
-        .links a {
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 500;
-        }
+        .links a { color: var(--accent); text-decoration: none; font-weight: 500; }
         .links a:hover { text-decoration: underline; }
 
         /* Navigation */
@@ -293,10 +276,7 @@
             border-radius: 8px;
             transition: background 0.2s;
         }
-        nav a:hover {
-            background: var(--badge-bg);
-            color: var(--accent);
-        }
+        nav a:hover { background: var(--badge-bg); color: var(--accent); }
 
         /* Typography & Metrics */
         h2 {
@@ -308,11 +288,7 @@
             border-bottom: 1px solid var(--card-border);
             padding-bottom: 8px;
         }
-        h2 span.code-icon {
-            font-family: monospace;
-            color: var(--data-cyan);
-            font-size: 1.1rem;
-        }
+        h2 span.code-icon { font-family: monospace; color: var(--data-cyan); font-size: 1.1rem; }
         .metrics-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -332,17 +308,9 @@
             color: var(--accent);
             font-family: monospace;
         }
-        .metric-card .label {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
+        .metric-card .label { font-size: 0.8rem; color: var(--text-muted); }
 
-        .tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 12px;
-        }
+        .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
         .tag {
             background: var(--badge-bg);
             color: var(--text-main);
@@ -394,7 +362,6 @@
             line-height: 1;
         }
 
-        /* Hide Google Translate top bar */
         .goog-te-banner-frame.skiptranslate, #goog-gt-tt, .goog-te-balloon-frame {
             display: none !important;
         }
@@ -533,7 +500,7 @@
     <!-- Hidden Translate Hook -->
     <div id="google_translate_element" style="display:none;"></div>
 
-    <!-- REAL-TIME LIVE PRESENCE BADGE -->
+    <!-- TRUE REAL-TIME ONLINE VISITORS (Instant +1 on join, -1 on tab close) -->
     <div class="visitor-counter">
         <span class="eye-icon">👁️</span>
         <span>Visitors: <span id="live_visitor_count">1</span></span>
@@ -772,64 +739,48 @@
             event.currentTarget.classList.add('selected');
             toggleLangModal();
         }
+    </script>
 
-        // 4. GLOBAL REAL-TIME PRESENCE (Multi-device, live tab sync)
-        (function() {
-            const counterEl = document.getElementById('live_visitor_count');
-            
-            // Connect to Free Global Realtime WebSocket Presence Channel
-            const apiKey = '0LhA6Qc2wV9D'; // Free public presence key
-            const channelId = 'riad_portfolio_live_presence';
-            let socket;
+    <!-- 4. REAL-TIME SERVERLESS WEBRTC CONCURRENT USERS ENGINE -->
+    <script type="module">
+        import { joinRoom } from 'https://cdn.jsdelivr.net/npm/trystero@0.26.0/dist/trystero-torrent.min.js';
 
-            function connectWebSocket() {
-                try {
-                    socket = new WebSocket(`wss://free.blr2.piesocket.com/v3/${channelId}?api_key=${apiKey}&notify_self=1`);
+        const counterEl = document.getElementById('live_visitor_count');
+        const room = joinRoom({ appId: 'riadc916_portfolio_presence_global' }, 'main_visitors');
 
-                    socket.onopen = function () {
-                        // Announce presence
-                        socket.send(JSON.stringify({ action: 'ping' }));
-                    };
-
-                    socket.onmessage = function (event) {
-                        try {
-                            const data = JSON.parse(event.data);
-                            // If socket reports client count or presence
-                            if (data && data.clients) {
-                                counterEl.innerText = Math.max(1, data.clients);
-                            }
-                        } catch (e) {}
-                    };
-
-                    socket.onerror = function() {
-                        fallbackPresence();
-                    };
-                } catch(e) {
-                    fallbackPresence();
+        function updateLiveCount() {
+            try {
+                const peers = Object.keys(room.getPeers()).length;
+                // Total concurrent visitors = other connected active peers + this current browser (1)
+                const totalActive = peers + 1;
+                if (counterEl) {
+                    counterEl.innerText = totalActive;
                 }
+            } catch (err) {
+                if (counterEl) counterEl.innerText = '1';
             }
+        }
 
-            // Fallback lightweight cross-network sync
-            function fallbackPresence() {
-                fetch('https://api.counterapi.dev/v1/riadc916_portfolio/live_online/up')
-                    .then(res => res.json())
-                    .then(data => {
-                        if (data && data.count) {
-                            counterEl.innerText = Math.max(1, data.count);
-                        }
-                    })
-                    .catch(() => {
-                        counterEl.innerText = "1";
-                    });
+        // When a new visitor/tab joins anywhere in the world
+        room.onPeerJoin(() => {
+            updateLiveCount();
+        });
 
-                // Decrement on tab close
-                window.addEventListener('beforeunload', () => {
-                    navigator.sendBeacon('https://api.counterapi.dev/v1/riadc916_portfolio/live_online/down');
-                });
-            }
+        // When a visitor/tab closes or leaves
+        room.onPeerLeave(() => {
+            updateLiveCount();
+        });
 
-            connectWebSocket();
-        })();
+        // Safe cleanup on tab close
+        window.addEventListener('beforeunload', () => {
+            room.leave();
+        });
+        window.addEventListener('pagehide', () => {
+            room.leave();
+        });
+
+        // Initial check
+        updateLiveCount();
     </script>
 
     <!-- Google Translate API -->
