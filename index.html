@@ -3,34 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Riad Mahmud Chowdhury | Portfolio</title>
+    <title>Riad Mahmud Chowdhury | Academic Portfolio</title>
     <style>
         :root {
-            --bg-color: #ffffff;             /* Pure White */
+            --bg-color: #ffffff;
             --card-bg: rgba(255, 255, 255, 0.9);
             --card-border: #e5e7eb;
             --text-main: #111827;
             --text-muted: #4b5563;
             --accent: #2563eb;
-            --data-cyan: #0284c7;
-            --data-purple: #7c3aed;
             --badge-bg: #f3f4f6;
             --popover-bg: #ffffff;
             --item-hover: #f3f4f6;
         }
 
         body.dark-mode {
-            --bg-color: #000000;             /* Pure Black */
-            --card-bg: rgba(15, 15, 15, 0.85);
-            --card-border: #222222;
+            --bg-color: #000000;
+            --card-bg: rgba(18, 18, 18, 0.85);
+            --card-border: #262626;
             --text-main: #f9fafb;
             --text-muted: #9ca3af;
             --accent: #38bdf8;
-            --data-cyan: #38bdf8;
-            --data-purple: #c084fc;
-            --badge-bg: #141414;
+            --badge-bg: #171717;
             --popover-bg: #0f0f0f;
-            --item-hover: #1c1c1c;
+            --item-hover: #1f1f1f;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -44,8 +40,8 @@
             position: relative;
         }
 
-        /* Canvas Particle Background */
-        #data-canvas {
+        /* Connected Constellation Network Canvas */
+        #bg-canvas {
             position: fixed;
             top: 0;
             left: 0;
@@ -61,7 +57,7 @@
             padding: 0 20px 80px 20px;
         }
 
-        /* Top Fixed Controls */
+        /* Controls */
         .controls {
             position: fixed;
             top: 22px;
@@ -120,7 +116,7 @@
             stroke-width: 1.6;
         }
 
-        /* Searchable Language Popover Modal */
+        /* Language Modal */
         .lang-modal {
             display: none;
             position: fixed;
@@ -199,7 +195,7 @@
         .lang-item .flag { font-size: 1.1rem; }
         .lang-item .native { color: var(--text-muted); font-size: 0.8rem; }
 
-        /* Vaskar Chakma Style Header (NO CARD CONTAINER) */
+        /* Vaskar Chakma Style Pure Header */
         header.vaskar-header {
             display: flex;
             align-items: center;
@@ -208,27 +204,26 @@
             border: none;
             box-shadow: none;
             padding: 10px 0 35px 0;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
         .avatar {
-            width: 150px;
-            height: 150px;
+            width: 155px;
+            height: 155px;
             border-radius: 50%;
             object-fit: cover;
             border: 1px solid var(--card-border);
             flex-shrink: 0;
         }
         .header-info h1 {
-            font-size: 2.1rem;
+            font-size: 2.15rem;
             font-weight: 700;
             letter-spacing: -0.5px;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
         .header-info .meta-line {
             color: var(--text-muted);
             font-size: 1rem;
-            line-height: 1.45;
-            margin-bottom: 2px;
+            line-height: 1.5;
         }
         .links {
             margin-top: 14px;
@@ -271,57 +266,38 @@
         }
         nav a:hover { background: var(--badge-bg); color: var(--accent); }
 
-        /* Content Sections */
+        /* Card Section */
         .glass-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: 16px;
-            padding: 26px;
+            padding: 28px;
             margin-bottom: 24px;
             backdrop-filter: blur(12px);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
         }
 
         h2 {
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            font-size: 1.35rem;
+            margin-bottom: 14px;
             border-bottom: 1px solid var(--card-border);
             padding-bottom: 8px;
         }
-        h2 span.code-icon { font-family: monospace; color: var(--data-cyan); font-size: 1.1rem; }
 
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 14px;
-            margin-top: 15px;
+        .bio-text {
+            font-size: 0.98rem;
+            color: var(--text-main);
+            line-height: 1.8;
+            text-align: justify;
         }
-        .metric-card {
-            background: var(--badge-bg);
-            padding: 14px;
-            border-radius: 12px;
-            border: 1px solid var(--card-border);
-            text-align: center;
-        }
-        .metric-card .num {
-            font-size: 1.35rem;
-            font-weight: bold;
-            color: var(--accent);
-            font-family: monospace;
-        }
-        .metric-card .label { font-size: 0.8rem; color: var(--text-muted); }
 
-        .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+        .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
         .tag {
             background: var(--badge-bg);
             color: var(--text-main);
-            font-family: monospace;
-            padding: 4px 10px;
-            border-radius: 8px;
-            font-size: 0.82rem;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
             border: 1px solid var(--card-border);
         }
 
@@ -337,7 +313,7 @@
             font-size: 1rem;
         }
         .pub-item .meta {
-            font-size: 0.85rem;
+            font-size: 0.88rem;
             color: var(--text-muted);
             margin-top: 4px;
         }
@@ -350,15 +326,16 @@
         @media (max-width: 650px) {
             header.vaskar-header { flex-direction: column; text-align: center; gap: 20px; }
             .links { justify-content: center; }
+            .bio-text { text-align: left; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Canvas Background -->
-    <canvas id="data-canvas"></canvas>
+    <!-- Connected Background Canvas -->
+    <canvas id="bg-canvas"></canvas>
 
-    <!-- Top Controls: Globe & Dark/Light Button -->
+    <!-- Controls -->
     <div class="controls">
         <button class="circle-btn" id="langBtn" onclick="toggleLangModal()" data-tooltip="Switch language">
             <svg class="globe-svg" viewBox="0 0 24 24">
@@ -371,7 +348,7 @@
         </button>
     </div>
 
-    <!-- Searchable Language Selection Modal -->
+    <!-- Language Selector Dropdown -->
     <div class="lang-modal" id="langModal">
         <div class="lang-search-wrapper">
             <span>🔍</span>
@@ -477,13 +454,12 @@
         </ul>
     </div>
 
-    <!-- Hidden Translate Hook -->
     <div id="google_translate_element" style="display:none;"></div>
 
     <div class="container">
-        <!-- Vaskar Chakma Style Header (CARD REMOVED) -->
+        <!-- Vaskar Chakma Style Pure Header -->
         <header class="vaskar-header">
-            <img src="profile.jpg" alt="Profile Photo" class="avatar" onerror="this.src='https://ui-avatars.com/api/?name=Riad+Mahmud&background=0284c7&color=fff&size=150'">
+            <img src="profile.jpg" alt="Profile Photo" class="avatar" onerror="this.src='https://ui-avatars.com/api/?name=Riad+Mahmud&background=0284c7&color=fff&size=155'">
             <div class="header-info">
                 <h1>Riad Mahmud Chowdhury</h1>
                 <div class="meta-line">BSc in Engineering</div>
@@ -496,7 +472,7 @@
                     <a href="https://scholar.google.com" target="_blank">Google Scholar</a>
                     <a href="https://orcid.org/0009-0000-8946-4458" target="_blank">ORCiD</a>
                     <a href="https://github.com/riadc916" target="_blank">GitHub</a>
-                    <a href="cv.pdf" target="_blank">CV</a>
+                    <a href="Riad_Mahmud_Chowdhury_CV.pdf" target="_blank">CV</a>
                 </div>
             </div>
         </header>
@@ -504,83 +480,82 @@
         <!-- Navbar -->
         <nav class="glass-nav">
             <a href="#about">About</a>
-            <a href="#pipeline">Data Pipeline</a>
             <a href="#education">Education</a>
-            <a href="#projects">Research & Projects</a>
-            <a href="#skills">Tech Stack</a>
+            <a href="#projects">Projects</a>
+            <a href="#skills">Skills</a>
         </nav>
 
-        <!-- About -->
+        <!-- About Section (Vaskar Chakma Academic Flow) -->
         <section id="about" class="glass-card">
-            <h2><span class="code-icon">&lt;data&gt;</span> About & Vision</h2>
-            <p>I am deeply passionate about working with real-world data, extracting actionable insights, and building predictive machine learning models. My core interest lies at the intersection of <strong>Data Science</strong>, <strong>Machine Learning</strong>, and <strong>Explainable AI (XAI)</strong>—ensuring AI systems are interpretable and data-driven.</p>
+            <h2>About</h2>
+            <p class="bio-text">
+                Riad Mahmud Chowdhury is currently pursuing a Bachelor of Science degree in Computer Science and Technology at the School of Artificial Intelligence and Computer Science, Nantong University, Jiangsu Province, People’s Republic of China, maintaining a top-tier CGPA of 4.00/4.00[cite: 44, 45]. His primary research and technical interests encompass Data Science, Machine Learning (ML), and Cybersecurity across the end-to-end data lifecycle—ranging from data preprocessing and exploratory data analysis (EDA) to practical model deployment and secure systems. He is committed to applying analytics and machine learning methodologies toward robust cybersecurity research, while actively exploring scalable, efficient, and data-driven solutions[cite: 44].
+            </p>
 
-            <div class="metrics-grid">
-                <div class="metric-card">
-                    <div class="num">Python & R</div>
-                    <div class="label">Core Analytics Languages</div>
-                </div>
-                <div class="metric-card">
-                    <div class="num">EDA & ETL</div>
-                    <div class="label">Data Cleaning & Pipelines</div>
-                </div>
-                <div class="metric-card">
-                    <div class="num">XAI Models</div>
-                    <div class="label">Deep Learning & Interpretability</div>
-                </div>
+            <h3 style="margin-top: 20px; font-size: 1.05rem;">Research Interests</h3>
+            <div class="tags">
+                <span class="tag">Machine Learning (ML)</span>
+                <span class="tag">Data Science</span>
+                <span class="tag">Cybersecurity</span>
+                <span class="tag">Exploratory Data Analysis (EDA)</span>
+                <span class="tag">Data Preprocessing & Pipelines</span>
             </div>
         </section>
 
-        <!-- Education -->
+        <!-- Education Section -->
         <section id="education" class="glass-card">
-            <h2><span class="code-icon">&lt;edu&gt;</span> Education</h2>
+            <h2>Education</h2>
             <div>
-                <h3 style="font-size: 1.05rem;">BSc in Computer Science and Technology</h3>
-                <p style="color: var(--text-muted); font-size: 0.9rem;">College of AI and CS, Nantong University, Jiangsu, China</p>
-                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">2023 – Present</p>
+                <h3 style="font-size: 1.05rem;">Bachelor of Science in Computer Science and Technology</h3>
+                <p style="color: var(--text-muted); font-size: 0.92rem;">School of Artificial Intelligence and Computer Science, Nantong University, China[cite: 44]</p>
+                <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 3px;">2023.09.10 – Present (Exp. 2027) | CGPA: 4.00 / 4.00[cite: 44, 45]</p>
             </div>
         </section>
 
-        <!-- Projects -->
+        <!-- Projects Section -->
         <section id="projects" class="glass-card">
-            <h2><span class="code-icon">&lt;models&gt;</span> Research & Data Projects</h2>
+            <h2>Projects & Software Development</h2>
             
             <div class="pub-item">
-                <a href="#" class="title">Deep Learning & Explainable AI for Fruit Blemish & Ripening Detection</a>
-                <div class="meta">Methodology: Vision Transformers + CNNs with SHAP/Grad-CAM interpretability</div>
-                <div class="meta" style="margin-top: 4px;">Focus: Image Dataset preprocessing, feature extraction, and real-time accuracy optimization.</div>
+                <a href="https://github.com/riadc916" target="_blank" class="title">Online Banking Web System [Banking-Web-C#]</a>[cite: 45]
+                <div class="meta">Architected a secure full-stack web application implementing robust OOP transaction logic, customer account management, and database connectivity in C#[cite: 45].</div>
             </div>
 
             <div class="pub-item">
-                <a href="#" class="title">Exploratory Data Analysis (EDA) on Structured Datasets</a>
-                <div class="meta">Tools: RStudio (dplyr, ggplot2), Python (Pandas, Seaborn)</div>
-                <div class="meta" style="margin-top: 4px;">Performed statistical modeling, distribution analysis, and anomaly detection.</div>
+                <a href="https://github.com/riadc916" target="_blank" class="title">Developer Adoption Analytics [StackOverflow-Language-Trends]</a>[cite: 45]
+                <div class="meta">Created a time-series exploratory pipeline utilizing Python, Pandas, and Matplotlib to analyze multi-year programming language popularity and tool adoption[cite: 45].</div>
+            </div>
+
+            <div class="pub-item">
+                <a href="https://github.com/riadc916" target="_blank" class="title">Enterprise Retail Analytics [Superstore-Sales-Profitability-Analysis]</a>[cite: 45]
+                <div class="meta">Designed an analytics framework in R (Tidyverse & ggplot2) to cleanse corporate sales records, evaluate discount sensitivity, and visualize product line margins[cite: 45].</div>
             </div>
         </section>
 
-        <!-- Skills -->
+        <!-- Skills Section -->
         <section id="skills" class="glass-card">
-            <h2><span class="code-icon">&lt;stack&gt;</span> Data Science Stack</h2>
+            <h2>Skills Summary</h2>
             <div class="tags">
-                <span class="tag">Python (Pandas, NumPy, Scikit-learn)</span>
-                <span class="tag">R (dplyr, ggplot2, RStudio)</span>
-                <span class="tag">Machine Learning & XAI</span>
-                <span class="tag">Deep Learning (CNNs, ViTs)</span>
-                <span class="tag">Data Visualization</span>
-                <span class="tag">Git & GitHub</span>
+                <span class="tag">Python</span>[cite: 44]
+                <span class="tag">R</span>[cite: 44]
+                <span class="tag">C#</span>[cite: 44]
+                <span class="tag">SQL</span>[cite: 44]
+                <span class="tag">Pandas & NumPy</span>[cite: 44]
+                <span class="tag">Scikit-learn</span>[cite: 44]
+                <span class="tag">Tidyverse & ggplot2</span>[cite: 44]
+                <span class="tag">Git & GitHub</span>[cite: 44]
             </div>
         </section>
     </div>
 
-    <!-- Scripts -->
+    <!-- True Connected Constellation Mesh Canvas Script -->
     <script>
-        // 1. Particle Canvas Simulation
-        const canvas = document.getElementById('data-canvas');
+        const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let width = canvas.width = window.innerWidth;
         let height = canvas.height = window.innerHeight;
 
-        const mouse = { x: null, y: null, radius: 150 };
+        const mouse = { x: null, y: null, radius: 140 };
 
         window.addEventListener('mousemove', (e) => {
             mouse.x = e.clientX;
@@ -592,17 +567,16 @@
             mouse.y = null;
         });
 
-        const points = [];
-        const numPoints = Math.floor((width * height) / 10000);
+        const particles = [];
+        const particleCount = Math.floor((width * height) / 13000);
 
-        for (let i = 0; i < numPoints; i++) {
-            points.push({
+        for (let i = 0; i < particleCount; i++) {
+            particles.push({
                 x: Math.random() * width,
                 y: Math.random() * height,
-                vx: (Math.random() - 0.5) * 0.5,
-                vy: (Math.random() - 0.5) * 0.5,
-                val: (Math.random() * 100).toFixed(1),
-                cluster: Math.floor(Math.random() * 3)
+                vx: (Math.random() - 0.5) * 0.7,
+                vy: (Math.random() - 0.5) * 0.7,
+                radius: 2.2
             });
         }
 
@@ -610,49 +584,58 @@
             ctx.clearRect(0, 0, width, height);
             const isDark = document.body.classList.contains('dark-mode');
 
-            const clusterColors = isDark ? [
-                'rgba(56, 189, 248, 0.7)',
-                'rgba(192, 132, 252, 0.7)',
-                'rgba(34, 211, 238, 0.7)'
-            ] : [
-                'rgba(2, 132, 199, 0.6)',
-                'rgba(124, 58, 237, 0.6)',
-                'rgba(6, 182, 212, 0.6)'
-            ];
+            // Connected dot & line colors (Vaskar Chakma style)
+            const dotColor = isDark ? 'rgba(255, 255, 255, 0.5)' : 'rgba(40, 40, 40, 0.4)';
+            const lineColor = isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.09)';
+            const mouseLineColor = isDark ? 'rgba(56, 189, 248, 0.45)' : 'rgba(29, 114, 242, 0.35)';
+            const mouseRingColor = isDark ? '#38bdf8' : '#1d72f2';
 
+            // Draw Blue Mouse Ring
             if (mouse.x !== null && mouse.y !== null) {
                 ctx.beginPath();
                 ctx.arc(mouse.x, mouse.y, 9, 0, Math.PI * 2);
-                ctx.strokeStyle = isDark ? '#38bdf8' : '#1d72f2';
-                ctx.lineWidth = 2.4;
+                ctx.strokeStyle = mouseRingColor;
+                ctx.lineWidth = 2.2;
                 ctx.stroke();
             }
 
-            points.forEach((p) => {
+            particles.forEach((p, index) => {
                 p.x += p.vx;
                 p.y += p.vy;
 
                 if (p.x < 0 || p.x > width) p.vx *= -1;
                 if (p.y < 0 || p.y > height) p.vy *= -1;
 
-                ctx.fillStyle = clusterColors[p.cluster];
-                ctx.fillRect(p.x - 1.5, p.y - 1.5, 3.5, 3.5);
+                // Draw Dots
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = dotColor;
+                ctx.fill();
 
+                // Mouse interaction connection
                 if (mouse.x !== null && mouse.y !== null) {
-                    const dist = Math.hypot(p.x - mouse.x, p.y - mouse.y);
-                    if (dist < mouse.radius) {
+                    const distMouse = Math.hypot(p.x - mouse.x, p.y - mouse.y);
+                    if (distMouse < mouse.radius) {
                         ctx.beginPath();
                         ctx.moveTo(p.x, p.y);
                         ctx.lineTo(mouse.x, mouse.y);
-                        ctx.strokeStyle = isDark ? 'rgba(56, 189, 248, 0.28)' : 'rgba(29, 114, 242, 0.22)';
-                        ctx.lineWidth = 0.8;
+                        ctx.strokeStyle = mouseLineColor;
+                        ctx.lineWidth = 1;
                         ctx.stroke();
+                    }
+                }
 
-                        if (dist < 80) {
-                            ctx.font = '9px monospace';
-                            ctx.fillStyle = isDark ? 'rgba(249, 250, 251, 0.5)' : 'rgba(17, 24, 39, 0.5)';
-                            ctx.fillText(p.val, p.x + 5, p.y - 3);
-                        }
+                // Inter-node network connections (Full Connected Mesh)
+                for (let j = index + 1; j < particles.length; j++) {
+                    const p2 = particles[j];
+                    const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+                    if (dist < 120) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.strokeStyle = lineColor;
+                        ctx.lineWidth = 0.85;
+                        ctx.stroke();
                     }
                 }
             });
@@ -666,7 +649,7 @@
             height = canvas.height = window.innerHeight;
         });
 
-        // 2. Pure White / Jet Black Theme Toggle
+        // Theme Toggle (Pure White / Black)
         function toggleTheme() {
             document.body.classList.toggle('dark-mode');
             const isDark = document.body.classList.contains('dark-mode');
@@ -679,7 +662,7 @@
             document.getElementById('themeBtn').textContent = '☀️';
         }
 
-        // 3. Language Modal Controls
+        // Language Modal Controls
         function toggleLangModal() {
             const modal = document.getElementById('langModal');
             modal.classList.toggle('active');
