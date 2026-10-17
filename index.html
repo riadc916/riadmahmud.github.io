@@ -370,7 +370,7 @@
             margin-top: 4px;
         }
 
-        /* REAL-TIME ACTIVE VISITORS PILL BADGE */
+        /* EXACT FLOATING VISITOR BADGE */
         .visitor-counter {
             position: fixed;
             bottom: 22px;
@@ -521,7 +521,7 @@
             </li>
             <li class="lang-item" onclick="changeLanguage('ur')">
                 <div class="lang-left"><span class="flag">🇵🇰</span><span class="name">Urdu</span></div>
-                <span class="native">اردো</span>
+                <span class="native">اردو</span>
             </li>
             <li class="lang-item" onclick="changeLanguage('sw')">
                 <div class="lang-left"><span class="flag">🇰🇪</span><span class="name">Swahili</span></div>
@@ -533,7 +533,7 @@
     <!-- Hidden Translate Hook -->
     <div id="google_translate_element" style="display:none;"></div>
 
-    <!-- LIVE ACTIVE VISITORS (Increases on new visitor, drops on tab close) -->
+    <!-- REAL-TIME LIVE PRESENCE BADGE -->
     <div class="visitor-counter">
         <span class="eye-icon">👁️</span>
         <span>Visitors: <span id="live_visitor_count">1</span></span>
@@ -680,7 +680,6 @@
                 'rgba(6, 182, 212, 0.6)'
             ];
 
-            // Outer Blue Ring on Mouse
             if (mouse.x !== null && mouse.y !== null) {
                 ctx.beginPath();
                 ctx.arc(mouse.x, mouse.y, 9, 0, Math.PI * 2);
@@ -774,74 +773,62 @@
             toggleLangModal();
         }
 
-        // 4. REAL-TIME PRESENCE / LIVE ACTIVE VISITORS TRACKER
-        // Tab khulla thakle count thakbe, reload korle barbe na, tab close korle kome jabe
+        // 4. GLOBAL REAL-TIME PRESENCE (Multi-device, live tab sync)
         (function() {
             const counterEl = document.getElementById('live_visitor_count');
-            const TAB_ID = 'tab_' + Math.random().toString(36).substr(2, 9);
-            const STORAGE_KEY = 'riad_active_sessions';
+            
+            // Connect to Free Global Realtime WebSocket Presence Channel
+            const apiKey = '0LhA6Qc2wV9D'; // Free public presence key
+            const channelId = 'riad_portfolio_live_presence';
+            let socket;
 
-            function getSessions() {
+            function connectWebSocket() {
                 try {
-                    const raw = localStorage.getItem(STORAGE_KEY);
-                    return raw ? JSON.parse(raw) : {};
+                    socket = new WebSocket(`wss://free.blr2.piesocket.com/v3/${channelId}?api_key=${apiKey}&notify_self=1`);
+
+                    socket.onopen = function () {
+                        // Announce presence
+                        socket.send(JSON.stringify({ action: 'ping' }));
+                    };
+
+                    socket.onmessage = function (event) {
+                        try {
+                            const data = JSON.parse(event.data);
+                            // If socket reports client count or presence
+                            if (data && data.clients) {
+                                counterEl.innerText = Math.max(1, data.clients);
+                            }
+                        } catch (e) {}
+                    };
+
+                    socket.onerror = function() {
+                        fallbackPresence();
+                    };
                 } catch(e) {
-                    return {};
+                    fallbackPresence();
                 }
             }
 
-            function saveSessions(sessions) {
-                try {
-                    localStorage.setItem(STORAGE_KEY, JSON.stringify(sessions));
-                } catch(e) {}
+            // Fallback lightweight cross-network sync
+            function fallbackPresence() {
+                fetch('https://api.counterapi.dev/v1/riadc916_portfolio/live_online/up')
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data && data.count) {
+                            counterEl.innerText = Math.max(1, data.count);
+                        }
+                    })
+                    .catch(() => {
+                        counterEl.innerText = "1";
+                    });
+
+                // Decrement on tab close
+                window.addEventListener('beforeunload', () => {
+                    navigator.sendBeacon('https://api.counterapi.dev/v1/riadc916_portfolio/live_online/down');
+                });
             }
 
-            function pruneAndCount() {
-                const now = Date.now();
-                const sessions = getSessions();
-                let activeCount = 0;
-
-                // 6 second-er moddhe heartbeat na thakle session dead dhora hobe
-                for (let id in sessions) {
-                    if (now - sessions[id] < 6000) {
-                        activeCount++;
-                    } else {
-                        delete sessions[id];
-                    }
-                }
-
-                // Nije active thakle minimum 1
-                if (activeCount < 1) activeCount = 1;
-                saveSessions(sessions);
-                if (counterEl) counterEl.innerText = activeCount;
-            }
-
-            function beat() {
-                const sessions = getSessions();
-                sessions[TAB_ID] = Date.now();
-                saveSessions(sessions);
-                pruneAndCount();
-            }
-
-            // Initial beat
-            beat();
-
-            // Heartbeat every 2.5 seconds
-            setInterval(beat, 2500);
-
-            // Tab / Window close listener (Instantly removes this visitor)
-            window.addEventListener('beforeunload', function() {
-                const sessions = getSessions();
-                delete sessions[TAB_ID];
-                saveSessions(sessions);
-            });
-
-            // Storage event to sync count live across tabs and devices
-            window.addEventListener('storage', function(e) {
-                if (e.key === STORAGE_KEY) {
-                    pruneAndCount();
-                }
-            });
+            connectWebSocket();
         })();
     </script>
 
