@@ -211,15 +211,25 @@
             font-size: 1rem;
             line-height: 1.45;
         }
-        .links {
+        .email-line {
             margin-top: 14px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            font-size: 0.95rem;
+            align-items: center;
+            color: var(--text-muted);
+        }
+        .email-line .sep { color: var(--card-border); font-weight: 600; }
+        body.dark-mode .email-line .sep { color: #475569; }
+        .links {
+            margin-top: 8px;
             display: flex;
             gap: 14px;
             flex-wrap: wrap;
             font-size: 0.95rem;
             align-items: center;
         }
-        .links span.email { color: var(--text-muted); }
         .links a { color: var(--accent); text-decoration: none; font-weight: 500; }
         .links a:hover { text-decoration: underline; }
 
@@ -259,6 +269,7 @@
             font-size: 0.95rem;
             font-weight: 500;
             transition: color 0.2s;
+            white-space: nowrap;
         }
         nav.sub-nav a:hover { color: var(--accent); }
 
@@ -320,6 +331,7 @@
             color: var(--date-color);
             font-weight: 500;
             white-space: nowrap;
+            text-align: right;
         }
 
         .course-list {
@@ -332,6 +344,7 @@
             font-weight: 600;
             color: var(--text-main);
         }
+        .course-list strong { color: var(--text-main); font-weight: 600; }
 
         /* Conference Box */
         .conf-box {
@@ -361,6 +374,9 @@
         /* Skills Lists */
         .skill-group { margin-bottom: 16px; font-size: 0.94rem; line-height: 1.65; }
         .skill-group strong { color: var(--text-main); }
+        .project-item { margin-bottom: 12px; }
+        .project-item .project-date { color: var(--date-color); font-size: 0.85rem; font-weight: 500; }
+        .project-item .project-desc { color: var(--text-muted); font-size: 0.9rem; margin-top: 2px; }
         .project-link {
             color: var(--accent);
             text-decoration: none;
@@ -386,9 +402,9 @@
 
         @media (max-width: 650px) {
             header.profile-header { flex-direction: column; text-align: center; gap: 20px; }
-            .links { justify-content: center; }
+            .links, .email-line { justify-content: center; }
             .edu-item, .exp-item { flex-direction: column; gap: 4px; }
-            .edu-period, .exp-period { margin-bottom: 8px; }
+            .edu-period, .exp-period { margin-bottom: 8px; text-align: left; }
             .bio-text { text-align: left; }
             nav.sub-nav { gap: 15px; }
         }
@@ -419,99 +435,99 @@
             <input type="text" class="lang-search" id="langSearch" placeholder="Search language..." onkeyup="filterLanguages()">
         </div>
         <ul class="lang-list" id="langList">
-            <li class="lang-item selected" onclick="changeLanguage('en')">
+            <li class="lang-item selected" onclick="changeLanguage('en', this)">
                 <div class="lang-left"><span class="flag">🇺🇸</span><span class="name">English</span></div>
                 <span class="native">English</span>
             </li>
-            <li class="lang-item" onclick="changeLanguage('zh-CN')">
+            <li class="lang-item" onclick="changeLanguage('zh-CN', this)">
                 <div class="lang-left"><span class="flag">🇨🇳</span><span class="name">Chinese</span></div>
                 <span class="native">中文</span>
             </li>
-            <li class="lang-item" onclick="changeLanguage('ko')">
+            <li class="lang-item" onclick="changeLanguage('ko', this)">
                 <div class="lang-left"><span class="flag">🇰🇷</span><span class="name">Korean</span></div>
                 <span class="native">한국어</span>
             </li>
-            <li class="lang-item" onclick="changeLanguage('bn')">
+            <li class="lang-item" onclick="changeLanguage('bn', this)">
                 <div class="lang-left"><span class="flag">🇧🇩</span><span class="name">Bengali</span></div>
                 <span class="native">বাংলা</span>
             </li>
-            <li class="lang-item" onclick="changeLanguage('hi')">
+            <li class="lang-item" onclick="changeLanguage('hi', this)">
                 <div class="lang-left"><span class="flag">🇮🇳</span><span class="name">Hindi</span></div>
                 <span class="native">हिन्दी</span>
             </li>
-            <li class="lang-item" onclick="changeLanguage('ar')">
+            <li class="lang-item" onclick="changeLanguage('ar', this)">
                 <div class="lang-left"><span class="flag">🇸🇦</span><span class="name">Arabic</span></div>
                 <span class="native">العربية</span>
             </li>
-            <li class="lang-item" onclick="changeLanguage('fr')">
+            <li class="lang-item" onclick="changeLanguage('fr', this)">
                 <div class="lang-left"><span class="flag">🇫🇷</span><span class="name">French</span></div>
                 <span class="native">Français</span>
             </li>
-            <li class="lang-item" onclick="changeLanguage('de')">
+            <li class="lang-item" onclick="changeLanguage('de', this)">
                 <div class="lang-left"><span class="flag">🇩🇪</span><span class="name">German</span></div>
                 <span class="native">Deutsch</span>
             </li>
-            <li class="lang-item" onclick="changeLanguage('es')">
+            <li class="lang-item" onclick="changeLanguage('es', this)">
                 <div class="lang-left"><span class="flag">🇪🇸</span><span class="name">Spanish</span></div>
                 <span class="native">Español</span>
             </li>
-            <li class="lang-item" onclick="changeLanguage('ja')">
+            <li class="lang-item" onclick="changeLanguage('ja', this)">
                 <div class="lang-left"><span class="flag">🇯🇵</span><span class="name">Japanese</span></div>
                 <span class="native">日本語</span>
             </li>
-            <li class="lang-item" onclick="changeLanguage('pt')">
+            <li class="lang-item" onclick="changeLanguage('pt', this)">
                 <div class="lang-left"><span class="flag">🇧🇷</span><span class="name">Portuguese</span></div>
                 <span class="native">Português</span>
             </li>
-            <li class="lang-item" onclick="changeLanguage('ru')">
+            <li class="lang-item" onclick="changeLanguage('ru', this)">
                 <div class="lang-left"><span class="flag">🇷🇺</span><span class="name">Russian</span></div>
                 <span class="native">Русский</span>
             </li>
-            <li class="lang-item" onclick="changeLanguage('tr')">
+            <li class="lang-item" onclick="changeLanguage('tr', this)">
                 <div class="lang-left"><span class="flag">🇹🇷</span><span class="name">Turkish</span></div>
                 <span class="native">Türkçe</span>
             </li>
-            <li class="lang-item" onclick="changeLanguage('vi')">
+            <li class="lang-item" onclick="changeLanguage('vi', this)">
                 <div class="lang-left"><span class="flag">🇻🇳</span><span class="name">Vietnamese</span></div>
                 <span class="native">Tiếng Việt</span>
             </li>
-            <li class="lang-item" onclick="changeLanguage('id')">
+            <li class="lang-item" onclick="changeLanguage('id', this)">
                 <div class="lang-left"><span class="flag">🇮🇩</span><span class="name">Indonesian</span></div>
                 <span class="native">Bahasa Indonesia</span>
             </li>
-            <li class="lang-item" onclick="changeLanguage('ms')">
+            <li class="lang-item" onclick="changeLanguage('ms', this)">
                 <div class="lang-left"><span class="flag">🇲🇾</span><span class="name">Malay</span></div>
                 <span class="native">Bahasa Melayu</span>
             </li>
-            <li class="lang-item" onclick="changeLanguage('th')">
+            <li class="lang-item" onclick="changeLanguage('th', this)">
                 <div class="lang-left"><span class="flag">🇹🇭</span><span class="name">Thai</span></div>
                 <span class="native">ภาษาไทย</span>
             </li>
-            <li class="lang-item" onclick="changeLanguage('it')">
+            <li class="lang-item" onclick="changeLanguage('it', this)">
                 <div class="lang-left"><span class="flag">🇮🇹</span><span class="name">Italian</span></div>
                 <span class="native">Italiano</span>
             </li>
-            <li class="lang-item" onclick="changeLanguage('nl')">
+            <li class="lang-item" onclick="changeLanguage('nl', this)">
                 <div class="lang-left"><span class="flag">🇳🇱</span><span class="name">Dutch</span></div>
                 <span class="native">Nederlands</span>
             </li>
-            <li class="lang-item" onclick="changeLanguage('pl')">
+            <li class="lang-item" onclick="changeLanguage('pl', this)">
                 <div class="lang-left"><span class="flag">🇵🇱</span><span class="name">Polish</span></div>
                 <span class="native">Polski</span>
             </li>
-            <li class="lang-item" onclick="changeLanguage('uk')">
+            <li class="lang-item" onclick="changeLanguage('uk', this)">
                 <div class="lang-left"><span class="flag">🇺🇦</span><span class="name">Ukrainian</span></div>
                 <span class="native">Українська</span>
             </li>
-            <li class="lang-item" onclick="changeLanguage('fa')">
+            <li class="lang-item" onclick="changeLanguage('fa', this)">
                 <div class="lang-left"><span class="flag">🇮🇷</span><span class="name">Persian</span></div>
                 <span class="native">فارسی</span>
             </li>
-            <li class="lang-item" onclick="changeLanguage('ur')">
+            <li class="lang-item" onclick="changeLanguage('ur', this)">
                 <div class="lang-left"><span class="flag">🇵🇰</span><span class="name">Urdu</span></div>
                 <span class="native">اردو</span>
             </li>
-            <li class="lang-item" onclick="changeLanguage('sw')">
+            <li class="lang-item" onclick="changeLanguage('sw', this)">
                 <div class="lang-left"><span class="flag">🇰🇪</span><span class="name">Swahili</span></div>
                 <span class="native">Kiswahili</span>
             </li>
@@ -528,15 +544,18 @@
                 <h1>Riad Mahmud Chowdhury</h1>
                 <div class="meta-line">BSc in Engineering</div>
                 <div class="meta-line">Department of Computer Science and Technology</div>
-                <div class="meta-line">College of AI and CS</div>
+                <div class="meta-line">School of Artificial Intelligence and Computer Science</div>
                 <div class="meta-line">Nantong University</div>
 
-                <div class="links">
+                <div class="email-line">
                     <span class="email">riadc916 [at] gmail [dot] com</span>
+                    <span class="sep">|</span>
                     <span class="email">riadmahmud [at] stmail [dot] ntu [dot] edu [dot] cn</span>
+                </div>
+                <div class="links">
                     <a href="https://scholar.google.com/citations?hl=en&user=f_xBnxgAAAAJ" target="_blank" rel="noopener noreferrer">Google Scholar</a>
-                    <a href="https://orcid.org/0009-0000-8946-4458" target="_blank">ORCiD</a>
-                    <a href="https://github.com/riadc916" target="_blank">GitHub</a>
+                    <a href="https://orcid.org/0009-0000-8946-4458" target="_blank" rel="noopener noreferrer">ORCiD</a>
+                    <a href="https://github.com/riadc916" target="_blank" rel="noopener noreferrer">GitHub</a>
                     <a href="Riad_Mahmud_Chowdhury_CV.pdf" target="_blank">CV</a>
                 </div>
             </div>
@@ -546,15 +565,17 @@
         <section id="about" class="about-card">
             <h2>About</h2>
             <p class="bio-text">
-                   Riad Mahmud Chowdhury is currently pursuing a Bachelor of Science degree in Computer Science and Technology at the School of Artificial Intelligence and Computer Science, Nantong University, Jiangsu Province, People’s Republic of China, maintaining a top-tier CGPA of 4.00/4.00. His research and technical interests span Data Science, Machine Learning (ML), and Cybersecurity across the end-to-end data lifecycle, from data preprocessing and exploratory data analysis (EDA) to online learning and model deployment. His recent research focuses on game-theoretic moving-target defense and cyber-physical network security, where he has worked on simulation, security analysis, and online learning–based defense evaluation on IEEE benchmark power grids. Building on this work, he aims to develop robust, scalable defense algorithms while investigating methods to make machine learning workflows more energy-efficient and environmentally sustainable.            </p>
+                Riad Mahmud Chowdhury is currently pursuing a Bachelor of Science degree in Computer Science and Technology at the School of Artificial Intelligence and Computer Science, Nantong University, Jiangsu Province, People’s Republic of China (expected graduation 2027), maintaining a perfect CGPA of 4.00/4.00. His research and technical interests span Data Science, Machine Learning (ML), and Cybersecurity across the end-to-end data lifecycle, from data preprocessing and exploratory data analysis (EDA) to online learning and model deployment. His recent research focuses on game-theoretic moving-target defense and cyber-physical network security, where he has worked on simulation, security analysis, and online learning–based defense evaluation on IEEE 14-bus and 118-bus benchmark power grids. Building on this work, he aims to develop robust, scalable defense algorithms while investigating methods to make machine learning workflows more energy-efficient and environmentally sustainable.
+            </p>
         </section>
 
         <!-- Navigation Bar -->
         <nav class="sub-nav">
             <a href="#education">Education</a>
-            <a href="#conferences">Conferences</a>
-            <a href="#experience">Experience</a>
-            <a href="#skills">Skills</a>
+            <a href="#conferences">Publications</a>
+            <a href="#experience">Research Experience</a>
+            <a href="#projects">Projects</a>
+            <a href="#skills">Skills &amp; Honors</a>
         </nav>
 
         <!-- Research Interests -->
@@ -566,7 +587,7 @@
                 <span class="tag">Cybersecurity</span>
                 <span class="tag">Cyber-Physical Systems Security</span>
                 <span class="tag">Moving-Target Defense</span>
-                <span class="tag">Online Convex Optimization & Game Theory</span>
+                <span class="tag">Online Convex Optimization &amp; Game Theory</span>
                 <span class="tag">Energy-Efficient ML</span>
             </div>
         </div>
@@ -579,8 +600,8 @@
             <div class="edu-item">
                 <div class="edu-details">
                     <div class="edu-title">Bachelor of Science in Computer Science and Technology</div>
-                    <div class="edu-institution">School of Artificial Intelligence and Computer Science, Nantong University, Jiangsu, China</div>
-                    <div class="edu-institution" style="font-size: 0.92rem;">GPA: 4.00 / 4.00 (Completed 6th Semester / 144 Credits)</div>
+                    <div class="edu-institution">School of Artificial Intelligence and Computer Science, Nantong University, Nantong, Jiangsu, China</div>
+                    <div class="edu-institution" style="font-size: 0.92rem;">CGPA: 4.00 / 4.00 (Completed 6th Semester / 144 Credits)</div>
                     <div style="font-weight: 700; margin-top: 8px; font-size: 0.92rem;">[Compulsory Major Courses]</div>
                     <div class="course-list">
                         <div><u>Fall 2023</u> : Fundamentals of Programming, Higher Mathematics A (I), Introduction to Computer Science, Chinese Traditional Culture Experience (I), Comprehensive Overview of China (I)</div>
@@ -591,7 +612,17 @@
                         <div><u>Spring 2026</u> : C# Programming Fundamentals, Software Engineering, Internet of Things (IoT) Technology, UI Design Fundamentals, Embedded Systems Comprehensive Practice, Compilation Principles</div>
                     </div>
                 </div>
-                <div class="edu-period">2023.09.10 ~ [Present]</div>
+                <div class="edu-period">2023.09.10 ~ [Present]<br>(Exp. 2027)</div>
+            </div>
+
+            <!-- HSK -->
+            <div class="edu-item">
+                <div class="edu-details">
+                    <div class="edu-title">Mandarin Language Proficiency (HSK Level 4)</div>
+                    <div class="edu-institution">Nantong University, China</div>
+                    <div class="edu-institution" style="font-size: 0.92rem;">Result: 220 / 300</div>
+                </div>
+                <div class="edu-period">2025.12</div>
             </div>
 
             <!-- College Degree -->
@@ -607,12 +638,12 @@
 
         <!-- Conferences Section -->
         <section id="conferences" class="content-section">
-            <h2>Conferences</h2>
-            <h3 class="sub-heading">Conference Articles</h3>
+            <h2>Conference Publications</h2>
+            <h3 class="sub-heading">International Conferences</h3>
             <div class="conf-box">
-                <div class="conf-title">Provable Moving-Target Defense for Cyber-Physical Networks: From the Security-Performance Frontier to No-Regret Defense</div>
+                <div class="conf-title">[IEEE CSDE'26] Provable Moving-Target Defense for Cyber-Physical Networks: From the Security–Performance Frontier to No-Regret Defense</div>
                 <div class="conf-authors">Md Mostofa Nurannabi Shakil, <strong>Riad Mahmud Chowdhury</strong>, Tanvir Hossain, Md. Alamgir Hossain, Md. Samiul Islam, and Md. Shafiqul Islam</div>
-                <div class="conf-venue">Proceedings of the IEEE International Conference on Computer Science and Data Engineering (IEEE CSDE 2026)</div>
+                <div class="conf-venue">Proceedings of the 12th IEEE Asia-Pacific Conference on Computer Science and Data Engineering (IEEE CSDE 2026), Cox’s Bazar, Bangladesh, November 1–3, 2026</div>
                 <div class="conf-status">Accepted</div>
             </div>
         </section>
@@ -620,47 +651,83 @@
         <!-- Experience Section -->
         <section id="experience" class="content-section">
             <h2>Experience</h2>
-            <h3 class="sub-heading">Academic & Research</h3>
-            
+            <h3 class="sub-heading">Research Experience</h3>
+
             <div class="exp-item">
                 <div class="exp-details">
-                    <div class="exp-title">Research Contributor (Data Analysis)</div>
-                    <div class="exp-institution">IEEE International Conference on Computer Science and Data Engineering (IEEE CSDE 2026)</div>
+                    <div class="exp-title">Research Contributor &amp; Co-Author (Cyber-Physical Systems &amp; Data Analysis)</div>
+                    <div class="exp-institution">IEEE CSDE 2026</div>
                     <div class="course-list" style="margin-top: 5px;">
-                        • Assisted extensively in experimental analysis and evaluation of moving-target defense frameworks.<br>
-                        • Contributed to research manuscript preparation, formatting, and mathematical validation.<br>
-                        • Collaborated across institutions to evaluate data outcomes, baseline models, and security performance.
+                        • <strong>Experimental Modeling &amp; Simulation:</strong> Instantiated and validated a game-theoretic Moving-Target Defense (MTD) framework on IEEE 14-bus (34 measurements) and IEEE 118-bus (304 measurements) power grids using pandapower across 12 D-FACTS reactance configurations (±60% range).<br>
+                        • <strong>Security &amp; Optimization Analysis:</strong> Evaluated False-Data-Injection (FDI) stealth against DC Weighted-Least-Squares (WLS) state estimation and &chi;<sup>2</sup> residual detectors (5% false-alarm rate), empirically estimating confusion kernels (K) and validating parametric Linear Programming (LP) security–cost frontiers.<br>
+                        • <strong>Algorithmic Evaluation &amp; Scalability Impact:</strong> Benchmarked entropic online mirror descent achieving sublinear O(√(T log N)) regret over 6,000 epochs and demonstrated favorable grid scalability by reducing off-diagonal attack stealth from 0.14 to 0.04 and lowering the matrix-game security floor val(K) from 0.21 to 0.13.
                     </div>
                 </div>
                 <div class="exp-period">2025.10 ~ [Present]</div>
             </div>
 
+            <h3 class="sub-heading">Academic Service</h3>
             <div class="exp-item">
                 <div class="exp-details">
                     <div class="exp-title">Academic Peer Mentorship</div>
                     <div class="exp-institution">School of Artificial Intelligence and Computer Science, Nantong University</div>
                     <div class="course-list" style="margin-top: 5px;">
-                        • Guided peer student groups in scientific Python environments, structured notebook practices, and EDA pipelines.<br>
-                        • Assisted students in understanding algorithmic workflows and data visualization setups.
+                        • Assisted peer student groups in scientific Python environments, structured notebook practices, and EDA pipelines.<br>
+                        • Supported students in understanding algorithmic workflows and data visualization setups.
                     </div>
                 </div>
                 <div class="exp-period">2024.03 ~ [Present]</div>
             </div>
         </section>
 
+        <!-- Projects Section -->
+        <section id="projects" class="content-section">
+            <h2>Projects &amp; Software Development</h2>
+
+            <div class="skill-group project-item">
+                <strong>[Full-Stack C#] Online Banking Web System</strong> <span class="project-date">· Dec 2025</span>
+                <a href="https://github.com/riadc916/Banking-Web-C-" target="_blank" rel="noopener noreferrer" class="project-link">[CODE]</a>
+                <div class="project-desc">Architected a secure full-stack web application using C# with object-oriented transaction logic, customer account management, and relational database connectivity. Enforced backend data integrity, input validation, and modular architecture for reliable financial operations.</div>
+            </div>
+
+            <div class="skill-group project-item">
+                <strong>[Python &amp; Pandas] LEGO Multi-Decade Structural Dataset Insights</strong> <span class="project-date">· 2026</span>
+                <a href="https://github.com/riadc916/lego-data-analysis" target="_blank" rel="noopener noreferrer" class="project-link">[CODE]</a>
+                <div class="project-desc">Analyzed 15,710 LEGO sets (1949–2021) and 596 themes by merging relational schemas. Identified 135 unique colors (107 opaque, 28 transparent), quantified an 18× surge in set complexity from 12.36 average parts (1954) to 221.84 parts (2017; peaking at 9,987 parts), and established Star Wars as the top franchise with 753 sets.</div>
+            </div>
+
+            <div class="skill-group project-item">
+                <strong>[Time-Series EDA] StackOverflow Language Trends — Developer Adoption Analytics</strong> <span class="project-date">· 2026</span>
+                <a href="https://github.com/riadc916/StackOverflow-Language-Trends" target="_blank" rel="noopener noreferrer" class="project-link">[CODE]</a>
+                <div class="project-desc">Built a time-series pipeline in Python (Pandas, Matplotlib) using SQL-extracted StackExchange data (1,991 monthly records across 14 programming languages, 2008–2020). Applied pivot tables and 12-month rolling-mean smoothing, revealing JavaScript as the cumulative all-time leader (2,056,510 posts) and Python’s rise to #1 monthly active language (~34,478 posts/month by 2020).</div>
+            </div>
+
+            <div class="skill-group project-item">
+                <strong>[Python &amp; Pandas] College Salaries — Post-Graduation Compensation Modeling</strong> <span class="project-date">· 2026</span>
+                <a href="https://github.com/riadc916/college-salaries-analysis-pandas" target="_blank" rel="noopener noreferrer" class="project-link">[CODE]</a>
+                <div class="project-desc">Evaluated PayScale compensation data across 50 undergraduate majors categorized into STEM, Business, and HASS. Identified Physician Assistant as the top starting major ($74,300), Chemical Engineering as the highest mid-career median earner ($107,000), Nursing as the lowest-risk career ($50,700 10th–90th percentile spread) vs. Economics with the highest upside ($210,000 90th percentile), and showed STEM majors lead in group-level mid-career median pay ($90,812.50).</div>
+            </div>
+
+            <div class="skill-group project-item">
+                <strong>[R &amp; Tidyverse] Superstore Sales &amp; Profitability — Enterprise Retail Analytics</strong> <span class="project-date">· 2026</span>
+                <a href="https://github.com/riadc916/Superstore-Sales-Profitability-Analysis" target="_blank" rel="noopener noreferrer" class="project-link">[CODE]</a>
+                <div class="project-desc">Engineered a modular R analytics workflow (Tidyverse &amp; ggplot2) to transform raw retail records into cleaned datasets and automated visual/tabular reports. Quantified sub-category profit/loss margins, regional shipping-mode costs, order-priority revenue distributions, and customer-segment discount sensitivity, uncovering how aggressive discounting erodes net profitability.</div>
+            </div>
+        </section>
+
         <!-- Skills & Honors Section -->
         <section id="skills" class="content-section">
-            <h2>Skills & Honors</h2>
+            <h2>Skills &amp; Honors</h2>
 
             <h3 class="sub-heading">Technical Skills</h3>
             <div class="skill-group">
                 <strong>Programming:</strong> Python, R, JavaScript, C#, Java, SQL, HTML/CSS
             </div>
             <div class="skill-group">
-                <strong>Data Science & AI/ML:</strong> Machine Learning, Data Preprocessing, Exploratory Data Analysis (EDA), Data Visualization, Pandas, NumPy, Scikit-learn, Matplotlib, Tidyverse, ggplot2
+                <strong>Data Science &amp; AI/ML:</strong> Machine Learning, Online Convex Optimization (Entropic Mirror Descent), Parametric Linear Programming (LP), Game-Theoretic Modeling, Statistical Hypothesis Testing (&chi;<sup>2</sup> Detector), Exploratory Data Analysis (EDA), Pandas, NumPy, Scikit-learn, Matplotlib, Plotly, Tidyverse, ggplot2
             </div>
             <div class="skill-group">
-                <strong>Tools & Platforms:</strong> Visual Studio Code, Google Colab, Jupyter Notebook, Git, GitHub, LaTeX, RStudio, Zotero, Microsoft Office
+                <strong>Tools &amp; Platforms:</strong> pandapower, SciPy / LP Solvers, Visual Studio Code, Google Colab, Jupyter Notebook, Git, GitHub, LaTeX, RStudio, Zotero, Microsoft Office
             </div>
 
             <h3 class="sub-heading">Languages</h3>
@@ -668,26 +735,22 @@
                 <strong>Bengali:</strong> Native | <strong>English:</strong> Advanced / Fluent | <strong>Chinese (Mandarin):</strong> Intermediate (<span class="tag" style="padding: 2px 8px; font-size: 0.8rem;">HSK 4: 220/300</span>)
             </div>
 
-            <h3 class="sub-heading">Academic Projects</h3>
+            <h3 class="sub-heading">Certifications &amp; Professional Training</h3>
             <div class="skill-group">
-                • [Full-Stack C#] <strong>Online Banking Web System</strong>: Secure OOP banking architecture with database connectivity. <a href="https://github.com/riadc916/Banking-Web-C-" target="_blank" class="project-link">[CODE]</a><br>
-                • [Python & Pandas] <strong>Lego Multi-decade Structural Analytics</strong>: Pipeline analyzing part complexity and color evolution. <a href="https://github.com/riadc916/lego-data-analysis" target="_blank" class="project-link">[CODE]</a><br>
-                • [Time-Series EDA] <strong>StackOverflow Language Trends</strong>: Developer discussion tracking and adoption trends pipeline. <a href="https://github.com/riadc916/StackOverflow-Language-Trends" target="_blank" class="project-link">[CODE]</a><br>
-                • [R & Tidyverse] <strong>Superstore Sales & Profitability Analysis</strong>: Corporate metrics, regional logistics, and margins. <a href="https://github.com/riadc916/Superstore-Sales-Profitability-Analysis" target="_blank" class="project-link">[CODE]</a>
+                • <strong>Google Data Analytics Professional Certificate</strong> (Data, Data, Everywhere), Coursera (2026): <a href="https://drive.google.com/file/d/1Vyme1hMn7CQcoAzEPoLJ019iY9xFUYf1/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="project-link">Verified Credential</a><br>
+                • <strong>100 Days of Code: The Complete Python Pro Bootcamp</strong>, Udemy (2026): <a href="https://drive.google.com/file/d/1wRJ5_jGLFr1riTN6MAID97L4EHJwQuJE/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="project-link">Verified Credential</a>
             </div>
 
-            <h3 class="sub-heading">Honors & Certifications</h3>
+            <h3 class="sub-heading">Academic Honors</h3>
             <div class="skill-group">
-                • <strong>Perfect Academic Standing (CGPA 4.00 / 4.00)</strong>: Ranked in top tier throughout completed semesters at Nantong University (2023 – Present).<br>
-                • <strong>Google Data Analytics Professional Certificate</strong>: <a href="https://drive.google.com/file/d/1Vyme1hMn7CQcoAzEPoLJ019iY9xFUYf1/view?usp=sharing" target="_blank" class="project-link">Verified Credential</a>, Coursera (2026).<br>
-                • <strong>100 Days of Code: Complete Python Pro Bootcamp</strong>: <a href="https://drive.google.com/file/d/1wRJ5_jGLFr1riTN6MAID97L4EHJwQuJE/view?usp=sharing" target="_blank" class="project-link">Verified Credential</a>, Udemy (2026).
+                • <strong>Perfect Academic Standing (CGPA 4.00 / 4.00)</strong>: Ranked in the top tier throughout all completed semesters at Nantong University, School of Artificial Intelligence and Computer Science (2023 – Present).
             </div>
         </section>
 
         <!-- Footer -->
         <footer class="site-footer">
-            <div>Copyright • © 2026 [Riad Mahmud Chowdhury]. All rights reserved.</div>
-            <div>Have an amazing day: <span id="dynamic-date">October 18, 2026</span></div>
+            <div>Copyright • © 2026 Riad Mahmud Chowdhury. All rights reserved.</div>
+            <div>Have an amazing day: <span id="dynamic-date">October 25, 2026</span></div>
         </footer>
     </div>
 
@@ -797,18 +860,19 @@
             document.body.classList.toggle('dark-mode');
             const isDark = document.body.classList.contains('dark-mode');
             document.getElementById('themeBtn').textContent = isDark ? '☀️' : '🌙';
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            try { localStorage.setItem('theme', isDark ? 'dark' : 'light'); } catch (e) {}
         }
 
-        if (localStorage.getItem('theme') === 'dark') {
-            document.body.classList.add('dark-mode');
-            document.getElementById('themeBtn').textContent = '☀️';
-        }
+        try {
+            if (localStorage.getItem('theme') === 'dark') {
+                document.body.classList.add('dark-mode');
+                document.getElementById('themeBtn').textContent = '☀️';
+            }
+        } catch (e) {}
 
         // Language Modal Controls
         function toggleLangModal() {
-            const modal = document.getElementById('langModal');
-            modal.classList.toggle('active');
+            document.getElementById('langModal').classList.toggle('active');
         }
 
         document.addEventListener('click', (e) => {
@@ -821,21 +885,20 @@
 
         function filterLanguages() {
             const input = document.getElementById('langSearch').value.toLowerCase();
-            const items = document.querySelectorAll('.lang-item');
-            items.forEach(item => {
+            document.querySelectorAll('.lang-item').forEach(item => {
                 const text = item.textContent.toLowerCase();
                 item.style.display = text.includes(input) ? 'flex' : 'none';
             });
         }
 
-        function changeLanguage(langCode) {
+        function changeLanguage(langCode, el) {
             const select = document.querySelector('.goog-te-combo');
             if (select) {
                 select.value = langCode;
                 select.dispatchEvent(new Event('change'));
             }
-            document.querySelectorAll('.lang-item').forEach(el => el.classList.remove('selected'));
-            event.currentTarget.classList.add('selected');
+            document.querySelectorAll('.lang-item').forEach(item => item.classList.remove('selected'));
+            if (el) el.classList.add('selected');
             toggleLangModal();
         }
 
@@ -860,6 +923,6 @@
             }, 'google_translate_element');
         }
     </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
