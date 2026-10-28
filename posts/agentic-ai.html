@@ -56,17 +56,18 @@
             pointer-events: none;
         }
 
+        /* Container: Starts with clean clearance below controls */
         .container {
             max-width: 860px;
-            margin: 40px auto;
+            margin: 70px auto 40px auto;
             padding: 0 20px 80px 20px;
         }
 
-        /* Controls: Stable Top Position (Does NOT follow scroll) */
+        /* Controls: Fixed strictly at top absolute position */
         .controls {
             position: absolute;
-            top: 22px;
-            right: 25px;
+            top: 18px;
+            right: 22px;
             display: flex;
             align-items: center;
             gap: 12px;
@@ -117,12 +118,12 @@
             stroke-width: 1.6;
         }
 
-        /* Language Modal (Absolute Position) */
+        /* Language Modal */
         .lang-modal {
             display: none;
             position: absolute;
-            top: 76px;
-            right: 25px;
+            top: 70px;
+            right: 22px;
             width: 280px;
             background: var(--popover-bg);
             border: 1px solid var(--card-border);
@@ -238,7 +239,7 @@
         .post-body ul { margin: 10px 0 22px 25px; }
         .post-body li { margin-bottom: 8px; }
 
-        /* Buttons Section at Bottom */
+        /* Both Previous and Main Page Buttons */
         .btn-wrapper {
             display: flex;
             justify-content: center;
@@ -281,8 +282,9 @@
         body { top: 0px !important; }
 
         @media (max-width: 650px) {
+            .container { margin-top: 75px; padding: 0 16px 60px 16px; }
             .controls { top: 15px; right: 15px; }
-            .lang-modal { top: 68px; right: 15px; }
+            .lang-modal { top: 65px; right: 15px; }
         }
     </style>
 </head>
@@ -291,7 +293,7 @@
     <!-- Connected Mesh Particle Canvas -->
     <canvas id="bg-canvas"></canvas>
 
-    <!-- Controls (Top Stable, Does NOT Follow Scroll) -->
+    <!-- Controls (Top Absolute Position - Never Scrolls Down) -->
     <div class="controls">
         <button class="circle-btn" id="langBtn" onclick="toggleLangModal()" data-tooltip="Switch language">
             <svg class="globe-svg" viewBox="0 0 24 24">
@@ -469,7 +471,7 @@
         </footer>
     </div>
 
-    <!-- Background Connected Mesh Canvas, Dynamic Numbers & Interaction -->
+    <!-- Scripts -->
     <script>
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
