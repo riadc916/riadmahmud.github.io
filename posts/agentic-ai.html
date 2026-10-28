@@ -56,7 +56,7 @@
             pointer-events: none;
         }
 
-        /* Container */
+        /* Container: Starts with clean clearance below controls */
         .container {
             max-width: 860px;
             margin: 70px auto 40px auto;
@@ -283,10 +283,10 @@
 
         /* Mobile Version Specific Layout */
         @media (max-width: 650px) {
-            /* Vertical arrangement of language and light buttons */
+            /* Vertical arrangement of language and light buttons at top right */
             .controls {
-                top: 15px;
-                right: 15px;
+                top: 18px;
+                right: 18px;
                 flex-direction: column;
                 gap: 10px;
             }
@@ -299,13 +299,17 @@
                 height: 20px;
             }
             .lang-modal {
-                top: 60px;
-                right: 15px;
+                top: 65px;
+                right: 18px;
             }
-            /* Clean clearance so heading starts completely below the buttons */
+            /* Clean vertical gap so heading starts completely below the buttons without overlap */
             .container {
-                margin-top: 105px;
+                margin-top: 135px;
                 padding: 0 16px 60px 16px;
+            }
+            .post-header h1 {
+                font-size: 1.75rem;
+                line-height: 1.35;
             }
         }
     </style>
