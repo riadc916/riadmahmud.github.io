@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Riad Mahmud Chowdhury | Academic Portfolio</title>
+    <!-- FontAwesome for Academic & Profile Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Academicons for Google Scholar & ORCID -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
     <style>
         :root {
             --bg-color: #ffffff;
@@ -17,6 +21,7 @@
             --popover-bg: #ffffff;
             --item-hover: #f3f4f6;
             --date-color: #4b5563;
+            --nav-border: #1f2937;
         }
 
         body.dark-mode {
@@ -31,6 +36,7 @@
             --popover-bg: #0f141c;
             --item-hover: #1e293b;
             --date-color: #94a3b8;
+            --nav-border: #ffffff;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -222,16 +228,28 @@
         }
         .email-line .sep { color: var(--card-border); font-weight: 600; }
         body.dark-mode .email-line .sep { color: #475569; }
+
+        /* Links with Icons */
         .links {
-            margin-top: 8px;
+            margin-top: 12px;
             display: flex;
-            gap: 14px;
+            gap: 16px;
             flex-wrap: wrap;
             font-size: 0.95rem;
             align-items: center;
         }
-        .links a { color: var(--accent); text-decoration: none; font-weight: 500; }
-        .links a:hover { text-decoration: underline; }
+        .links a { 
+            color: var(--accent); 
+            text-decoration: none; 
+            font-weight: 500; 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 6px; 
+            transition: opacity 0.2s;
+        }
+        .links a:hover { text-decoration: underline; opacity: 0.85; }
+        .links a i { font-size: 1.05rem; }
+        .links a i.ai-orcid { color: #a6ce39; }
 
         /* About Card */
         .about-card {
@@ -254,24 +272,46 @@
             text-align: justify;
         }
 
-        /* Sub Navigation */
+        /* Sub Navigation with Indicator Bar */
         nav.sub-nav {
             display: flex;
-            gap: 24px;
-            padding: 10px 0 20px 0;
+            gap: 22px;
+            padding: 10px 0 0 0;
             border-bottom: 1px solid var(--card-border);
-            margin-bottom: 24px;
+            margin-bottom: 28px;
             overflow-x: auto;
+            position: sticky;
+            top: 0;
+            background: var(--bg-color);
+            z-index: 100;
         }
         nav.sub-nav a {
-            color: var(--text-main);
+            color: var(--text-muted);
             text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 500;
+            font-size: 0.98rem;
+            font-weight: 600;
+            padding-bottom: 12px;
+            position: relative;
             transition: color 0.2s;
             white-space: nowrap;
         }
-        nav.sub-nav a:hover { color: var(--accent); }
+        nav.sub-nav a:hover { color: var(--text-main); }
+        
+        /* Bar below active navigation item */
+        nav.sub-nav a.active {
+            color: var(--text-main);
+            font-weight: 700;
+        }
+        nav.sub-nav a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--nav-border);
+            border-radius: 2px 2px 0 0;
+        }
 
         /* Research Interests Badges */
         .interests-section { margin-bottom: 35px; }
@@ -291,7 +331,7 @@
         }
 
         /* Content Sections */
-        section.content-section { margin-bottom: 40px; }
+        section.content-section { margin-bottom: 40px; scroll-margin-top: 60px; }
         section.content-section h2 {
             font-size: 1.45rem;
             font-weight: 700;
@@ -537,26 +577,34 @@
     <div id="google_translate_element" style="display:none;"></div>
 
     <div class="container">
-        <!-- Clean Header -->
+        <!-- Clean Header with Icons -->
         <header class="profile-header">
             <img src="profile.jpg" alt="Profile Photo" class="avatar" onerror="this.src='https://ui-avatars.com/api/?name=Riad+Mahmud&background=0284c7&color=fff&size=155'">
             <div class="header-info">
                 <h1>Riad Mahmud Chowdhury</h1>
-                <div class="meta-line">BSc in Engineering</div>
+                <div class="meta-line"><i class="fa-solid fa-graduation-cap"></i> BSc in Engineering</div>
                 <div class="meta-line">Department of Computer Science and Technology</div>
                 <div class="meta-line">School of Artificial Intelligence and Computer Science</div>
-                <div class="meta-line">Nantong University</div>
+                <div class="meta-line"><i class="fa-solid fa-building-columns"></i> Nantong University</div>
 
                 <div class="email-line">
-                    <span class="email">riadc916 [at] gmail [dot] com</span>
+                    <span class="email"><i class="fa-solid fa-envelope"></i> riadc916 [at] gmail [dot] com</span>
                     <span class="sep">|</span>
-                    <span class="email">riadmahmud [at] stmail [dot] ntu [dot] edu [dot] cn</span>
+                    <span class="email"><i class="fa-solid fa-envelope"></i> riadmahmud [at] stmail [dot] ntu [dot] edu [dot] cn</span>
                 </div>
                 <div class="links">
-                    <a href="https://scholar.google.com/citations?hl=en&user=f_xBnxgAAAAJ" target="_blank" rel="noopener noreferrer">Google Scholar</a>
-                    <a href="https://orcid.org/0009-0000-8946-4458" target="_blank" rel="noopener noreferrer">ORCiD</a>
-                    <a href="https://github.com/riadc916" target="_blank" rel="noopener noreferrer">GitHub</a>
-                    <a href="Riad_Mahmud_Chowdhury_CV.pdf" target="_blank">CV</a>
+                    <a href="https://scholar.google.com/citations?hl=en&user=f_xBnxgAAAAJ" target="_blank" rel="noopener noreferrer">
+                        <i class="ai ai-google-scholar"></i> Google Scholar
+                    </a>
+                    <a href="https://orcid.org/0009-0000-8946-4458" target="_blank" rel="noopener noreferrer">
+                        <i class="ai ai-orcid"></i> ORCiD
+                    </a>
+                    <a href="https://github.com/riadc916" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-brands fa-github"></i> GitHub
+                    </a>
+                    <a href="Riad_Mahmud_Chowdhury_CV.pdf" target="_blank">
+                        <i class="ai ai-cv"></i> CV
+                    </a>
                 </div>
             </div>
         </header>
@@ -569,13 +617,14 @@
             </p>
         </section>
 
-        <!-- Navigation Bar -->
-        <nav class="sub-nav">
-            <a href="#education">Education</a>
-            <a href="#conferences">Publications</a>
-            <a href="#experience">Research Experience</a>
-            <a href="#projects">Projects</a>
-            <a href="#skills">Skills &amp; Honors</a>
+        <!-- Sub Navigation Bar -->
+        <nav class="sub-nav" id="subNavBar">
+            <a href="#education" class="nav-link active">Education</a>
+            <a href="#conferences" class="nav-link">Publications</a>
+            <a href="#experience" class="nav-link">Research Experience</a>
+            <a href="#projects" class="nav-link">Projects</a>
+            <a href="#skills" class="nav-link">Skills &amp; Honors</a>
+            <a href="blog.html" class="nav-link">Blog Posts</a>
         </nav>
 
         <!-- Research Interests -->
@@ -737,8 +786,8 @@
 
             <h3 class="sub-heading">Certifications &amp; Professional Training</h3>
             <div class="skill-group">
-                • <strong>Google Data Analytics Professional Certificate</strong> (Data, Data, Everywhere), Coursera (2026): <a href="https://drive.google.com/file/d/1Vyme1hMn7CQcoAzEPoLJ019iY9xFUYf1/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="project-link">Verified Credential</a><br>
-                • <strong>100 Days of Code: The Complete Python Pro Bootcamp</strong>, Udemy (2026): <a href="https://drive.google.com/file/d/1wRJ5_jGLFr1riTN6MAID97L4EHJwQuJE/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="project-link">Verified Credential</a>
+                • <strong>Google Data Analytics Professional Certificate</strong> (Data, Data, Everywhere), Coursera (2026): <a href="https://drive.google.com/file/d/1Vyme1hMn7CQcoAzEPoLJ019iY9xFUYf1/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="project-link">[CODE]</a><br>
+                • <strong>100 Days of Code: The Complete Python Pro Bootcamp</strong>, Udemy (2026): <a href="https://drive.google.com/file/d/1wRJ5_jGLFr1riTN6MAID97L4EHJwQuJE/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="project-link">[CODE]</a>
             </div>
 
             <h3 class="sub-heading">Academic Honors</h3>
@@ -750,11 +799,11 @@
         <!-- Footer -->
         <footer class="site-footer">
             <div>Copyright • © 2026 Riad Mahmud Chowdhury. All rights reserved.</div>
-            <div>Have an amazing day: <span id="dynamic-date">October 25, 2026</span></div>
+            <div>Have an amazing day: <span id="dynamic-date">October 28, 2026</span></div>
         </footer>
     </div>
 
-    <!-- Scripts: Mesh Background, Theme, Translation & Dynamic Date -->
+    <!-- Scripts: Mesh Background, Navigation Active Spy, Theme, Translation & Date -->
     <script>
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
@@ -869,6 +918,27 @@
                 document.getElementById('themeBtn').textContent = '☀️';
             }
         } catch (e) {}
+
+        // Active Navigation Scroll Spy
+        const sections = document.querySelectorAll('section.content-section');
+        const navLinks = document.querySelectorAll('nav.sub-nav a.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 120) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
 
         // Language Modal Controls
         function toggleLangModal() {
