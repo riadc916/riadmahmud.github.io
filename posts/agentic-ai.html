@@ -56,18 +56,18 @@
             pointer-events: none;
         }
 
-        /* Container: Starts with clean clearance below controls */
+        /* Container */
         .container {
             max-width: 860px;
             margin: 70px auto 40px auto;
             padding: 0 20px 80px 20px;
         }
 
-        /* Controls: Fixed strictly at top absolute position */
+        /* Controls: Top Absolute Position (Horizontal on Laptop) */
         .controls {
             position: absolute;
-            top: 18px;
-            right: 22px;
+            top: 22px;
+            right: 25px;
             display: flex;
             align-items: center;
             gap: 12px;
@@ -122,8 +122,8 @@
         .lang-modal {
             display: none;
             position: absolute;
-            top: 70px;
-            right: 22px;
+            top: 76px;
+            right: 25px;
             width: 280px;
             background: var(--popover-bg);
             border: 1px solid var(--card-border);
@@ -281,10 +281,32 @@
         }
         body { top: 0px !important; }
 
+        /* Mobile Version Specific Layout */
         @media (max-width: 650px) {
-            .container { margin-top: 75px; padding: 0 16px 60px 16px; }
-            .controls { top: 15px; right: 15px; }
-            .lang-modal { top: 65px; right: 15px; }
+            /* Vertical arrangement of language and light buttons */
+            .controls {
+                top: 15px;
+                right: 15px;
+                flex-direction: column;
+                gap: 10px;
+            }
+            .circle-btn {
+                width: 40px;
+                height: 40px;
+            }
+            .globe-svg {
+                width: 20px;
+                height: 20px;
+            }
+            .lang-modal {
+                top: 60px;
+                right: 15px;
+            }
+            /* Clean clearance so heading starts completely below the buttons */
+            .container {
+                margin-top: 105px;
+                padding: 0 16px 60px 16px;
+            }
         }
     </style>
 </head>
@@ -293,7 +315,7 @@
     <!-- Connected Mesh Particle Canvas -->
     <canvas id="bg-canvas"></canvas>
 
-    <!-- Controls (Top Absolute Position - Never Scrolls Down) -->
+    <!-- Controls (Vertical on Mobile, Horizontal on Laptop) -->
     <div class="controls">
         <button class="circle-btn" id="langBtn" onclick="toggleLangModal()" data-tooltip="Switch language">
             <svg class="globe-svg" viewBox="0 0 24 24">
