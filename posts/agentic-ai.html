@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentic AI | Riad Mahmud Chowdhury</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --card-border: #e5e7eb;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --accent: #2563eb;
+            --hr-line: #d1d5db;
+            --btn-border: #6b7280;
+            --btn-hover-bg: #f3f4f6;
+        }
+
+        body.dark-mode {
+            --bg-color: #000000;
+            --card-border: #1e293b;
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+            --accent: #38bdf8;
+            --hr-line: #475569;
+            --btn-border: #94a3b8;
+            --btn-hover-bg: #1e293b;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.8;
+            transition: background 0.3s ease, color 0.3s ease;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 860px;
+            margin: 40px auto;
+            padding: 0 20px 80px 20px;
+        }
+
+        /* Controls */
+        .controls {
+            position: fixed;
+            top: 22px;
+            right: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 1000;
+        }
+
+        .circle-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #1d72f2;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(29, 114, 242, 0.35);
+            transition: transform 0.2s;
+            outline: none;
+        }
+        .circle-btn:hover { transform: scale(1.06); }
+
+        /* Post Header */
+        .post-header { margin-bottom: 20px; }
+        .post-header h1 {
+            font-size: 2.35rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            line-height: 1.35;
+            margin-bottom: 12px;
+        }
+
+        .post-meta-read {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 6px;
+        }
+
+        .post-meta-published {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+
+        /* Long Horizontal Bars */
+        hr.post-divider {
+            border: none;
+            border-top: 1px solid var(--hr-line);
+            margin: 25px 0 35px 0;
+            width: 100%;
+        }
+
+        /* Blog Body Typography */
+        .post-body {
+            font-size: 1.05rem;
+            color: var(--text-main);
+            text-align: justify;
+        }
+        .post-body h2 {
+            font-size: 1.5rem;
+            margin: 30px 0 14px 0;
+            color: var(--text-main);
+        }
+        .post-body p { margin-bottom: 20px; }
+        .post-body ul { margin: 10px 0 22px 25px; }
+        .post-body li { margin-bottom: 8px; }
+
+        /* Previous Button (Centered) */
+        .btn-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-top: 35px;
+        }
+
+        .prev-btn {
+            display: inline-block;
+            padding: 10px 42px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-main);
+            text-decoration: none;
+            border: 1.5px solid var(--btn-border);
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            background: transparent;
+        }
+
+        .prev-btn:hover {
+            background-color: var(--btn-hover-bg);
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        footer.site-footer {
+            margin-top: 60px;
+            text-align: center;
+            font-size: 0.88rem;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="bg-canvas"></canvas>
+
+    <div class="controls">
+        <button class="circle-btn" onclick="toggleTheme()" id="themeBtn" style="font-size: 1.2rem; color: #fff;">
+            🌙
+        </button>
+    </div>
+
+    <div class="container">
+        <!-- Post Header -->
+        <header class="post-header">
+            <h1>Agentic AI: The Paradigm Shift from Passive Prediction to Autonomous Reasoning & Multi-Agent Execution</h1>
+            <div class="post-meta-read">
+                <i class="fa-regular fa-clock"></i> 4 minute read
+            </div>
+            <div class="post-meta-published">
+                <i class="fa-solid fa-calendar-days"></i> Published: October 28, 2026
+            </div>
+        </header>
+
+        <!-- Top Long Horizontal Bar -->
+        <hr class="post-divider">
+
+        <!-- Blog Content -->
+        <article class="post-body">
+            <p>
+                In the evolution of artificial intelligence, traditional Large Language Models (LLMs) operated primarily as reactive text predictors—given a prompt, they completed patterns based on probability. However, modern computational challenges demand more than fluent language synthesis; they require dynamic planning, reflection, tool invocation, and decisive goal execution. This fundamental shift marks the transition into <strong>Agentic AI</strong>.
+            </p>
+
+            <h2>1. What Makes an AI System "Agentic"?</h2>
+            <p>
+                Unlike standard chat completions, an Agentic AI architecture couples foundation models with cognitive loops:
+            </p>
+            <ul>
+                <li><strong>Perception & State Awareness:</strong> Continuous monitoring of internal states, user directives, and external environment variables.</li>
+                <li><strong>Dynamic Task Decomposition:</strong> Breaking multi-step, ambiguous objectives into ordered computational sub-graphs (e.g., Tree-of-Thoughts and ReAct patterns).</li>
+                <li><strong>Autonomous Tool Orchestration:</strong> Invoking APIs, code sandboxes, SQL databases, and search indices to retrieve ground-truth facts and take real-world actions.</li>
+                <li><strong>Self-Correction & Reflection:</strong> Inspecting execution traces, compiler errors, or validation feedback to iteratively revise actions without requiring constant human re-prompting.</li>
+            </ul>
+
+            <h2>2. Single-Agent vs. Multi-Agent Systems (MAS)</h2>
+            <p>
+                While a single agent with tools can automate linear workflows, complex computational systems—ranging from cybersecurity moving-target defense to distributed microservices—benefit exponentially from <strong>Multi-Agent Systems (MAS)</strong>. By distributing distinct responsibilities (such as Planner, Critic, Coder, and Security Auditor) among specialized agents, the architecture avoids context saturation and mitigates systemic hallucination through collaborative adversarial debate.
+            </p>
+
+            <h2>3. Research Implications & Future Trajectory</h2>
+            <p>
+                As we bridge the frontier between autonomous intelligence and energy-efficient computing, the focus naturally shifts toward algorithmic efficiency, provable convergence, and regret-minimizing policies under uncertainty. Agentic frameworks will not replace human decision-making; rather, they transform engineers and researchers from hands-on line-by-line builders into strategic high-level directors of autonomous intelligent workflows.
+            </p>
+        </article>
+
+        <!-- Bottom Long Horizontal Bar -->
+        <hr class="post-divider">
+
+        <!-- Center Aligned Previous Button -->
+        <div class="btn-wrapper">
+            <a href="../blog.html" class="prev-btn">Previous</a>
+        </div>
+
+        <footer class="site-footer">
+            <div>Copyright • © 2026 Riad Mahmud Chowdhury. All rights reserved.</div>
+        </footer>
+    </div>
+
+    <!-- Background Canvas & Theme Sync Script -->
+    <script>
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        const particles = [];
+        const particleCount = Math.floor((width * height) / 14000);
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                vx: (Math.random() - 0.5) * 0.6,
+                vy: (Math.random() - 0.5) * 0.6,
+                radius: 2.0
+            });
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            const isDark = document.body.classList.contains('dark-mode');
+            const dotColor = isDark ? 'rgba(255, 255, 255, 0.32)' : 'rgba(30, 41, 59, 0.22)';
+            const lineColor = isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.04)';
+
+            particles.forEach((p, index) => {
+                p.x += p.vx;
+                p.y += p.vy;
+                if (p.x < 0 || p.x > width) p.vx *= -1;
+                if (p.y < 0 || p.y > height) p.vy *= -1;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = dotColor;
+                ctx.fill();
+
+                for (let j = index + 1; j < particles.length; j++) {
+                    const p2 = particles[j];
+                    const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+                    if (dist < 110) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.strokeStyle = lineColor;
+                        ctx.lineWidth = 0.65;
+                        ctx.stroke();
+                    }
+                }
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            document.getElementById('themeBtn').textContent = isDark ? '☀️' : '🌙';
+            try { localStorage.setItem('theme', isDark ? 'dark' : 'light'); } catch (e) {}
+        }
+
+        try {
+            if (localStorage.getItem('theme') === 'dark') {
+                document.body.classList.add('dark-mode');
+                document.getElementById('themeBtn').textContent = '☀️';
+            }
+        } catch (e) {}
+    </script>
+</body>
+</html>
