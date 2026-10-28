@@ -66,7 +66,7 @@
             padding: 0 20px 80px 20px;
         }
 
-        /* Controls - Stable Top Position (Not Sticky/Fixed on Scroll) */
+        /* Controls - Stable Top Absolute Position */
         .controls {
             position: absolute;
             top: 22px;
@@ -121,7 +121,7 @@
             stroke-width: 1.6;
         }
 
-        /* Language Modal - Aligned to Absolute Position */
+        /* Language Modal */
         .lang-modal {
             display: none;
             position: absolute;
@@ -272,22 +272,26 @@
             text-align: justify;
         }
 
-        /* Sub Navigation */
+        /* Sub Navigation - Sticky on Scroll */
         nav.sub-nav {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+            z-index: 900;
             display: flex;
             gap: 22px;
-            padding: 10px 0 0 0;
+            padding: 14px 0 10px 0;
             border-bottom: 1px solid var(--card-border);
             margin-bottom: 28px;
             overflow-x: auto;
-            background: transparent;
+            background-color: var(--bg-color);
         }
         nav.sub-nav a {
             color: var(--text-muted);
             text-decoration: none;
             font-size: 0.98rem;
             font-weight: 600;
-            padding-bottom: 12px;
+            padding-bottom: 10px;
             position: relative;
             transition: color 0.2s;
             white-space: nowrap;
@@ -327,8 +331,11 @@
             border: 1px solid var(--card-border);
         }
 
-        /* Content Sections */
-        section.content-section { margin-bottom: 40px; }
+        /* Content Sections - Offset for Sticky Navigation */
+        section.content-section { 
+            margin-bottom: 40px; 
+            scroll-margin-top: 70px;
+        }
         section.content-section h2 {
             font-size: 1.45rem;
             font-weight: 700;
@@ -454,7 +461,7 @@
     <!-- Connected Mesh Particle Canvas -->
     <canvas id="bg-canvas"></canvas>
 
-    <!-- Controls (Top Stable, Doesn't Follow Scroll) -->
+    <!-- Controls (Top Absolute Position) -->
     <div class="controls">
         <button class="circle-btn" id="langBtn" onclick="toggleLangModal()" data-tooltip="Switch language">
             <svg class="globe-svg" viewBox="0 0 24 24">
@@ -614,7 +621,7 @@
             </p>
         </section>
 
-        <!-- Sub Navigation Bar -->
+        <!-- Sub Navigation Bar (Sticky with Active Indicator) -->
         <nav class="sub-nav" id="subNavBar">
             <a href="#education" class="nav-link active">Education</a>
             <a href="#conferences" class="nav-link">Publications</a>
