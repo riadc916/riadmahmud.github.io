@@ -59,18 +59,17 @@
             pointer-events: none;
         }
 
-        /* Container: Starts with clean clearance below controls */
         .container {
             max-width: 860px;
-            margin: 70px auto 40px auto;
+            margin: 40px auto;
             padding: 0 20px 80px 20px;
         }
 
-        /* Controls: Fixed strictly at top absolute position */
+        /* Controls: Top Absolute Position (Horizontal on Laptop) */
         .controls {
             position: absolute;
-            top: 18px;
-            right: 22px;
+            top: 22px;
+            right: 25px;
             display: flex;
             align-items: center;
             gap: 12px;
@@ -125,8 +124,8 @@
         .lang-modal {
             display: none;
             position: absolute;
-            top: 70px;
-            right: 22px;
+            top: 76px;
+            right: 25px;
             width: 280px;
             background: var(--popover-bg);
             border: 1px solid var(--card-border);
@@ -320,11 +319,39 @@
         }
         body { top: 0px !important; }
 
+        /* Mobile Version Specific Layout */
         @media (max-width: 650px) {
-            .container { margin-top: 75px; padding: 0 16px 60px 16px; }
-            nav.sub-nav { gap: 15px; }
-            .controls { top: 15px; right: 15px; }
-            .lang-modal { top: 65px; right: 15px; }
+            .container {
+                margin: 15px auto 40px auto;
+                padding: 0 16px 60px 16px;
+            }
+            nav.sub-nav {
+                gap: 15px;
+                margin-bottom: 20px;
+            }
+            /* Controls: Placed below navigation bar in vertical stack */
+            .controls {
+                top: 75px;
+                right: 16px;
+                flex-direction: column;
+                gap: 10px;
+            }
+            .circle-btn {
+                width: 40px;
+                height: 40px;
+            }
+            .globe-svg {
+                width: 20px;
+                height: 20px;
+            }
+            .lang-modal {
+                top: 120px;
+                right: 16px;
+            }
+            .blog-header-title {
+                max-width: calc(100% - 60px);
+                margin-bottom: 20px;
+            }
         }
     </style>
 </head>
@@ -333,7 +360,7 @@
     <!-- Connected Mesh Particle Canvas -->
     <canvas id="bg-canvas"></canvas>
 
-    <!-- Controls (Top Absolute Position - Never Scrolls Down) -->
+    <!-- Controls (Vertical Below Nav Bar on Mobile, Horizontal on Laptop) -->
     <div class="controls">
         <button class="circle-btn" id="langBtn" onclick="toggleLangModal()" data-tooltip="Switch language">
             <svg class="globe-svg" viewBox="0 0 24 24">
@@ -439,7 +466,7 @@
             </li>
             <li class="lang-item" onclick="changeLanguage('fa', this)">
                 <div class="lang-left"><span class="flag">🇮🇷</span><span class="name">Persian</span></div>
-                <span class="native">فارسی</span>
+                <span class="native">فারসি</span>
             </li>
             <li class="lang-item" onclick="changeLanguage('ur', this)">
                 <div class="lang-left"><span class="flag">🇵🇰</span><span class="name">Urdu</span></div>
@@ -455,7 +482,7 @@
     <div id="google_translate_element" style="display:none;"></div>
 
     <div class="container">
-        <!-- Navigation Bar -->
+        <!-- Navigation Bar (Always at top, perfectly clear) -->
         <nav class="sub-nav">
             <a href="index.html#education">Education</a>
             <a href="index.html#conferences">Publications</a>
@@ -494,7 +521,7 @@
         </footer>
     </div>
 
-    <!-- Scripts -->
+    <!-- Background Connected Mesh Canvas, Dynamic Numbers & Interaction -->
     <script>
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
