@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog Posts | Riad Mahmud Chowdhury</title>
+    <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
     <style>
@@ -18,6 +19,8 @@
             --item-hover: #f3f4f6;
             --nav-border: #1f2937;
             --divider: #d1d5db;
+            --btn-border: #6b7280;
+            --btn-hover-bg: #f3f4f6;
         }
 
         body.dark-mode {
@@ -31,6 +34,8 @@
             --item-hover: #1e293b;
             --nav-border: #ffffff;
             --divider: #475569;
+            --btn-border: #94a3b8;
+            --btn-hover-bg: #1e293b;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -60,7 +65,7 @@
             padding: 0 20px 80px 20px;
         }
 
-        /* Controls */
+        /* Controls: Language & Theme */
         .controls {
             position: fixed;
             top: 22px;
@@ -72,6 +77,7 @@
         }
 
         .circle-btn {
+            position: relative;
             width: 44px;
             height: 44px;
             border-radius: 50%;
@@ -86,6 +92,102 @@
             outline: none;
         }
         .circle-btn:hover { transform: scale(1.06); }
+
+        .circle-btn::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            top: 50%;
+            right: 54px;
+            transform: translateY(-50%);
+            background: rgba(30, 41, 59, 0.9);
+            color: #ffffff;
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            border-radius: 6px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            font-family: sans-serif;
+        }
+        .circle-btn:hover::after { opacity: 1; }
+
+        .globe-svg {
+            width: 24px;
+            height: 24px;
+            stroke: #ffffff;
+            fill: none;
+            stroke-width: 1.6;
+        }
+
+        /* Language Modal */
+        .lang-modal {
+            display: none;
+            position: fixed;
+            top: 76px;
+            right: 25px;
+            width: 280px;
+            background: var(--popover-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 18px;
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.25);
+            z-index: 1001;
+            padding: 14px;
+            animation: fadeIn 0.15s ease-out;
+        }
+        .lang-modal.active { display: block; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .lang-search-wrapper { position: relative; margin-bottom: 8px; }
+        .lang-search-wrapper span {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        .lang-search {
+            width: 100%;
+            padding: 8px 12px 8px 32px;
+            border-radius: 12px;
+            border: 1px solid var(--card-border);
+            background: var(--badge-bg);
+            color: var(--text-main);
+            outline: none;
+            font-size: 0.85rem;
+            font-family: inherit;
+        }
+
+        .lang-list {
+            list-style: none;
+            max-height: 290px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+        .lang-list::-webkit-scrollbar { width: 5px; }
+        .lang-list::-webkit-scrollbar-thumb {
+            background: rgba(148, 163, 184, 0.4);
+            border-radius: 10px;
+        }
+
+        .lang-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.88rem;
+            transition: background 0.15s;
+        }
+        .lang-item:hover, .lang-item.selected { background: var(--item-hover); }
+        .lang-item .lang-left { display: flex; align-items: center; gap: 10px; font-weight: 500; }
+        .lang-item .flag { font-size: 1.1rem; }
+        .lang-item .native { color: var(--text-muted); font-size: 0.8rem; }
 
         /* Navigation */
         nav.sub-nav {
@@ -124,7 +226,7 @@
             border-radius: 2px 2px 0 0;
         }
 
-        /* Blog Listing Structure */
+        /* Blog Listing Section */
         .blog-header-title {
             font-size: 2.3rem;
             font-weight: 800;
@@ -143,7 +245,7 @@
         }
 
         .post-card {
-            margin-bottom: 30px;
+            margin-bottom: 35px;
         }
 
         .post-title-link {
@@ -175,6 +277,33 @@
             gap: 7px;
         }
 
+        /* Previous Button (Centered) */
+        .btn-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+
+        .prev-btn {
+            display: inline-block;
+            padding: 10px 45px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-main);
+            text-decoration: none;
+            border: 1.5px solid var(--btn-border);
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            background: transparent;
+        }
+
+        .prev-btn:hover {
+            background-color: var(--btn-hover-bg);
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
         footer.site-footer {
             margin-top: 80px;
             padding-top: 25px;
@@ -183,18 +312,138 @@
             font-size: 0.88rem;
             color: var(--text-muted);
         }
+
+        .goog-te-banner-frame.skiptranslate, #goog-gt-tt, .goog-te-balloon-frame {
+            display: none !important;
+        }
+        body { top: 0px !important; }
     </style>
 </head>
 <body>
 
+    <!-- Connected Mesh Particle Canvas -->
     <canvas id="bg-canvas"></canvas>
 
     <!-- Controls -->
     <div class="controls">
-        <button class="circle-btn" onclick="toggleTheme()" id="themeBtn" style="font-size: 1.2rem; color: #fff;">
+        <button class="circle-btn" id="langBtn" onclick="toggleLangModal()" data-tooltip="Switch language">
+            <svg class="globe-svg" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="9.5"></circle>
+                <path d="M2.5 12h19M12 2.5a15.3 15.3 0 0 1 4 9.5 15.3 15.3 0 0 1-4 9.5 15.3 15.3 0 0 1-4-9.5 15.3 15.3 0 0 1 4-9.5z"></path>
+            </svg>
+        </button>
+        <button class="circle-btn" id="themeBtn" onclick="toggleTheme()" data-tooltip="Toggle theme" style="font-size: 1.2rem; color: #fff;">
             🌙
         </button>
     </div>
+
+    <!-- Language Selector Dropdown -->
+    <div class="lang-modal" id="langModal">
+        <div class="lang-search-wrapper">
+            <span>🔍</span>
+            <input type="text" class="lang-search" id="langSearch" placeholder="Search language..." onkeyup="filterLanguages()">
+        </div>
+        <ul class="lang-list" id="langList">
+            <li class="lang-item selected" onclick="changeLanguage('en', this)">
+                <div class="lang-left"><span class="flag">🇺🇸</span><span class="name">English</span></div>
+                <span class="native">English</span>
+            </li>
+            <li class="lang-item" onclick="changeLanguage('zh-CN', this)">
+                <div class="lang-left"><span class="flag">🇨🇳</span><span class="name">Chinese</span></div>
+                <span class="native">中文</span>
+            </li>
+            <li class="lang-item" onclick="changeLanguage('ko', this)">
+                <div class="lang-left"><span class="flag">🇰🇷</span><span class="name">Korean</span></div>
+                <span class="native">한국어</span>
+            </li>
+            <li class="lang-item" onclick="changeLanguage('bn', this)">
+                <div class="lang-left"><span class="flag">🇧🇩</span><span class="name">Bengali</span></div>
+                <span class="native">বাংলা</span>
+            </li>
+            <li class="lang-item" onclick="changeLanguage('hi', this)">
+                <div class="lang-left"><span class="flag">🇮🇳</span><span class="name">Hindi</span></div>
+                <span class="native">हिन्दी</span>
+            </li>
+            <li class="lang-item" onclick="changeLanguage('ar', this)">
+                <div class="lang-left"><span class="flag">🇸🇦</span><span class="name">Arabic</span></div>
+                <span class="native">العربية</span>
+            </li>
+            <li class="lang-item" onclick="changeLanguage('fr', this)">
+                <div class="lang-left"><span class="flag">🇫🇷</span><span class="name">French</span></div>
+                <span class="native">Français</span>
+            </li>
+            <li class="lang-item" onclick="changeLanguage('de', this)">
+                <div class="lang-left"><span class="flag">🇩🇪</span><span class="name">German</span></div>
+                <span class="native">Deutsch</span>
+            </li>
+            <li class="lang-item" onclick="changeLanguage('es', this)">
+                <div class="lang-left"><span class="flag">🇪🇸</span><span class="name">Spanish</span></div>
+                <span class="native">Español</span>
+            </li>
+            <li class="lang-item" onclick="changeLanguage('ja', this)">
+                <div class="lang-left"><span class="flag">🇯🇵</span><span class="name">Japanese</span></div>
+                <span class="native">日本語</span>
+            </li>
+            <li class="lang-item" onclick="changeLanguage('pt', this)">
+                <div class="lang-left"><span class="flag">🇧🇷</span><span class="name">Portuguese</span></div>
+                <span class="native">Português</span>
+            </li>
+            <li class="lang-item" onclick="changeLanguage('ru', this)">
+                <div class="lang-left"><span class="flag">🇷🇺</span><span class="name">Russian</span></div>
+                <span class="native">Русский</span>
+            </li>
+            <li class="lang-item" onclick="changeLanguage('tr', this)">
+                <div class="lang-left"><span class="flag">🇹🇷</span><span class="name">Turkish</span></div>
+                <span class="native">Türkçe</span>
+            </li>
+            <li class="lang-item" onclick="changeLanguage('vi', this)">
+                <div class="lang-left"><span class="flag">🇻🇳</span><span class="name">Vietnamese</span></div>
+                <span class="native">Tiếng Việt</span>
+            </li>
+            <li class="lang-item" onclick="changeLanguage('id', this)">
+                <div class="lang-left"><span class="flag">🇮🇩</span><span class="name">Indonesian</span></div>
+                <span class="native">Bahasa Indonesia</span>
+            </li>
+            <li class="lang-item" onclick="changeLanguage('ms', this)">
+                <div class="lang-left"><span class="flag">🇲🇾</span><span class="name">Malay</span></div>
+                <span class="native">Bahasa Melayu</span>
+            </li>
+            <li class="lang-item" onclick="changeLanguage('th', this)">
+                <div class="lang-left"><span class="flag">🇹🇭</span><span class="name">Thai</span></div>
+                <span class="native">ภาษาไทย</span>
+            </li>
+            <li class="lang-item" onclick="changeLanguage('it', this)">
+                <div class="lang-left"><span class="flag">🇮🇹</span><span class="name">Italian</span></div>
+                <span class="native">Italiano</span>
+            </li>
+            <li class="lang-item" onclick="changeLanguage('nl', this)">
+                <div class="lang-left"><span class="flag">🇳🇱</span><span class="name">Dutch</span></div>
+                <span class="native">Nederlands</span>
+            </li>
+            <li class="lang-item" onclick="changeLanguage('pl', this)">
+                <div class="lang-left"><span class="flag">🇵🇱</span><span class="name">Polish</span></div>
+                <span class="native">Polski</span>
+            </li>
+            <li class="lang-item" onclick="changeLanguage('uk', this)">
+                <div class="lang-left"><span class="flag">🇺🇦</span><span class="name">Ukrainian</span></div>
+                <span class="native">Українська</span>
+            </li>
+            <li class="lang-item" onclick="changeLanguage('fa', this)">
+                <div class="lang-left"><span class="flag">🇮🇷</span><span class="name">Persian</span></div>
+                <span class="native">فارسی</span>
+            </li>
+            <li class="lang-item" onclick="changeLanguage('ur', this)">
+                <div class="lang-left"><span class="flag">🇵🇰</span><span class="name">Urdu</span></div>
+                <span class="native">اردو</span>
+            </li>
+            <li class="lang-item" onclick="changeLanguage('sw', this)">
+                <div class="lang-left"><span class="flag">🇰🇪</span><span class="name">Swahili</span></div>
+                <span class="native">Kiswahili</span>
+            </li>
+        </ul>
+    </div>
+
+    <div id="google_translate_element" style="display:none;"></div>
 
     <div class="container">
         <!-- Navigation Bar -->
@@ -226,17 +475,34 @@
             </div>
         </article>
 
+        <!-- Previous Button (Goes back to main index.html) -->
+        <div class="btn-wrapper">
+            <a href="index.html" class="prev-btn">Previous</a>
+        </div>
+
         <footer class="site-footer">
             <div>Copyright • © 2026 Riad Mahmud Chowdhury. All rights reserved.</div>
         </footer>
     </div>
 
-    <!-- Background Animation & Theme Script -->
+    <!-- Background Connected Mesh Canvas, Dynamic Numbers & Interaction -->
     <script>
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let width = canvas.width = window.innerWidth;
         let height = canvas.height = window.innerHeight;
+
+        const mouse = { x: null, y: null, radius: 140 };
+
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+
+        window.addEventListener('mouseleave', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
 
         const particles = [];
         const particleCount = Math.floor((width * height) / 14000);
@@ -247,6 +513,7 @@
                 y: Math.random() * height,
                 vx: (Math.random() - 0.5) * 0.6,
                 vy: (Math.random() - 0.5) * 0.6,
+                val: (Math.random() * 90 + 10).toFixed(1),
                 radius: 2.0
             });
         }
@@ -254,12 +521,24 @@
         function animate() {
             ctx.clearRect(0, 0, width, height);
             const isDark = document.body.classList.contains('dark-mode');
+
             const dotColor = isDark ? 'rgba(255, 255, 255, 0.32)' : 'rgba(30, 41, 59, 0.22)';
             const lineColor = isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.04)';
+            const mouseLineColor = isDark ? 'rgba(56, 189, 248, 0.35)' : 'rgba(29, 114, 242, 0.25)';
+            const mouseRingColor = isDark ? '#38bdf8' : '#1d72f2';
+
+            if (mouse.x !== null && mouse.y !== null) {
+                ctx.beginPath();
+                ctx.arc(mouse.x, mouse.y, 9, 0, Math.PI * 2);
+                ctx.strokeStyle = mouseRingColor;
+                ctx.lineWidth = 2.0;
+                ctx.stroke();
+            }
 
             particles.forEach((p, index) => {
                 p.x += p.vx;
                 p.y += p.vy;
+
                 if (p.x < 0 || p.x > width) p.vx *= -1;
                 if (p.y < 0 || p.y > height) p.vy *= -1;
 
@@ -267,6 +546,22 @@
                 ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
                 ctx.fillStyle = dotColor;
                 ctx.fill();
+
+                if (mouse.x !== null && mouse.y !== null) {
+                    const distMouse = Math.hypot(p.x - mouse.x, p.y - mouse.y);
+                    if (distMouse < mouse.radius) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(mouse.x, mouse.y);
+                        ctx.strokeStyle = mouseLineColor;
+                        ctx.lineWidth = 0.9;
+                        ctx.stroke();
+
+                        ctx.font = '9px monospace';
+                        ctx.fillStyle = isDark ? 'rgba(255, 255, 255, 0.45)' : 'rgba(30, 41, 59, 0.45)';
+                        ctx.fillText(p.val, p.x + 6, p.y - 3);
+                    }
+                }
 
                 for (let j = index + 1; j < particles.length; j++) {
                     const p2 = particles[j];
@@ -281,6 +576,7 @@
                     }
                 }
             });
+
             requestAnimationFrame(animate);
         }
         animate();
@@ -290,6 +586,7 @@
             height = canvas.height = window.innerHeight;
         });
 
+        // Theme Toggle
         function toggleTheme() {
             document.body.classList.toggle('dark-mode');
             const isDark = document.body.classList.contains('dark-mode');
@@ -303,6 +600,49 @@
                 document.getElementById('themeBtn').textContent = '☀️';
             }
         } catch (e) {}
+
+        // Language Modal Controls
+        function toggleLangModal() {
+            document.getElementById('langModal').classList.toggle('active');
+        }
+
+        document.addEventListener('click', (e) => {
+            const modal = document.getElementById('langModal');
+            const btn = document.getElementById('langBtn');
+            if (!modal.contains(e.target) && !btn.contains(e.target)) {
+                modal.classList.remove('active');
+            }
+        });
+
+        function filterLanguages() {
+            const input = document.getElementById('langSearch').value.toLowerCase();
+            document.querySelectorAll('.lang-item').forEach(item => {
+                const text = item.textContent.toLowerCase();
+                item.style.display = text.includes(input) ? 'flex' : 'none';
+            });
+        }
+
+        function changeLanguage(langCode, el) {
+            const select = document.querySelector('.goog-te-combo');
+            if (select) {
+                select.value = langCode;
+                select.dispatchEvent(new Event('change'));
+            }
+            document.querySelectorAll('.lang-item').forEach(item => item.classList.remove('selected'));
+            if (el) el.classList.add('selected');
+            toggleLangModal();
+        }
     </script>
+
+    <!-- Google Translate API -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
