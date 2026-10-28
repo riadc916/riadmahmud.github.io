@@ -66,7 +66,7 @@
             padding: 0 20px 80px 20px;
         }
 
-        /* Controls - Stable Top Absolute Position */
+        /* Controls - Stable Top Absolute Position (Horizontal on Laptop) */
         .controls {
             position: absolute;
             top: 22px;
@@ -444,6 +444,7 @@
         }
         body { top: 0px !important; }
 
+        /* Mobile Version Specific Styles */
         @media (max-width: 650px) {
             header.profile-header { flex-direction: column; text-align: center; gap: 20px; }
             .links, .email-line { justify-content: center; }
@@ -451,8 +452,26 @@
             .edu-period, .exp-period { margin-bottom: 8px; text-align: left; }
             .bio-text { text-align: left; }
             nav.sub-nav { gap: 15px; }
-            .controls { top: 15px; right: 15px; }
-            .lang-modal { top: 68px; right: 15px; }
+
+            /* Controls: Vertical Direction on Mobile */
+            .controls {
+                top: 15px;
+                right: 15px;
+                flex-direction: column;
+                gap: 10px;
+            }
+            .circle-btn {
+                width: 40px;
+                height: 40px;
+            }
+            .globe-svg {
+                width: 20px;
+                height: 20px;
+            }
+            .lang-modal {
+                top: 60px;
+                right: 15px;
+            }
         }
     </style>
 </head>
@@ -461,7 +480,7 @@
     <!-- Connected Mesh Particle Canvas -->
     <canvas id="bg-canvas"></canvas>
 
-    <!-- Controls (Top Absolute Position) -->
+    <!-- Controls (Vertical on Mobile, Horizontal on Laptop) -->
     <div class="controls">
         <button class="circle-btn" id="langBtn" onclick="toggleLangModal()" data-tooltip="Switch language">
             <svg class="globe-svg" viewBox="0 0 24 24">
