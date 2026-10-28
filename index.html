@@ -66,9 +66,9 @@
             padding: 0 20px 80px 20px;
         }
 
-        /* Controls */
+        /* Controls - Stable Top Position (Not Sticky/Fixed on Scroll) */
         .controls {
-            position: fixed;
+            position: absolute;
             top: 22px;
             right: 25px;
             display: flex;
@@ -121,10 +121,10 @@
             stroke-width: 1.6;
         }
 
-        /* Language Modal */
+        /* Language Modal - Aligned to Absolute Position */
         .lang-modal {
             display: none;
-            position: fixed;
+            position: absolute;
             top: 76px;
             right: 25px;
             width: 280px;
@@ -272,7 +272,7 @@
             text-align: justify;
         }
 
-        /* Sub Navigation with Indicator Bar */
+        /* Sub Navigation */
         nav.sub-nav {
             display: flex;
             gap: 22px;
@@ -280,10 +280,7 @@
             border-bottom: 1px solid var(--card-border);
             margin-bottom: 28px;
             overflow-x: auto;
-            position: sticky;
-            top: 0;
-            background: var(--bg-color);
-            z-index: 100;
+            background: transparent;
         }
         nav.sub-nav a {
             color: var(--text-muted);
@@ -331,7 +328,7 @@
         }
 
         /* Content Sections */
-        section.content-section { margin-bottom: 40px; scroll-margin-top: 60px; }
+        section.content-section { margin-bottom: 40px; }
         section.content-section h2 {
             font-size: 1.45rem;
             font-weight: 700;
@@ -447,6 +444,8 @@
             .edu-period, .exp-period { margin-bottom: 8px; text-align: left; }
             .bio-text { text-align: left; }
             nav.sub-nav { gap: 15px; }
+            .controls { top: 15px; right: 15px; }
+            .lang-modal { top: 68px; right: 15px; }
         }
     </style>
 </head>
@@ -455,7 +454,7 @@
     <!-- Connected Mesh Particle Canvas -->
     <canvas id="bg-canvas"></canvas>
 
-    <!-- Controls -->
+    <!-- Controls (Top Stable, Doesn't Follow Scroll) -->
     <div class="controls">
         <button class="circle-btn" id="langBtn" onclick="toggleLangModal()" data-tooltip="Switch language">
             <svg class="globe-svg" viewBox="0 0 24 24">
