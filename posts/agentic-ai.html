@@ -62,9 +62,9 @@
             padding: 0 20px 80px 20px;
         }
 
-        /* Controls: Language & Theme */
+        /* Controls: Stable Top Position (Does NOT follow scroll) */
         .controls {
-            position: fixed;
+            position: absolute;
             top: 22px;
             right: 25px;
             display: flex;
@@ -117,10 +117,10 @@
             stroke-width: 1.6;
         }
 
-        /* Language Modal */
+        /* Language Modal (Absolute Position) */
         .lang-modal {
             display: none;
-            position: fixed;
+            position: absolute;
             top: 76px;
             right: 25px;
             width: 280px;
@@ -279,6 +279,11 @@
             display: none !important;
         }
         body { top: 0px !important; }
+
+        @media (max-width: 650px) {
+            .controls { top: 15px; right: 15px; }
+            .lang-modal { top: 68px; right: 15px; }
+        }
     </style>
 </head>
 <body>
@@ -286,7 +291,7 @@
     <!-- Connected Mesh Particle Canvas -->
     <canvas id="bg-canvas"></canvas>
 
-    <!-- Controls -->
+    <!-- Controls (Top Stable, Does NOT Follow Scroll) -->
     <div class="controls">
         <button class="circle-btn" id="langBtn" onclick="toggleLangModal()" data-tooltip="Switch language">
             <svg class="globe-svg" viewBox="0 0 24 24">
