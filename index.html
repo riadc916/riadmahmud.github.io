@@ -419,7 +419,7 @@
         /* Skills Lists */
         .skill-group { margin-bottom: 16px; font-size: 0.94rem; line-height: 1.65; }
         .skill-group strong { color: var(--text-main); }
-        .project-item { margin-bottom: 12px; }
+        .project-item { margin-bottom: 18px; }
         .project-item .project-date { color: var(--date-color); font-size: 0.85rem; font-weight: 500; }
         .project-item .project-desc { color: var(--text-muted); font-size: 0.9rem; margin-top: 2px; }
         .project-link {
@@ -763,7 +763,51 @@
                 <div class="project-desc">Architected a secure full-stack web application using C# with object-oriented transaction logic, customer account management, and relational database connectivity. Enforced backend data integrity, input validation, and modular architecture for reliable financial operations.</div>
             </div>
 
-            <!-- New Project: Real Estate Price Estimator with 4 Visualizations -->
+            <!-- Project: Vienna Hospital Mortality Analysis with 4 Visualizations -->
+            <div class="skill-group project-item">
+                <strong>[Statistical &amp; Time-Series Analysis] Dr. Semmelweis &amp; The Discovery of Handwashing — Maternal Mortality Study</strong> <span class="project-date">· 2026</span>
+                <a href="https://github.com/riadc916/vienna-hospital-mortality-analysis" target="_blank" rel="noopener noreferrer" class="project-link">[CODE]</a>
+                <div class="project-desc">Conducted statistical hypothesis testing and time-series analysis on 1840s Vienna General Hospital maternity clinic records using Python (Pandas, SciPy, Plotly, Seaborn). Evaluated clinic-level mortality disparities, applied 6-month moving-average smoothing, and executed a two-sample independent t-test (t = 5.512, p &lt; 0.01), confirming that mandatory chlorinated-lime handwashing (June 1847) reduced average monthly maternal mortality from ~10.5% to ~2.1%.</div>
+
+                <!-- Visualizations Preview Grid (4 Graphs) -->
+                <div class="project-visualizations" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-top: 12px;">
+                    
+                    <!-- Semmelweis Graph 1 -->
+                    <div class="viz-thumb" style="border: 1px solid var(--card-border); border-radius: 6px; overflow: hidden; background: var(--badge-bg);">
+                        <a href="images/Proportion of Yearly Deaths by Clinic (Plotly line chart).png" target="_blank">
+                            <img src="images/Proportion of Yearly Deaths by Clinic (Plotly line chart).png" alt="Yearly Deaths by Clinic" style="width: 100%; height: 120px; object-fit: cover; display: block;">
+                        </a>
+                        <p style="font-size: 11px; color: var(--text-muted); text-align: center; padding: 5px; margin: 0;">Yearly Deaths by Clinic</p>
+                    </div>
+
+                    <!-- Semmelweis Graph 2 -->
+                    <div class="viz-thumb" style="border: 1px solid var(--card-border); border-radius: 6px; overflow: hidden; background: var(--badge-bg);">
+                        <a href="images/Percentage of Monthly Deaths over Time.png" target="_blank">
+                            <img src="images/Percentage of Monthly Deaths over Time.png" alt="Monthly Deaths & 6m Moving Average" style="width: 100%; height: 120px; object-fit: cover; display: block;">
+                        </a>
+                        <p style="font-size: 11px; color: var(--text-muted); text-align: center; padding: 5px; margin: 0;">Monthly Deaths &amp; 6m MA</p>
+                    </div>
+
+                    <!-- Semmelweis Graph 3 -->
+                    <div class="viz-thumb" style="border: 1px solid var(--card-border); border-radius: 6px; overflow: hidden; background: var(--badge-bg);">
+                        <a href="images/How Have the Stats Changed with Handwashing%3F (Plotly boxplot).png" target="_blank">
+                            <img src="images/How Have the Stats Changed with Handwashing%3F (Plotly boxplot).png" alt="Pre vs Post Handwashing Boxplot" style="width: 100%; height: 120px; object-fit: cover; display: block;">
+                        </a>
+                        <p style="font-size: 11px; color: var(--text-muted); text-align: center; padding: 5px; margin: 0;">Pre vs. Post Boxplot</p>
+                    </div>
+
+                    <!-- Semmelweis Graph 4 -->
+                    <div class="viz-thumb" style="border: 1px solid var(--card-border); border-radius: 6px; overflow: hidden; background: var(--badge-bg);">
+                        <a href="images/Est. Distribution of Monthly Death Rate (Clipped KDE plot [0, 1]).png" target="_blank">
+                            <img src="images/Est. Distribution of Monthly Death Rate (Clipped KDE plot [0, 1]).png" alt="Mortality Rate KDE Distribution" style="width: 100%; height: 120px; object-fit: cover; display: block;">
+                        </a>
+                        <p style="font-size: 11px; color: var(--text-muted); text-align: center; padding: 5px; margin: 0;">Death Rate KDE Plot</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Project: Real Estate Price Estimator with 4 Visualizations -->
             <div class="skill-group project-item">
                 <strong>[Python &amp; Scikit-Learn] Real Estate Price Estimator – Boston Housing Valuation</strong> <span class="project-date">· 2026</span>
                 <a href="https://github.com/riadc916/real-estate-price-estimator" target="_blank" rel="noopener noreferrer" class="project-link">[CODE]</a>
